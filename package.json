@@ -1,0 +1,24 @@
+{
+  "name": "tic-tac-toe-js-browser",
+  "version": "1.0.0",
+  "description": "Tic Tac Toe...written in JS on the browser",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "y"
+  },
+  "keywords": [
+    "JavaScript",
+    "Tic",
+    "Tac",
+    "Toe"
+  ],
+  "author": "Pat Wentz <patrick.w.wentz@gmail.com> (https://github.com/pwentz)",
+  "license": "MIT"
+}

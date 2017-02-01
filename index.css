@@ -1,0 +1,22 @@
+#board {
+  margin: 0 auto;
+}
+
+#left-column {
+  border-left: 1px solid black;
+}
+
+#middle-column {
+  border-right: 1px solid black;
+  border-left: 1px solid black;
+}
+
+#right-column {
+  border-right: 1px solid black;
+}
+
+/* #input { */
+/*   display: 'flex'; */
+/*   justify-content: 'center'; */
+/*   align-items: 'center'; */
+/* } */
