@@ -107,7 +107,7 @@ describe('ComputerPlayer', () => {
                          'O', 'X', 'O',
                          'O', 'O', 'X']
 
-          assert.isFalse(computer.didWinVertically(board, 'X'))
+          assert.isFalse(computer.didWinVertically(board, 'O'))
       })
     })
   })

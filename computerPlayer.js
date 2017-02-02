@@ -39,10 +39,11 @@ class ComputerPlayer {
 
     for (let i = 0 ; i < takenIndices.length ; i++) {
       const currentIndex = takenIndices[i]
-      const middleIndex = takenIndices.indexOf(currentIndex + 3)
-      const bottomIndex = takenIndices.indexOf(currentIndex + 6)
+      const lowerIndices = takenIndices.filter(num => {
+        return num + 3 === currentIndex || num + 6 === currentIndex
+      })
 
-      if (middleIndex !== -1 && bottomIndex !== -1) {
+      if (lowerIndices.length > 1) {
         didWin = true
       }
     }
