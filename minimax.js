@@ -12,6 +12,10 @@ module.exports = class Minimax {
       if (this.inPositionHorizontally(board, selectedMarker)) {
         return 10
       }
+
+      if (this.inPositionVertically(board, selectedMarker)) {
+        return 10
+      }
     }
 
     return -10
@@ -38,5 +42,19 @@ module.exports = class Minimax {
 
     return (markerLocations.includes(0) && markerLocations.includes(8)) ||
     ((markerLocations.includes(2) && markerLocations.includes(6)) && openings.includes(4))
+  }
+
+  inPositionVertically(board, marker) {
+    const leftColumn = [board[0], board[3], board[6]]
+    const middleColumn = [board[1], board[4], board[7]]
+    const rightColumn = [board[2], board[5], board[8]]
+
+    const leftColumnMarkers = leftColumn.filter(m => m === marker)
+    const middleColumnMarkers = middleColumn.filter(m => m === marker)
+    const rightColumnMarkers = rightColumn.filter(m => m === marker)
+
+    if ((leftColumnMarkers.length === 2) && leftColumn.includes(' ')) return true
+    if ((middleColumnMarkers.length === 2) && middleColumn.includes(' ')) return true
+    if ((rightColumnMarkers.length === 2) && rightColumn.includes(' ')) return true
   }
 }
