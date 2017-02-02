@@ -70,7 +70,7 @@ describe('Minimax', () => {
               assert.equal(minimax.score(board, 'O', 'O'), 10)
             })
 
-            it('returns 10 if markers are aligned in middle column', () => {
+            it('returns 10 if markers are aligned in right column', () => {
               const board = ['X', 'O', 'X',
                              'O', 'X', ' ',
                              'X', 'O', 'X']
@@ -80,12 +80,14 @@ describe('Minimax', () => {
           })
         })
 
-        it('returns -10 if marker is in direct position to lose', () => {
-          const board = ['X', 'O', 'O',
-                         ' ', ' ', 'O',
-                         ' ', 'O', 'X']
+        context('current marker !== selected marker', () => {
+          it('returns -10 if marker is in direct position to lose', () => {
+            const board = ['X', 'O', 'O',
+                           ' ', ' ', 'O',
+                           ' ', 'O', 'X']
 
-          assert.equal(minimax.score(board, 'X', 'O'), -10)
+            assert.equal(minimax.score(board, 'X', 'O'), -10)
+          })
         })
       })
     })
