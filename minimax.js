@@ -2,15 +2,11 @@ const { transpose } = require('./util')
 const BoardParser = require('./boardParser')
 
 module.exports = class Minimax {
-  constructor(outcome) {
-    this.outcome = outcome
-  }
-
-  parser(board) {
+  static parser(board) {
     return new BoardParser(board)
   }
 
-  score(board, selectedMarker, currentMarker) {
+  static score(board, selectedMarker, currentMarker) {
     if (selectedMarker === currentMarker) {
       if (this.inPositionToWin(board, selectedMarker)) {
         return 10
@@ -20,7 +16,7 @@ module.exports = class Minimax {
     return -10
   }
 
-  inPositionToWin(board, marker) {
+  static inPositionToWin(board, marker) {
     const parser = this.parser(board)
 
     return (

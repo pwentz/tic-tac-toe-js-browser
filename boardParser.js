@@ -24,11 +24,11 @@ module.exports = class BoardParser {
 
     for (let i = 0 ; i < board.length ; i++) {
       if (i % 3 === 0) {
-        const nextThree = board.slice(i, i + 3)
-        const rowMarkers = nextThree.filter(m => m === marker)
+        const row = board.slice(i, i + 3)
+        const rowMarkers = row.filter(m => m === marker)
 
         const isValid = patternMatchingMarker === marker ? rowMarkers.length === 3
-                                                         : (rowMarkers.length === 2) && nextThree.includes(patternMatchingMarker)
+                                                         : (rowMarkers.length === 2) && row.includes(patternMatchingMarker)
 
         if (isValid) {
           isInPosition = true

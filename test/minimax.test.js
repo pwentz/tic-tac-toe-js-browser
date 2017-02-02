@@ -4,8 +4,6 @@ const Outcome = require('../outcome')
 
 describe('Minimax', () => {
   context('methods', () => {
-    const minimax = new Minimax(Outcome)
-
     describe('#score', () => {
       context('end game scenario', () => {
         context('current marker === selected marker', () => {
@@ -14,7 +12,7 @@ describe('Minimax', () => {
                            'X', ' ', 'O',
                            'O', 'O', 'X']
 
-            assert.equal(minimax.score(board, 'X', 'X'), 10)
+            assert.equal(Minimax.score(board, 'X', 'X'), 10)
           })
         })
 
@@ -24,7 +22,7 @@ describe('Minimax', () => {
                            'X', ' ', 'O',
                            'O', 'X', 'X']
 
-            assert.equal(minimax.score(board, 'X', 'O'), -10)
+            assert.equal(Minimax.score(board, 'X', 'O'), -10)
           })
         })
       })
