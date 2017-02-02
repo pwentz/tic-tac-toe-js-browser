@@ -9,8 +9,8 @@ module.exports = class BoardParser {
     return transpose(this.board)
   }
 
-  inPositionDiagonally(marker) {
-    const openings = this.getIndex(' ')
+  inPositionDiagonally(marker, patternMatchingMarker = ' ') {
+    const openings = this.getIndex(patternMatchingMarker)
     const markerLocations = this.getIndex(marker)
     const isOccupyingOneCorner = markerLocations.includes(0) && markerLocations.includes(8)
     const isOccupyingOtherCorner = markerLocations.includes(2) && markerLocations.includes(6)

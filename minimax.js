@@ -6,8 +6,8 @@ module.exports = class Minimax {
     this.outcome = outcome
   }
 
-  get parser() {
-    return new BoardParser()
+  parser(board) {
+    return new BoardParser(board)
   }
 
   score(board, selectedMarker, currentMarker) {
@@ -21,8 +21,7 @@ module.exports = class Minimax {
   }
 
   inPositionToWin(board, marker) {
-    const parser = this.parser
-    parser.board = board
+    const parser = this.parser(board)
 
     return (
       (parser.inPositionDiagonally(marker)) ||
