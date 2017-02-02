@@ -10,7 +10,7 @@ describe('boardParser', () => {
 
       const parser = new BoardParser(board)
 
-      assert.isTrue(parser.inPositionDiagonally('X'))
+      assert.isTrue(parser.inPositionDiagonally('X', ' '))
     })
 
     it('returns true if markers are sloping upwards', () => {
@@ -20,7 +20,7 @@ describe('boardParser', () => {
 
       const parser = new BoardParser(board)
 
-      assert.isTrue(parser.inPositionDiagonally('X'))
+      assert.isTrue(parser.inPositionDiagonally('X', ' '))
     })
 
     it('returns false if no markers are in position diagonally', () => {
@@ -30,7 +30,7 @@ describe('boardParser', () => {
 
       const parser = new BoardParser(board)
 
-      assert.isFalse(parser.inPositionDiagonally('X'))
+      assert.isFalse(parser.inPositionDiagonally('X', ' '))
     })
   })
 
@@ -42,7 +42,7 @@ describe('boardParser', () => {
 
       const parser = new BoardParser(board)
 
-      assert.isTrue(parser.inPositionHorizontally('X'))
+      assert.isTrue(parser.inPositionHorizontally('X', ' '))
     })
 
     it('returns true if markers are aligned on middle row', () => {
@@ -52,7 +52,7 @@ describe('boardParser', () => {
 
       const parser = new BoardParser(board)
 
-      assert.isTrue(parser.inPositionHorizontally('O'))
+      assert.isTrue(parser.inPositionHorizontally('O', ' '))
     })
 
     it('returns true if markers are aligned on bottom row', () => {
@@ -62,7 +62,7 @@ describe('boardParser', () => {
 
       const parser = new BoardParser(board)
 
-      assert.isTrue(parser.inPositionHorizontally('O'))
+      assert.isTrue(parser.inPositionHorizontally('O', ' '))
     })
 
     it('returns false if markers are not aligned horizonally', () => {
@@ -72,7 +72,7 @@ describe('boardParser', () => {
 
       const parser = new BoardParser(board)
 
-      assert.isFalse(parser.inPositionHorizontally('O'))
+      assert.isFalse(parser.inPositionHorizontally('O', ' '))
     })
   })
 
@@ -84,7 +84,7 @@ describe('boardParser', () => {
 
       const parser = new BoardParser(board)
 
-      assert.isTrue(parser.inPositionVertically('O'))
+      assert.isTrue(parser.inPositionVertically('O', ' '))
     })
 
     it('returns true if markers are aligned in middle column', () => {
@@ -94,7 +94,7 @@ describe('boardParser', () => {
 
       const parser = new BoardParser(board)
 
-      assert.isTrue(parser.inPositionVertically('O'))
+      assert.isTrue(parser.inPositionVertically('O', ' '))
     })
 
     it('returns true if markers are aligned in right column', () => {
@@ -104,7 +104,7 @@ describe('boardParser', () => {
 
       const parser = new BoardParser(board)
 
-      assert.isTrue(parser.inPositionVertically('X'))
+      assert.isTrue(parser.inPositionVertically('X', ' '))
     })
 
     it('returns false if markers are not aligned vertically', () => {
@@ -114,7 +114,7 @@ describe('boardParser', () => {
 
       const parser = new BoardParser(board)
 
-      assert.isFalse(parser.inPositionVertically('X'))
+      assert.isFalse(parser.inPositionVertically('X', ' '))
     })
   })
 })

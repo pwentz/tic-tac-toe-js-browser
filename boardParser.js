@@ -9,7 +9,7 @@ module.exports = class BoardParser {
     return transpose(this.board)
   }
 
-  inPositionDiagonally(marker, patternMatchingMarker = ' ') {
+  inPositionDiagonally(marker, patternMatchingMarker) {
     const openings = this.getIndex(patternMatchingMarker)
     const markerLocations = this.getIndex(marker)
     const isOccupyingOneCorner = markerLocations.includes(0) && markerLocations.includes(8)
@@ -19,7 +19,7 @@ module.exports = class BoardParser {
     return (isOccupyingOneCorner || isOccupyingOtherCorner) && isCenterOpen
   }
 
-  inPositionHorizontally(marker, patternMatchingMarker = ' ', board = this.board) {
+  inPositionHorizontally(marker, patternMatchingMarker, board = this.board) {
     let isInPosition;
 
     for (let i = 0 ; i < board.length ; i++) {
@@ -39,7 +39,7 @@ module.exports = class BoardParser {
     return isInPosition || false
   }
 
-  inPositionVertically(marker, patternMatchingMarker = ' ') {
+  inPositionVertically(marker, patternMatchingMarker) {
     return this.inPositionHorizontally(marker, patternMatchingMarker, this.transposedBoard)
   }
 

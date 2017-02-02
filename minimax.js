@@ -24,9 +24,9 @@ module.exports = class Minimax {
     const parser = this.parser(board)
 
     return (
-      (parser.inPositionDiagonally(marker)) ||
-        (parser.inPositionHorizontally(marker)) ||
-          (parser.inPositionVertically(marker))
+      (parser.inPositionDiagonally(marker, ' ')) ||
+        (parser.inPositionHorizontally(marker, ' ')) ||
+          (parser.inPositionVertically(marker, ' '))
     )
   }
 }
