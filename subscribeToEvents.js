@@ -10,10 +10,8 @@ const subscribeToEvents = () => {
 
     console.log(totalSpaces)
 
-    console.log('hit')
     e.preventDefault()
 
-    onSubmitInput(parseInt(textField.value))
     textField.value = ''
   })
 }

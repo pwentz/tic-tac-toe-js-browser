@@ -2,17 +2,29 @@
   margin: 0 auto;
 }
 
-#left-column {
-  border-left: 1px solid black;
+.middle-cells {
+  border: 1px solid black;
 }
 
-#middle-column {
-  border-right: 1px solid black;
+.middle-top {
+  border-bottom: 1px solid black;
   border-left: 1px solid black;
+  border-right: 1px solid black;
 }
 
-#right-column {
+.middle-bottom {
+  border-top: 1px solid black;
+  border-left: 1px solid black;
   border-right: 1px solid black;
+}
+
+.middle-cell {
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+}
+
+.outer-upper {
+  border-bottom: 1px solid black;
 }
 
 /* #input { */

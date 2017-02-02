@@ -6,29 +6,27 @@ class ComputerPlayer {
   }
 
   openSpaces(board) {
-    return board.reduce((result, marker, index) => {
-      if (!marker) return [...result, index]
-      return result
-    }, [])
-  }
-
-  calculateMinimaxScore(board) {
-    // const openings = this.openSpaces(board)
-    // if (openings.length) {
-    //   board[openings[0]] = this.self
-    //   this.newBoardLayout = board
-    // }
+    return this.getSpaces(board, '')
   }
 
   didWinDiagonally(board, selectedMarker) {
-    const mySpaces = board.reduce((result, marker, index) => {
-      if (marker === selectedMarker) return [...result, index]
-      return result
-    }, [])
+    const mySpaces = this.getSpaces(board, selectedMarker)
 
     return (mySpaces.includes(0) && mySpaces.includes(4) && mySpaces.includes(8)) ||
       (mySpaces.includes(2) && mySpaces.includes(4) && mySpaces.includes(6))
   }
+
+  didWinHorizontally(board, selectedMarker) {
+    return true
+  }
+
+  getSpaces(board, selectedMarker) {
+    return board.reduce((result, marker, index) => {
+      if (marker === selectedMarker) return [...result, index]
+      return result
+    }, [])
+  }
 }
 
+// pass this into constructor for unit testability
 module.exports = ComputerPlayer

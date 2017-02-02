@@ -59,27 +59,5 @@ describe('ComputerPlayer', () => {
         assert.equal(computer.didWinHorizontally(board, 'O'), true)
       })
     })
-
-    describe('#calculateMinimaxScore', () => {
-      // it('can return 10 if in position to win', () => {
-      //   const board = ['', 'X', '',
-      //                  '', 'O', 'X',
-      //                  '', 'O', 'X']
-
-      //   const minimaxScore = computer.calculateMinimaxScore(board)
-
-      //   assert.equal(minimaxScore, 10)
-      // })
-
-      // it('can return -10 if in position to lose', () => {
-      //   const board = ['O', 'O', '',
-      //                  '', 'X', 'O',
-      //                  '', 'X', 'O']
-
-      //   const minimaxScore = computer.calculateMinimaxScore(board)
-
-      //   assert.equal(minimaxScore, -10)
-      // })
-    })
   })
 })
