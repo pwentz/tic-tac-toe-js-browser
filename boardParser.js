@@ -19,7 +19,7 @@ module.exports = class BoardParser {
     return (isOccupyingOneCorner || isOccupyingOtherCorner) && isCenterOpen
   }
 
-  inPositionHorizontally(marker, board = this.board) {
+  inPositionHorizontally(marker, patternMatchingMarker = ' ', board = this.board) {
     let isInPosition;
 
     for (let i = 0 ; i < board.length ; i++) {
@@ -27,7 +27,10 @@ module.exports = class BoardParser {
         const nextThree = board.slice(i, i + 3)
         const rowMarkers = nextThree.filter(m => m === marker)
 
-        if ((rowMarkers.length === 2) && nextThree.includes(' ')) {
+        const isValid = patternMatchingMarker === marker ? rowMarkers.length === 3
+                                                         : (rowMarkers.length === 2) && nextThree.includes(patternMatchingMarker)
+
+        if (isValid) {
           isInPosition = true
         }
       }
@@ -36,8 +39,8 @@ module.exports = class BoardParser {
     return isInPosition || false
   }
 
-  inPositionVertically(marker) {
-    return this.inPositionHorizontally(marker, this.transposedBoard)
+  inPositionVertically(marker, patternMatchingMarker = ' ') {
+    return this.inPositionHorizontally(marker, patternMatchingMarker, this.transposedBoard)
   }
 
   getIndex(marker) {
