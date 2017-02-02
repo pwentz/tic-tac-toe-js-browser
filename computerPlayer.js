@@ -17,7 +17,19 @@ class ComputerPlayer {
   }
 
   didWinHorizontally(board, selectedMarker) {
-    return true
+    const takenIndices = this.getSpaces(board, selectedMarker)
+    let didWin;
+
+    for (let i = 0 ; i < takenIndices.length ; i++) {
+      const currentIndex = takenIndices[i]
+      const nextIndex = takenIndices[i + 1]
+      const lastIndex = takenIndices[i + 2]
+      if ((currentIndex + 1 === nextIndex) && (nextIndex + 1 === lastIndex)) {
+        didWin = true
+      }
+    }
+
+    return didWin || false
   }
 
   getSpaces(board, selectedMarker) {

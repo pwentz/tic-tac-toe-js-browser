@@ -56,8 +56,40 @@ describe('ComputerPlayer', () => {
                        'X', 'X', 'X',
                        'X', 'X', 'X']
 
-        assert.equal(computer.didWinHorizontally(board, 'O'), true)
+        assert.isTrue(computer.didWinHorizontally(board, 'O'))
       })
+    })
+
+    it('can return true when given board, marker, and 3 in a row on middle row', () => {
+        const board = ['X', 'X', 'X',
+                       'O', 'O', 'O',
+                       'X', 'X', 'X']
+
+        assert.isTrue(computer.didWinHorizontally(board, 'O'))
+    })
+
+    it('can return true when given board, marker, and 3 in a row on bottom row', () => {
+        const board = ['X', 'G', 'M',
+                       'O', 'N', 'O',
+                       'X', 'X', 'X']
+
+        assert.isTrue(computer.didWinHorizontally(board, 'X'))
+    })
+
+    it('can return false when given board, marker, and no 3 in a row horizontally', () => {
+        const board = ['X', 'O', 'O',
+                       'O', 'X', 'O',
+                       'O', 'X', 'X']
+
+        assert.isFalse(computer.didWinHorizontally(board, 'X'))
+    })
+
+    it('can return false when given board, marker, and no 3 in a row for given marker', () => {
+        const board = ['X', 'O', 'O',
+                       'O', 'O', 'O',
+                       'O', 'O', 'O']
+
+        assert.isFalse(computer.didWinHorizontally(board, 'X'))
     })
   })
 })
