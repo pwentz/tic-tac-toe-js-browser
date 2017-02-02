@@ -5,15 +5,15 @@ describe('Outcome', () => {
   context('methods', () => {
     describe('#openSpaces', () => {
       it('can return the index open spaces when passed board', () => {
-        const board = ['', 'X', '', '', 'O']
+        const board = [' ', 'X', ' ', ' ', 'O']
         assert.deepEqual(Outcome.openSpaces(board), [0, 2, 3])
       })
     })
 
     describe('#didWinDiagonally', () => {
       it('can return true when given board, marker, and 3 of them in a row sloping upward', () => {
-        const board = ['', 'X', 'O',
-                       '', 'O', 'X',
+        const board = [' ', 'X', 'O',
+                       ' ', 'O', 'X',
                        'O', 'O', 'X']
         assert.equal(Outcome.didWinDiagonally(board, 'O'), true)
       })

@@ -1,6 +1,6 @@
 class Outcome {
   static openSpaces(board) {
-    return this.getIndex(board, '')
+    return this.getIndex(board, ' ')
   }
 
   static didWinDiagonally(board, selectedMarker) {
