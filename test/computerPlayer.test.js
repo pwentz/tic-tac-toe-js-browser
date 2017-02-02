@@ -2,21 +2,6 @@ const assert = require('chai').assert
 const ComputerPlayer = require('../computerPlayer')
 
 describe('ComputerPlayer', () => {
-
-  context('attributes', () => {
-    it('gets self property from constructor object', () => {
-      const computer = new ComputerPlayer({ self: 'X' })
-
-      assert.equal(computer.self, 'X')
-    })
-
-    it('gets opponent property from constructor object', () => {
-      const computer = new ComputerPlayer({ opponent: 'O' })
-
-      assert.equal(computer.opponent, 'O')
-    })
-  })
-
   context('methods', () => {
     const computer = new ComputerPlayer({ self: 'X', opponent: 'O' })
     describe('#openSpaces', () => {
@@ -90,6 +75,40 @@ describe('ComputerPlayer', () => {
                        'O', 'O', 'O']
 
         assert.isFalse(computer.didWinHorizontally(board, 'X'))
+    })
+
+    describe('#didWinVertically', () => {
+      it('can return true when given board, marker, and 3 in a row for given marker to the left', () => {
+          const board = ['O', 'O', 'O',
+                         'O', 'X', 'X',
+                         'O', 'O', 'O']
+
+          assert.isTrue(computer.didWinVertically(board, 'O'))
+      })
+
+      it('can return true when given board, marker, and 3 in a row for given marker in middle', () => {
+          const board = ['O', 'X', 'O',
+                         'O', 'X', 'X',
+                         'O', 'X', 'O']
+
+          assert.isTrue(computer.didWinVertically(board, 'X'))
+      })
+
+      it('can return true when given board, marker, and 3 in a row for given marker to the right', () => {
+          const board = ['O', 'X', 'O',
+                         'X', 'X', 'O',
+                         'O', 'X', 'O']
+
+          assert.isTrue(computer.didWinVertically(board, 'O'))
+      })
+
+      it('can return false when given board, marker, and no 3 in a row for given marker', () => {
+          const board = ['X', 'O', 'O',
+                         'O', 'X', 'O',
+                         'O', 'O', 'X']
+
+          assert.isFalse(computer.didWinVertically(board, 'X'))
+      })
     })
   })
 })

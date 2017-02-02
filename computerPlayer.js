@@ -1,10 +1,4 @@
 class ComputerPlayer {
-  constructor({ self, opponent }) {
-    this.self = self
-    this.opponent = opponent
-    this.newBoardLayout = []
-  }
-
   openSpaces(board) {
     return this.getSpaces(board, '')
   }
@@ -37,6 +31,28 @@ class ComputerPlayer {
       if (marker === selectedMarker) return [...result, index]
       return result
     }, [])
+  }
+
+  didWinVertically(board, selectedMarker) {
+    const takenIndices = this.getSpaces(board, selectedMarker)
+    let didWin;
+
+    for (let i = 0 ; i < takenIndices.length ; i++) {
+      const currentIndex = takenIndices[i]
+      const lowerIndex = takenIndices.find(num => {
+        return currentIndex + 3 === num
+      })
+
+      const bottomIndex = takenIndices.find(num => {
+        return currentIndex + 6 === num
+      })
+
+      if (lowerIndex && bottomIndex) {
+        didWin = true
+      }
+    }
+
+    return didWin || false
   }
 }
 
