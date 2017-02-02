@@ -81,12 +81,74 @@ describe('Minimax', () => {
         })
 
         context('current marker !== selected marker', () => {
-          it('returns -10 if marker is in direct position to lose', () => {
-            const board = ['X', 'O', 'O',
-                           ' ', ' ', 'O',
-                           ' ', 'O', 'X']
+          context('selected marker is in position to lose diagonally', () => {
+            it('returns -10 if current marker is in upward sloping position', () => {
+              const board = ['X', ' ', 'O',
+                             'X', ' ', 'O',
+                             'O', 'O', 'X']
 
-            assert.equal(minimax.score(board, 'X', 'O'), -10)
+              assert.equal(minimax.score(board, 'X', 'O'), -10)
+            })
+
+            it('returns -10 if current marker is in downward sloping position', () => {
+              const board = ['X', ' ', 'O',
+                             'X', ' ', 'O',
+                             'O', 'O', 'X']
+
+              assert.equal(minimax.score(board, 'X', 'O'), -10)
+            })
+          })
+
+          context('selected marker is in position to lose horizontally', () => {
+            it('returns -10 if current marker is aligned on top row', () => {
+              const board = ['O', ' ', 'O',
+                             'X', 'X', 'O',
+                             'O', 'O', 'X']
+
+              assert.equal(minimax.score(board, 'X', 'O'), -10)
+            })
+
+            it('returns -10 if current marker is aligned on middle row', () => {
+              const board = ['O', 'X', 'O',
+                             ' ', 'O', 'O',
+                             'O', 'O', 'X']
+
+              assert.equal(minimax.score(board, 'X', 'O'), -10)
+            })
+
+            it('returns -10 if current marker is aligned on bottom row', () => {
+              const board = ['O', 'X', 'O',
+                             'X', ' ', 'X',
+                             'O', 'O', ' ']
+
+              assert.equal(minimax.score(board, 'X', 'O'), -10)
+            })
+          })
+
+          context('selected marker is in position to lose vertically', () => {
+            it('returns -10 if current marker is aligned in left column', () => {
+              const board = ['O', 'X', 'O',
+                             ' ', 'X', 'X',
+                             'O', 'O', 'X']
+
+              assert.equal(minimax.score(board, 'X', 'O'), -10)
+            })
+
+            it('returns -10 if current marker is aligned in middle column', () => {
+              const board = ['O', 'O', 'X',
+                             'X', 'O', 'O',
+                             'X', ' ', 'X']
+
+              assert.equal(minimax.score(board, 'X', 'O'), -10)
+            })
+
+            it('returns -10 if current marker is aligned in right column', () => {
+              const board = ['O', 'X', ' ',
+                             'X', 'O', 'O',
+                             'X', 'X', 'O']
+
+              assert.equal(minimax.score(board, 'X', 'O'), -10)
+            })
           })
         })
       })
