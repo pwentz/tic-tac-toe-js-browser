@@ -1,17 +1,17 @@
 class ComputerPlayer {
   openSpaces(board) {
-    return this.getSpaces(board, '')
+    return this.getIndex(board, '')
   }
 
   didWinDiagonally(board, selectedMarker) {
-    const mySpaces = this.getSpaces(board, selectedMarker)
+    const mySpaces = this.getIndex(board, selectedMarker)
 
     return (mySpaces.includes(0) && mySpaces.includes(4) && mySpaces.includes(8)) ||
       (mySpaces.includes(2) && mySpaces.includes(4) && mySpaces.includes(6))
   }
 
   didWinHorizontally(board, selectedMarker) {
-    const takenIndices = this.getSpaces(board, selectedMarker)
+    const takenIndices = this.getIndex(board, selectedMarker)
     let didWin;
 
     for (let i = 0 ; i < takenIndices.length ; i++) {
@@ -26,7 +26,7 @@ class ComputerPlayer {
     return didWin || false
   }
 
-  getSpaces(board, selectedMarker) {
+  getIndex(board, selectedMarker) {
     return board.reduce((result, marker, index) => {
       if (marker === selectedMarker) return [...result, index]
       return result
@@ -34,20 +34,15 @@ class ComputerPlayer {
   }
 
   didWinVertically(board, selectedMarker) {
-    const takenIndices = this.getSpaces(board, selectedMarker)
+    const takenIndices = this.getIndex(board, selectedMarker)
     let didWin;
 
     for (let i = 0 ; i < takenIndices.length ; i++) {
       const currentIndex = takenIndices[i]
-      const lowerIndex = takenIndices.find(num => {
-        return currentIndex + 3 === num
-      })
+      const middleIndex = takenIndices.indexOf(currentIndex + 3)
+      const bottomIndex = takenIndices.indexOf(currentIndex + 6)
 
-      const bottomIndex = takenIndices.find(num => {
-        return currentIndex + 6 === num
-      })
-
-      if (lowerIndex && bottomIndex) {
+      if (middleIndex !== -1 && bottomIndex !== -1) {
         didWin = true
       }
     }
