@@ -1,16 +1,16 @@
-class ComputerPlayer {
-  openSpaces(board) {
+class Outcome {
+  static openSpaces(board) {
     return this.getIndex(board, '')
   }
 
-  didWinDiagonally(board, selectedMarker) {
+  static didWinDiagonally(board, selectedMarker) {
     const mySpaces = this.getIndex(board, selectedMarker)
 
     return (mySpaces.includes(0) && mySpaces.includes(4) && mySpaces.includes(8)) ||
       (mySpaces.includes(2) && mySpaces.includes(4) && mySpaces.includes(6))
   }
 
-  didWinHorizontally(board, selectedMarker) {
+  static didWinHorizontally(board, selectedMarker) {
     const takenIndices = this.getIndex(board, selectedMarker)
     let didWin;
 
@@ -26,14 +26,14 @@ class ComputerPlayer {
     return didWin || false
   }
 
-  getIndex(board, selectedMarker) {
+  static getIndex(board, selectedMarker) {
     return board.reduce((result, marker, index) => {
       if (marker === selectedMarker) return [...result, index]
       return result
     }, [])
   }
 
-  didWinVertically(board, selectedMarker) {
+  static didWinVertically(board, selectedMarker) {
     const takenIndices = this.getIndex(board, selectedMarker)
     let didWin;
 
@@ -52,5 +52,4 @@ class ComputerPlayer {
   }
 }
 
-// pass this into constructor for unit testability
-module.exports = ComputerPlayer
+module.exports = Outcome
