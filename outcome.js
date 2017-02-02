@@ -1,54 +1,40 @@
+const BoardParser = require('./boardParser')
+
 class Outcome {
-  static openSpaces(board) {
-    return this.getIndex(board, ' ')
+
+  static parser(board) {
+    return new BoardParser(board)
   }
 
   static didWinDiagonally(board, selectedMarker) {
-    const mySpaces = this.getIndex(board, selectedMarker)
+    const parser = this.parser(board)
+    const mySpaces = parser.getIndex(selectedMarker)
 
     return (mySpaces.includes(0) && mySpaces.includes(4) && mySpaces.includes(8)) ||
       (mySpaces.includes(2) && mySpaces.includes(4) && mySpaces.includes(6))
   }
 
   static didWinHorizontally(board, selectedMarker) {
-    const takenIndices = this.getIndex(board, selectedMarker)
+    const parser = this.parser(board)
+    const takenIndices = parser.getIndex(selectedMarker)
     let didWin;
 
-    for (let i = 0 ; i < takenIndices.length ; i++) {
-      const currentIndex = takenIndices[i]
-      const nextIndex = takenIndices[i + 1]
-      const lastIndex = takenIndices[i + 2]
-      if ((currentIndex + 1 === nextIndex) && (nextIndex + 1 === lastIndex)) {
-        didWin = true
+    for (let i = 0 ; i < board.length ; i++) {
+      if (i % 3 === 0) {
+        const nextThree = board.slice(i, i + 3)
+        const rowMarkers = nextThree.filter(m => m === selectedMarker)
+        if (rowMarkers.length === 3) {
+          didWin = true
+        }
       }
     }
 
     return didWin || false
-  }
-
-  static getIndex(board, selectedMarker) {
-    return board.reduce((result, marker, index) => {
-      if (marker === selectedMarker) return [...result, index]
-      return result
-    }, [])
   }
 
   static didWinVertically(board, selectedMarker) {
-    const takenIndices = this.getIndex(board, selectedMarker)
-    let didWin;
-
-    for (let i = 0 ; i < takenIndices.length ; i++) {
-      const currentIndex = takenIndices[i]
-      const lowerIndices = takenIndices.filter(num => {
-        return num + 3 === currentIndex || num + 6 === currentIndex
-      })
-
-      if (lowerIndices.length > 1) {
-        didWin = true
-      }
-    }
-
-    return didWin || false
+    const parser = this.parser(board)
+    return this.didWinHorizontally(parser.transposedBoard, selectedMarker)
   }
 }
 

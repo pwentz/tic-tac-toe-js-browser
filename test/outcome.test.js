@@ -3,13 +3,6 @@ const Outcome = require('../outcome')
 
 describe('Outcome', () => {
   context('methods', () => {
-    describe('#openSpaces', () => {
-      it('can return the index open spaces when passed board', () => {
-        const board = [' ', 'X', ' ', ' ', 'O']
-        assert.deepEqual(Outcome.openSpaces(board), [0, 2, 3])
-      })
-    })
-
     describe('#didWinDiagonally', () => {
       it('can return true when given board, marker, and 3 of them in a row sloping upward', () => {
         const board = [' ', 'X', 'O',
@@ -69,8 +62,8 @@ describe('Outcome', () => {
     })
 
     it('can return false when given board, marker, and no 3 in a row for given marker', () => {
-        const board = ['X', 'O', 'O',
-                       'O', 'O', 'O',
+        const board = ['X', 'O', 'X',
+                       'X', 'X', 'O',
                        'O', 'O', 'O']
 
         assert.isFalse(Outcome.didWinHorizontally(board, 'X'))
