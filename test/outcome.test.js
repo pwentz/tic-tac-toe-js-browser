@@ -8,14 +8,14 @@ describe('Outcome', () => {
         const board = [' ', 'X', 'O',
                        ' ', 'O', 'X',
                        'O', 'O', 'X']
-        assert.equal(Outcome.didWinDiagonally(board, 'O'), true)
+        assert.isTrue(Outcome.didWinDiagonally(board, 'O'))
       })
 
       it('can return true when given board, marker, and 3 of them sloping downward', () => {
         const board = ['X', 'O', 'O',
                        'O', 'X', 'X',
                        'O', 'O', 'X']
-        assert.equal(Outcome.didWinDiagonally(board, 'X'), true)
+        assert.isTrue(Outcome.didWinDiagonally(board, 'X'))
       })
 
       it('will return false when symbol does not have 3 in a row diagonally', () => {
@@ -23,7 +23,7 @@ describe('Outcome', () => {
                        'O', 'X', 'O',
                        'O', 'O', 'O']
 
-        assert.equal(Outcome.didWinDiagonally(board, 'O'), false)
+        assert.isFalse(Outcome.didWinDiagonally(board, 'O'))
       })
     })
 
