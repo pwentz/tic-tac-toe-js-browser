@@ -15,21 +15,16 @@ class Outcome {
   }
 
   static didWinHorizontally(board, selectedMarker) {
-    const parser = this.parser(board)
-    const takenIndices = parser.getIndex(selectedMarker)
-    let didWin;
-
     for (let i = 0 ; i < board.length ; i++) {
       if (i % 3 === 0) {
         const nextThree = board.slice(i, i + 3)
         const rowMarkers = nextThree.filter(m => m === selectedMarker)
-        if (rowMarkers.length === 3) {
-          didWin = true
-        }
+
+        if (rowMarkers.length === 3) return true
       }
     }
 
-    return didWin || false
+    return false
   }
 
   static didWinVertically(board, selectedMarker) {

@@ -9,7 +9,7 @@ module.exports = class BoardParser {
     return transpose(this.board)
   }
 
-  inPositionDiagonally(marker) {
+  indexOfWinningPositionDiagonally(marker) {
     const openings = this.getIndex(' ')
     const markerLocations = this.getIndex(marker)
 
@@ -42,7 +42,7 @@ module.exports = class BoardParser {
     return -1
   }
 
-  inPositionHorizontally(marker, board = this.board) {
+  indexOfWinningPositionHorizontally(marker, board = this.board) {
     for (let i = 0 ; i < board.length ; i++) {
       if (i % 3 === 0) {
         const nextThree = board.slice(i, i + 3)
@@ -57,7 +57,7 @@ module.exports = class BoardParser {
     return -1
   }
 
-  inPositionVertically(marker, board = this.board) {
+  indexOfWinningPositionVertically(marker, board = this.board) {
     for (let i = 0 ; i < board.length ; i++) {
       if (i < 3) {
         const column = [board[i], board[i + 3], board[i + 6]]

@@ -25,9 +25,9 @@ module.exports = class Minimax {
     parser.board = board
 
     return (
-      (parser.inPositionDiagonally(marker)) ||
-        (parser.inPositionHorizontally(marker)) ||
-          (parser.inPositionVertically(marker))
+      parser.indexOfWinningPositionDiagonally(marker) ||
+        parser.indexOfWinningPositionHorizontally(marker) ||
+          parser.indexOfWinningPositionVertically(marker)
     )
   }
 }

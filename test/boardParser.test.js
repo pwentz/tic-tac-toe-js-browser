@@ -2,7 +2,7 @@ const assert = require('chai').assert
 const BoardParser = require('../boardParser')
 
 describe('boardParser', () => {
-  describe('#inPositionDiagonally', () => {
+  describe('#indexOfWinningPositionDiagonally', () => {
     it('returns an open space if markers are sloping downward', () => {
       const board = ['X', 'O', 'O',
                      ' ', ' ', 'O',
@@ -10,7 +10,7 @@ describe('boardParser', () => {
 
       const parser = new BoardParser(board)
 
-      assert.equal(parser.inPositionDiagonally('X'), 4)
+      assert.equal(parser.indexOfWinningPositionDiagonally('X'), 4)
     })
 
     it('returns an open space if markers are sloping upwards', () => {
@@ -20,7 +20,7 @@ describe('boardParser', () => {
 
       const parser = new BoardParser(board)
 
-      assert.equal(parser.inPositionDiagonally('X'), 2)
+      assert.equal(parser.indexOfWinningPositionDiagonally('X'), 2)
     })
 
     it('returns -1 if no markers are in position diagonally', () => {
@@ -30,11 +30,11 @@ describe('boardParser', () => {
 
       const parser = new BoardParser(board)
 
-      assert.equal(parser.inPositionDiagonally('X'), -1)
+      assert.equal(parser.indexOfWinningPositionDiagonally('X'), -1)
     })
   })
 
-  describe('#inPositionHorizontally', () => {
+  describe('#indexOfWinningPositionHorizontally', () => {
     it('returns open space if markers are aligned on top row', () => {
       const board = ['X', ' ', 'X',
                      'X', ' ', 'O',
@@ -42,7 +42,7 @@ describe('boardParser', () => {
 
       const parser = new BoardParser(board)
 
-      assert.strictEqual(parser.inPositionHorizontally('X'), 1)
+      assert.strictEqual(parser.indexOfWinningPositionHorizontally('X'), 1)
     })
 
     it('returns open space if markers are aligned on middle row', () => {
@@ -52,7 +52,7 @@ describe('boardParser', () => {
 
       const parser = new BoardParser(board)
 
-      assert.equal(parser.inPositionHorizontally('O'), 5)
+      assert.equal(parser.indexOfWinningPositionHorizontally('O'), 5)
     })
 
     it('returns open space if markers are aligned on bottom row', () => {
@@ -62,7 +62,7 @@ describe('boardParser', () => {
 
       const parser = new BoardParser(board)
 
-      assert.equal(parser.inPositionHorizontally('O'), 6)
+      assert.equal(parser.indexOfWinningPositionHorizontally('O'), 6)
     })
 
     it('returns -1 if markers are not aligned horizonally', () => {
@@ -72,11 +72,11 @@ describe('boardParser', () => {
 
       const parser = new BoardParser(board)
 
-      assert.equal(parser.inPositionHorizontally('O'), -1)
+      assert.equal(parser.indexOfWinningPositionHorizontally('O'), -1)
     })
   })
 
-  describe('#inPositionVertically', () => {
+  describe('#indexOfWinningPositionVertically', () => {
     it('returns the open space if markers are aligned in left column', () => {
       const board = ['O', 'O', 'X',
                      'O', 'X', 'X',
@@ -84,7 +84,7 @@ describe('boardParser', () => {
 
       const parser = new BoardParser(board)
 
-      assert.strictEqual(parser.inPositionVertically('O'), 6)
+      assert.strictEqual(parser.indexOfWinningPositionVertically('O'), 6)
     })
 
     it('returns the open space if markers are aligned in middle column', () => {
@@ -94,7 +94,7 @@ describe('boardParser', () => {
 
       const parser = new BoardParser(board)
 
-      assert.strictEqual(parser.inPositionVertically('O'), 1)
+      assert.strictEqual(parser.indexOfWinningPositionVertically('O'), 1)
     })
 
     it('returns the open space if markers are aligned in right column', () => {
@@ -104,7 +104,7 @@ describe('boardParser', () => {
 
       const parser = new BoardParser(board)
 
-      assert.equal(parser.inPositionVertically('X'), 5)
+      assert.equal(parser.indexOfWinningPositionVertically('X'), 5)
     })
 
     it('returns -1 if markers are not aligned vertically', () => {
@@ -114,7 +114,7 @@ describe('boardParser', () => {
 
       const parser = new BoardParser(board)
 
-      assert.equal(parser.inPositionVertically('X'), -1)
+      assert.equal(parser.indexOfWinningPositionVertically('X'), -1)
     })
   })
 })
