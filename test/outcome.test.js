@@ -2,39 +2,37 @@ const assert = require('chai').assert
 const Outcome = require('../outcome')
 
 describe('Outcome', () => {
-  context('methods', () => {
-    describe('#didWinDiagonally', () => {
-      it('can return true when given board, marker, and 3 of them in a row sloping upward', () => {
-        const board = [' ', 'X', 'O',
-                       ' ', 'O', 'X',
-                       'O', 'O', 'X']
-        assert.isTrue(Outcome.didWinDiagonally(board, 'O'))
-      })
-
-      it('can return true when given board, marker, and 3 of them sloping downward', () => {
-        const board = ['X', 'O', 'O',
-                       'O', 'X', 'X',
-                       'O', 'O', 'X']
-        assert.isTrue(Outcome.didWinDiagonally(board, 'X'))
-      })
-
-      it('will return false when symbol does not have 3 in a row diagonally', () => {
-        const board = ['O', 'O', 'O',
-                       'O', 'X', 'O',
-                       'O', 'O', 'O']
-
-        assert.isFalse(Outcome.didWinDiagonally(board, 'O'))
-      })
+  describe('#didWinDiagonally', () => {
+    it('can return true when given board, marker, and 3 of them in a row sloping upward', () => {
+      const board = [' ', 'X', 'O',
+                     ' ', 'O', 'X',
+                     'O', 'O', 'X']
+      assert.isTrue(Outcome.didWinDiagonally(board, 'O'))
     })
 
-    describe('#didWinHorizontally', () => {
-      it('can return true when given board, marker, and 3 in a row on top row', () => {
-        const board = ['O', 'O', 'O',
-                       'X', 'X', 'X',
-                       'X', 'X', 'X']
+    it('can return true when given board, marker, and 3 of them sloping downward', () => {
+      const board = ['X', 'O', 'O',
+                     'O', 'X', 'X',
+                     'O', 'O', 'X']
+      assert.isTrue(Outcome.didWinDiagonally(board, 'X'))
+    })
 
-        assert.isTrue(Outcome.didWinHorizontally(board, 'O'))
-      })
+    it('will return false when symbol does not have 3 in a row diagonally', () => {
+      const board = ['O', 'O', 'O',
+                     'O', 'X', 'O',
+                     'O', 'O', 'O']
+
+      assert.isFalse(Outcome.didWinDiagonally(board, 'O'))
+    })
+  })
+
+  describe('#didWinHorizontally', () => {
+    it('can return true when given board, marker, and 3 in a row on top row', () => {
+      const board = ['O', 'O', 'O',
+                     'X', 'X', 'X',
+                     'X', 'X', 'X']
+
+      assert.isTrue(Outcome.didWinHorizontally(board, 'O'))
     })
 
     it('can return true when given board, marker, and 3 in a row on middle row', () => {
@@ -68,39 +66,39 @@ describe('Outcome', () => {
 
         assert.isFalse(Outcome.didWinHorizontally(board, 'X'))
     })
+  })
 
-    describe('#didWinVertically', () => {
-      it('can return true when given board, marker, and 3 in a row for given marker to the left', () => {
-          const board = ['O', 'O', 'O',
-                         'O', 'X', 'X',
-                         'O', 'O', 'O']
+  describe('#didWinVertically', () => {
+    it('can return true when given board, marker, and 3 in a row for given marker to the left', () => {
+        const board = ['O', 'O', 'O',
+                       'O', 'X', 'X',
+                       'O', 'O', 'O']
 
-          assert.isTrue(Outcome.didWinVertically(board, 'O'))
-      })
+        assert.isTrue(Outcome.didWinVertically(board, 'O'))
+    })
 
-      it('can return true when given board, marker, and 3 in a row for given marker in middle', () => {
-          const board = ['O', 'X', 'O',
-                         'O', 'X', 'X',
-                         'O', 'X', 'O']
+    it('can return true when given board, marker, and 3 in a row for given marker in middle', () => {
+        const board = ['O', 'X', 'O',
+                       'O', 'X', 'X',
+                       'O', 'X', 'O']
 
-          assert.isTrue(Outcome.didWinVertically(board, 'X'))
-      })
+        assert.isTrue(Outcome.didWinVertically(board, 'X'))
+    })
 
-      it('can return true when given board, marker, and 3 in a row for given marker to the right', () => {
-          const board = ['O', 'X', 'O',
-                         'X', 'X', 'O',
-                         'O', 'X', 'O']
+    it('can return true when given board, marker, and 3 in a row for given marker to the right', () => {
+        const board = ['O', 'X', 'O',
+                       'X', 'X', 'O',
+                       'O', 'X', 'O']
 
-          assert.isTrue(Outcome.didWinVertically(board, 'O'))
-      })
+        assert.isTrue(Outcome.didWinVertically(board, 'O'))
+    })
 
-      it('can return false when given board, marker, and no 3 in a row for given marker', () => {
-          const board = ['X', 'O', 'O',
-                         'O', 'X', 'O',
-                         'O', 'O', 'X']
+    it('can return false when given board, marker, and no 3 in a row for given marker', () => {
+        const board = ['X', 'O', 'O',
+                       'O', 'X', 'O',
+                       'O', 'O', 'X']
 
-          assert.isFalse(Outcome.didWinVertically(board, 'O'))
-      })
+        assert.isFalse(Outcome.didWinVertically(board, 'O'))
     })
   })
 })

@@ -117,4 +117,48 @@ describe('boardParser', () => {
       assert.equal(parser.indexOfWinningPositionVertically('X'), -1)
     })
   })
+
+  describe('#indexOfWinningPosition', () => {
+    context('returns the index of position of any winning scenario', () => {
+      it('can return a position for a diagonal victory', () => {
+        const board = ['X', 'O', 'X',
+                       'O', 'X', 'O',
+                       'O', ' ', ' ']
+
+        const parser = new BoardParser(board)
+
+        assert.equal(parser.indexOfWinningPosition('X'), 8)
+      })
+
+      it('can return a position for a horizontal victory', () => {
+        const board = [' ', 'O', 'X',
+                       ' ', 'O', 'O',
+                       'X', 'X', ' ']
+
+        const parser = new BoardParser(board)
+
+        assert.equal(parser.indexOfWinningPosition('O'), 3)
+      })
+
+      it('can return a position for a vertical victory', () => {
+        const board = [' ', 'O', ' ',
+                       ' ', 'X', 'O',
+                       'X', 'X', 'O']
+
+        const parser = new BoardParser(board)
+
+        assert.equal(parser.indexOfWinningPosition('O'), 2)
+      })
+
+      it('returns -1 if there are no positions to win', () => {
+        const board = ['X', ' ', ' ',
+                       ' ', 'O', ' ',
+                       'X', ' ', ' ']
+
+        const parser = new BoardParser(board)
+
+        assert.equal(parser.indexOfWinningPosition('O'), -1)
+      })
+    })
+  })
 })

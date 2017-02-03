@@ -9,47 +9,50 @@ module.exports = class BoardParser {
     return transpose(this.board)
   }
 
-  indexOfWinningPositionDiagonally(marker) {
-    const openings = this.getIndex(' ')
-    const markerLocations = this.getIndex(marker)
+  hasWinningSetup(trio, markersInTrio) {
+    return markersInTrio.length === 2 && trio.includes(' ')
+  }
 
+  indexOfWinningPositionDiagonally(marker) {
     const downwardSlope = [this.board[0], this.board[4], this.board[8]]
     const upwardSlope = [this.board[2], this.board[4], this.board[6]]
 
     const downwardMarkers = downwardSlope.filter(m => m === marker)
     const upwardMarkers = upwardSlope.filter(m => m === marker)
 
-    if (downwardMarkers.length === 2 && downwardSlope.includes(' ')) {
-      const options = {
+    if (this.hasWinningSetup(downwardSlope, downwardMarkers)) {
+      const mappedIndices = {
         0: 0,
         1: 4,
         2: 8
       }
 
-      return options[downwardSlope.indexOf(' ')]
+      return mappedIndices[downwardSlope.indexOf(' ')]
     }
 
-    if (upwardMarkers.length === 2 && upwardSlope.includes(' ')) {
-      const options = {
+    if (this.hasWinningSetup(upwardSlope, upwardMarkers)) {
+      const mappedIndices = {
         0: 2,
         1: 4,
         2: 6
       }
 
-      return options[upwardSlope.indexOf(' ')]
+      return mappedIndices[upwardSlope.indexOf(' ')]
     }
 
     return -1
   }
 
-  indexOfWinningPositionHorizontally(marker, board = this.board) {
-    for (let i = 0 ; i < board.length ; i++) {
-      if (i % 3 === 0) {
-        const nextThree = board.slice(i, i + 3)
-        const rowMarkers = nextThree.filter(m => m === marker)
+  indexOfWinningPositionHorizontally(marker) {
+    for (let i = 0 ; i < this.board.length ; i++) {
+      const isBeginningOfRow = i % 3 === 0
 
-        if ((rowMarkers.length === 2) && nextThree.includes(' ')) {
-          return nextThree.indexOf(' ') + i
+      if (isBeginningOfRow) {
+        const row = this.board.slice(i, i + 3)
+        const rowMarkers = row.filter(m => m === marker)
+
+        if (this.hasWinningSetup(row, rowMarkers)) {
+          return row.indexOf(' ') + i
         }
       }
     }
@@ -57,17 +60,31 @@ module.exports = class BoardParser {
     return -1
   }
 
-  indexOfWinningPositionVertically(marker, board = this.board) {
-    for (let i = 0 ; i < board.length ; i++) {
-      if (i < 3) {
-        const column = [board[i], board[i + 3], board[i + 6]]
-        const rowMarkers = column.filter(m => m === marker)
+  indexOfWinningPositionVertically(marker) {
+    for (let i = 0 ; i < this.board.length ; i++) {
+      const isTopOfColumn = i < 3
 
-        if ((rowMarkers.length === 2) && column.includes(' ')) {
+      if (isTopOfColumn) {
+        const column = [this.board[i], this.board[i + 3], this.board[i + 6]]
+        const columnMarkers = column.filter(m => m === marker)
+
+        if (this.hasWinningSetup(column, columnMarkers)) {
           return (column.indexOf(' ') * 3) + i
         }
       }
     }
+
+    return -1
+  }
+
+  indexOfWinningPosition(marker) {
+    const diagonalPosition = this.indexOfWinningPositionDiagonally(marker)
+    const horizontalPosition = this.indexOfWinningPositionHorizontally(marker)
+    const verticalPosition = this.indexOfWinningPositionVertically(marker)
+
+    if (diagonalPosition >= 0) return diagonalPosition
+    if (horizontalPosition >= 0) return horizontalPosition
+    if (verticalPosition >= 0) return verticalPosition
 
     return -1
   }
