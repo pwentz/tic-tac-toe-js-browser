@@ -31,6 +31,12 @@ class Outcome {
     const parser = this.parser(board)
     return this.didWinHorizontally(parser.transposedBoard, selectedMarker)
   }
+
+  static didWin(board, selectedMarker) {
+    return this.didWinDiagonally(board, selectedMarker) ||
+            this.didWinHorizontally(board, selectedMarker) ||
+             this.didWinVertically(board, selectedMarker)
+  }
 }
 
 module.exports = Outcome
