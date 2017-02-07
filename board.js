@@ -1,4 +1,3 @@
-const BoardParser = require('./boardParser')
 const { transpose } = require('./util')
 
 module.exports = class Board {

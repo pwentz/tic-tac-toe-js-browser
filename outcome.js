@@ -1,5 +1,3 @@
-const BoardParser = require('./boardParser')
-
 class Outcome {
 
   static didWinDiagonally(board, selectedMarker) {

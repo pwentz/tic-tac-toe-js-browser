@@ -1,5 +1,3 @@
-const { transpose } = require('./util')
-const BoardParser = require('./boardParser')
 const Board = require('./board')
 const Outcome = require('./outcome')
 
@@ -42,9 +40,8 @@ module.exports = class ScoreCalculator {
     }
 
     forks.forEach(fork => {
-      const openings = fork.openSpaces
-      openings.forEach(opening => {
-        const newCalc = new this.constructor(fork.state, opening, this.marker)
+      fork.openSpaces.forEach(index => {
+        const newCalc = new this.constructor(fork.state, index, this.marker)
         newCalc.calculateScore()
         this.score += newCalc.score
       })

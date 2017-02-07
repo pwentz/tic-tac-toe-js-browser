@@ -40,18 +40,17 @@ describe('ScoreCalculator', () => {
     })
 
     it('updates score if position will eventually lead to win', () => {
-      const board = ['O', ' ', 'X',
-                     ' ', ' ', ' ',
+      const board = ['X', ' ', 'X',
+                     'X', 'O', 'O',
                      ' ', ' ', 'O']
 
-      const goodMoveCalc = new ScoreCalculator(board, 4, 'X')
-      const badMoveCalc = new ScoreCalculator(board, 5, 'X')
+      const calc = new ScoreCalculator(board, 7, 'X')
 
-      goodMoveCalc.calculateScore()
-      badMoveCalc.calculateScore()
+      calc.calculateScore()
 
-      assert.isAbove(goodMoveCalc.score, badMoveCalc.score)
+      assert.isAbove(calc.score, 0)
     })
+
 
     it('updates score if position could eventually lead to loss', () => {
       const board = ['O', ' ', 'X',
@@ -65,18 +64,34 @@ describe('ScoreCalculator', () => {
       assert.isBelow(calc.score, 0)
     })
 
-    it('can update score on best move when game is far from over', () => {
-      const board = [' ', ' ', ' ',
-                     ' ', ' ', ' ',
-                     ' ', ' ', ' ']
+    context('comparisons', () => {
+      it('has a higher score if position will block opponent', () => {
+        const board = ['O', ' ', 'X',
+                       ' ', ' ', ' ',
+                       ' ', ' ', 'O']
 
-      const goodMoveCalc = new ScoreCalculator(board, 4, 'X')
-      const badMoveCalc = new ScoreCalculator(board, 3, 'X')
+        const goodMoveCalc = new ScoreCalculator(board, 4, 'X')
+        const badMoveCalc = new ScoreCalculator(board, 5, 'X')
 
-      goodMoveCalc.calculateScore()
-      badMoveCalc.calculateScore()
+        goodMoveCalc.calculateScore()
+        badMoveCalc.calculateScore()
 
-      assert.isAbove(goodMoveCalc.score, badMoveCalc.score)
+        assert.isAbove(goodMoveCalc.score, badMoveCalc.score)
+      })
+
+      it('has a higher score on more strategic moves', () => {
+        const board = [' ', ' ', ' ',
+                       ' ', ' ', ' ',
+                       ' ', ' ', ' ']
+
+        const goodMoveCalc = new ScoreCalculator(board, 4, 'X')
+        const badMoveCalc = new ScoreCalculator(board, 3, 'X')
+
+        goodMoveCalc.calculateScore()
+        badMoveCalc.calculateScore()
+
+        assert.isAbove(goodMoveCalc.score, badMoveCalc.score)
+      })
     })
   })
 })
