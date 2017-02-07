@@ -28,4 +28,8 @@ module.exports = class Board {
       return result
     }, [])
   }
+
+  addMarker(marker, position) {
+    this.state[position] = marker
+  }
 }

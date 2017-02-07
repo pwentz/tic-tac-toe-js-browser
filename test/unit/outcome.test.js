@@ -102,4 +102,82 @@ describe('Outcome', () => {
         assert.isFalse(Outcome.didWinVertically(new Board(board), 'O'))
     })
   })
+
+  describe('#didWin', () => {
+    context('3 in a row diagonally', () => {
+      it('can return true', () => {
+        const board = ['X', 'O', 'O',
+                       'O', 'X', 'O',
+                       'O', 'O', 'X']
+
+        assert.isTrue(Outcome.didWin(new Board(board), 'X'))
+      })
+    })
+
+    context('3 in horizontally', () => {
+      it('can return true', () => {
+        const board = ['X', 'X', 'X',
+                       'O', ' ', 'O',
+                       'O', ' ', 'X']
+
+        assert.isTrue(Outcome.didWin(new Board(board), 'X'))
+      })
+    })
+
+    context('3 in a row vertically', () => {
+      it('can return true', () => {
+        const board = ['O', 'X', 'X',
+                       'O', 'X', 'O',
+                       'O', ' ', 'X']
+
+        assert.isTrue(Outcome.didWin(new Board(board), 'O'))
+      })
+    })
+
+    context('board is full, but no winner', () => {
+      it('returns false', () => {
+        const board = ['O', 'X', 'X',
+                       'X', 'X', 'O',
+                       'O', 'O', 'X']
+
+        assert.isFalse(Outcome.didWin(new Board(board), 'X'))
+      })
+    })
+  })
+
+  describe('#isGameOver', () => {
+    context('either player has won', () => {
+      it('returns true if playerOne has won', () => {
+        const board = ['X', 'O', 'O',
+                       'O', 'X', 'O',
+                       'O', 'O', 'X']
+
+        const marker = 'X'
+
+        assert.isTrue(Outcome.isGameOver(new Board(board), marker))
+      })
+
+      it('returns true if playerTwo has won', () => {
+        const board = ['X', 'O', 'X',
+                       'O', ' ', 'X',
+                       'O', 'O', 'O']
+
+        const marker = 'O'
+
+        assert.isTrue(Outcome.isGameOver(new Board(board), marker))
+      })
+    })
+
+    context('neither player has won and board is full', () => {
+      it('returns true', () => {
+        const board = ['X', 'O', 'X',
+                       'O', 'X', 'X',
+                       'O', 'O', 'O']
+
+        const marker = 'O'
+
+        assert.isTrue(Outcome.isGameOver(new Board(board), marker))
+      })
+    })
+  })
 })

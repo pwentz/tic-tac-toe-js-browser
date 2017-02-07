@@ -18,11 +18,11 @@ describe('Computer', () => {
       it('can return the move that will block opponent', () => {
         const board = ['X', 'O', ' ',
                        'O', ' ', ' ',
-                       ' ', ' ', 'X']
+                       'X', 'X', ' ']
 
         const computer = new Computer('O')
 
-        assert.equal(computer.getMove(new Board(board)), 4)
+        assert.equal(computer.getMove(new Board(board)), 8)
       })
     })
 
