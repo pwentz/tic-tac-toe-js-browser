@@ -89,10 +89,4 @@ module.exports = class BoardParser {
     return -1
   }
 
-  getIndex(marker) {
-    return this.board.reduce((result, m, index) => {
-      if (marker === m) return [...result, index]
-      return result
-    }, [])
-  }
 }

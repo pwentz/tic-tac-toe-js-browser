@@ -1,5 +1,6 @@
 const assert = require('chai').assert
 const Computer = require('../computer')
+const Board = require('../board')
 
 describe('Computer', () => {
   describe('#getMove', () => {
@@ -11,7 +12,7 @@ describe('Computer', () => {
 
         const computer = new Computer('X')
 
-        assert.equal(computer.getMove(board), 4)
+        assert.equal(computer.getMove(new Board(board)), 4)
       })
 
       it('can return the move that will block opponent', () => {
@@ -21,7 +22,7 @@ describe('Computer', () => {
 
         const computer = new Computer('O')
 
-        assert.equal(computer.getMove(board), 4)
+        assert.equal(computer.getMove(new Board(board)), 4)
       })
     })
 
@@ -33,7 +34,7 @@ describe('Computer', () => {
 
         const computer = new Computer('X')
 
-        assert.equal(computer.getMove(board), 2)
+        assert.equal(computer.getMove(new Board(board)), 2)
       })
 
       it('if position can help both offense and defense, it plays that position', () => {
@@ -43,7 +44,7 @@ describe('Computer', () => {
 
         const computer = new Computer('X')
 
-        assert.equal(computer.getMove(board), 0)
+        assert.equal(computer.getMove(new Board(board)), 0)
       })
     })
   })

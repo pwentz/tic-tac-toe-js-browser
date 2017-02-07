@@ -20,41 +20,34 @@ module.exports = class ScoreCalculator {
     }
   }
 
-  parser(board) {
-    return new BoardParser(board)
-  }
-
   get outcome() {
     return Outcome
   }
 
   calculateScore() {
-    if (this.outcome.didWin(this.board.state, this.marker)) {
+    if (this.outcome.didWin(this.board, this.marker)) {
       this.score += 10
       return;
     }
-    else {
-      const oppoMarker = this.opposingSymbols[this.marker]
-      const forks = this.board.forks(oppoMarker)
-      const didOpponentWin = forks.some(fork => {
-        return this.outcome.didWin(fork.state, oppoMarker)
-      })
 
-      if (didOpponentWin) {
-        this.score += -10
-        return;
-      }
+    const opposingMarker = this.opposingSymbols[this.marker]
+    const forks = this.board.forks(opposingMarker)
+    const didOpponentWin = forks.some(fork => {
+      return this.outcome.didWin(fork, opposingMarker)
+    })
 
-      else {
-        forks.forEach(fork => {
-          const openings = this.parser(fork.state).getIndex(' ')
-          openings.forEach(opening => {
-            const newCalc = new this.constructor(fork.state, opening, this.marker)
-            newCalc.calculateScore()
-            this.score += newCalc.score
-          })
-        })
-      }
+    if (didOpponentWin) {
+      this.score += -10
+      return;
     }
+
+    forks.forEach(fork => {
+      const openings = fork.openSpaces
+      openings.forEach(opening => {
+        const newCalc = new this.constructor(fork.state, opening, this.marker)
+        newCalc.calculateScore()
+        this.score += newCalc.score
+      })
+    })
   }
 }
