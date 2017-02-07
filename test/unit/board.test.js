@@ -1,5 +1,5 @@
 const assert = require('chai').assert
-const Board = require('../board')
+const Board = require('../../board')
 
 describe('Board', () => {
   describe('#forks', () => {

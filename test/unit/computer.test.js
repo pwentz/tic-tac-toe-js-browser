@@ -1,6 +1,6 @@
 const assert = require('chai').assert
-const Computer = require('../computer')
-const Board = require('../board')
+const Computer = require('../../computer')
+const Board = require('../../board')
 
 describe('Computer', () => {
   describe('#getMove', () => {

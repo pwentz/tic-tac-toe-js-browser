@@ -1,5 +1,5 @@
 const assert = require('chai').assert
-const ScoreCalculator = require('../scoreCalculator')
+const ScoreCalculator = require('../../scoreCalculator')
 
 describe('ScoreCalculator', () => {
   describe('#calculateScore', () => {
