@@ -18,18 +18,20 @@ module.exports = class ScoreCalculator {
     return Outcome
   }
 
-  calculateScore(game) {
+  forks(game) {
     const { opponents } = game
 
+    return this.board.forks(opponents[this.marker])
+  }
+
+  calculateScore(game) {
     if (this.outcome.didWin(this.board, this.marker)) {
       this.score = (100 - (this.depth * 2))
       return;
     }
 
-    const opposingMarker = opponents[this.marker]
-
-    const didOpponentWin = this.board.forks(opposingMarker).some(fork => {
-      return this.outcome.didWin(fork, opposingMarker)
+    const didOpponentWin = this.forks(game).some(fork => {
+      return this.outcome.didWin(fork, game.opponents[this.marker])
     })
 
     if (didOpponentWin) {
@@ -40,16 +42,13 @@ module.exports = class ScoreCalculator {
   }
 
   calculateForks(game) {
-    const { opponents } = game
-
-    this.board.forks(opponents[this.marker]).forEach(fork => {
+    const eligibleForks = this.forks(game).filter(fork => {
       const winningPosition = new BoardParser(fork.state).indexOfWinningPosition(this.marker)
       const opponentWillLetMeWin = fork.openSpaces.includes(winningPosition)
+      return !opponentWillLetMeWin
+    })
 
-      if (opponentWillLetMeWin) {
-        return;
-      }
-
+    eligibleForks.forEach(fork => {
       fork.openSpaces.forEach(index => {
         const newCalc = new this.constructor(fork.state, index, this.marker, this.depth + 10)
         newCalc.calculateScore(game)

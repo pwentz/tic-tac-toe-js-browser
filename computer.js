@@ -1,4 +1,5 @@
 const ScoreCalculator = require('./scoreCalculator')
+
 module.exports = class Computer {
   constructor(marker) {
     this.marker = marker
