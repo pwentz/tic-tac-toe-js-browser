@@ -15,8 +15,32 @@ describe('Computer', () => {
         assert.equal(computer.getMove(new Board(board)), 4)
       })
 
+      it('can return another move that will seal the victory', () => {
+        const board = ['X', 'X', 'O',
+                       ' ', ' ', 'O',
+                       'O', ' ', ' ']
+
+        const computer = new Computer('O')
+
+        const move = computer.getMove(new Board(board))
+
+        const isFourOrEight = (move) => move === 8 || move === 4
+
+        assert.isTrue(isFourOrEight(move))
+      })
+
       it('can return the move that will block opponent', () => {
         const board = ['X', 'O', ' ',
+                       'O', ' ', ' ',
+                       'X', 'X', ' ']
+
+        const computer = new Computer('O')
+
+        assert.equal(computer.getMove(new Board(board)), 8)
+      })
+
+      it('can return another move that will block opponent', () => {
+        const board = ['O', ' ', ' ',
                        'O', ' ', ' ',
                        'X', 'X', ' ']
 
@@ -28,23 +52,27 @@ describe('Computer', () => {
 
     context('more ambiguous scenarios', () => {
       it('will return position to cut off forking strategy', () => {
-        const board = ['X', ' ', ' ',
-                       ' ', 'O', ' ',
-                       ' ', ' ', 'O']
-
-        const computer = new Computer('X')
-
-        assert.equal(computer.getMove(new Board(board)), 2)
-      })
-
-      it('if position can help both offense and defense, it plays that position', () => {
-        const board = [' ', ' ', 'X',
-                       ' ', 'O', ' ',
+        const board = [' ', ' ', 'O',
+                       ' ', 'X', ' ',
                        'O', ' ', ' ']
 
         const computer = new Computer('X')
 
-        assert.equal(computer.getMove(new Board(board)), 0)
+        const move = computer.getMove(new Board(board))
+
+        const isTwoOrSeven = move => (move === 1) || (move === 7)
+
+        assert.isTrue(isTwoOrSeven(move))
+      })
+
+      it('then takes a corner', () => {
+        const board = [' ', 'X', 'O',
+                       ' ', 'X', ' ',
+                       'O', 'O', ' ']
+
+        const computer = new Computer('X')
+
+        assert.equal(computer.getMove(new Board(board)), 8)
       })
     })
   })

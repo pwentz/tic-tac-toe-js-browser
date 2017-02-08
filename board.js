@@ -14,7 +14,19 @@ module.exports = class Board {
     return this.indicesOf(' ')
   }
 
+  get parser() {
+    return new BoardParser(this.state)
+  }
+
   forks(marker) {
+    // return the fork that will lead to opponent victory
+    // const winningPosition = this.parser.indexOfWinningPosition(marker)
+    // const isOpponentInPositionToWin = this.state.includes(winningPosition)
+    // if (isOpponentInPositionToWin) {
+    //   const boardCopy = [...this.state]
+    //   boardCopy[winningPosition] = marker
+    //   return new this.constructor(boardCopy)
+    // }
     return this.openSpaces.map(position => {
       const boardCopy = [...this.state]
       boardCopy[position] = marker

@@ -25,10 +25,10 @@ describe('Game Simulation', () => {
           const randomPosition = board.openSpaces[Math.round(Math.random() * (board.openSpaces.length - 1))]
 
           board.addMarker(userMarker, randomPosition)
-          // console.log(board.state.slice(0,3))
-          // console.log(board.state.slice(3,6))
-          // console.log(board.state.slice(6,9))
-          // console.log('---------------')
+          console.log(board.state.slice(0,3))
+          console.log(board.state.slice(3,6))
+          console.log(board.state.slice(6,9))
+          console.log('---------------')
 
           assert.isFalse(Outcome.didWin(board, userMarker))
 
@@ -43,12 +43,13 @@ describe('Game Simulation', () => {
           if (Outcome.isGameOver(board, computerMarker)) {
             break
           }
-          // console.log(board.state.slice(0,3))
-          // console.log(board.state.slice(3,6))
-          // console.log(board.state.slice(6,9))
-          // console.log('---------------')
+          console.log(board.state.slice(0,3))
+          console.log(board.state.slice(3,6))
+          console.log(board.state.slice(6,9))
+          console.log('---------------')
         }
-        // console.log('GAME OVER')
+
+        console.log('GAME OVER')
 
         assert.isFalse(Outcome.didWin(board, userMarker))
       }
