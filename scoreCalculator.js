@@ -29,6 +29,12 @@ module.exports = class ScoreCalculator {
     return new BoardParser(this.board.state)
   }
 
+  get forks() {
+    const opposingMarker = this.opposingSymbols[this.marker]
+
+    return this.board.forks(opposingMarker)
+  }
+
   calculateScore() {
     if (this.outcome.didWin(this.board, this.marker)) {
       this.score = (100 - (this.depth * 2))
@@ -37,8 +43,7 @@ module.exports = class ScoreCalculator {
 
     const opposingMarker = this.opposingSymbols[this.marker]
 
-    const forks = this.board.forks(opposingMarker)
-    const didOpponentWin = forks.some(fork => {
+    const didOpponentWin = this.forks.some(fork => {
       return this.outcome.didWin(fork, opposingMarker)
     })
 
@@ -50,9 +55,7 @@ module.exports = class ScoreCalculator {
   }
 
   calculateForks() {
-    const opposingMarker = this.opposingSymbols[this.marker]
-
-    this.board.forks(opposingMarker).forEach(fork => {
+    this.forks.forEach(fork => {
       const winningPosition = new BoardParser(fork.state).indexOfWinningPosition(this.marker)
       const opponentWillLetMeWin = fork.openSpaces.includes(winningPosition)
 
