@@ -1,6 +1,6 @@
 const assert = require('chai').assert
-const Outcome = require('../../outcome')
-const Board = require('../../board')
+const Outcome = require('../../lib/outcome')
+const Board = require('../../lib/board')
 
 describe('Outcome', () => {
   describe('#didWinDiagonally', () => {

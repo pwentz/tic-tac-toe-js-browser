@@ -1,9 +1,9 @@
 const assert = require('chai').assert
-const ScoreCalculator = require('../../scoreCalculator')
-const Board = require('../../board')
-const Game = require('../../game')
+const GameScenario = require('../../lib/gameScenario')
+const Board = require('../../lib/board')
+const Game = require('../../lib/game')
 
-describe('ScoreCalculator', () => {
+describe('GameScenario', () => {
   describe('#calculateScore', () => {
     context('comparisons', () => {
       it('has a higher score if position will win', () => {
@@ -11,8 +11,8 @@ describe('ScoreCalculator', () => {
                        ' ', ' ', ' ',
                        ' ', ' ', 'O']
 
-        const goodMoveCalc = new ScoreCalculator(board, 4, 'O', 0)
-        const badMoveCalc = new ScoreCalculator(board, 5, 'O', 0)
+        const goodMoveCalc = new GameScenario(board, 4, 'O', 0)
+        const badMoveCalc = new GameScenario(board, 5, 'O', 0)
 
         const game = new Game({ board: new Board(board),
                                 markerOne: 'O',
@@ -29,8 +29,8 @@ describe('ScoreCalculator', () => {
                        ' ', ' ', ' ',
                        ' ', ' ', 'O']
 
-        const goodMoveCalc = new ScoreCalculator(board, 4, 'X', 0)
-        const badMoveCalc = new ScoreCalculator(board, 5, 'X', 0)
+        const goodMoveCalc = new GameScenario(board, 4, 'X', 0)
+        const badMoveCalc = new GameScenario(board, 5, 'X', 0)
 
         const game = new Game({ board: new Board(board),
                                 markerOne: 'O',
@@ -47,8 +47,8 @@ describe('ScoreCalculator', () => {
                        ' ', ' ', ' ',
                        'O', ' ', 'O']
 
-        const goodMoveCalc = new ScoreCalculator(board, 1, 'X', 0)
-        const badMoveCalc = new ScoreCalculator(board, 7, 'X', 0)
+        const goodMoveCalc = new GameScenario(board, 1, 'X', 0)
+        const badMoveCalc = new GameScenario(board, 7, 'X', 0)
 
         const game = new Game({ board: new Board(board),
                                 markerOne: 'O',
@@ -69,8 +69,8 @@ describe('ScoreCalculator', () => {
                                   ' ', ' ', ' ',
                                   ' ', ' ', ' ']
 
-        const immediateWinCalc = new ScoreCalculator(immediateWinState, 4, 'O', 0)
-        const eventualWinCalc = new ScoreCalculator(eventualWinState, 4, 'O', 0)
+        const immediateWinCalc = new GameScenario(immediateWinState, 4, 'O', 0)
+        const eventualWinCalc = new GameScenario(eventualWinState, 4, 'O', 0)
 
         const immediateWinGame = new Game({ board: new Board(immediateWinState),
                                             markerOne: 'O',
@@ -94,17 +94,12 @@ describe('ScoreCalculator', () => {
                        ' ', 'X', 'O',
                        ' ', 'O', ' ']
 
-        const openings = board.reduce((res, m, index) => {
-          if (m === ' ') return [...res, index]
-            return res
-        }, [])
-
         const game = new Game({ board: new Board(board),
                                 markerOne: 'O',
                                 markerTwo: 'X' })
 
-        const scoresByPosition = openings.map(index => {
-          const calc = new ScoreCalculator(board, index, 'X', 0)
+        const scoresByPosition = game.board.openSpaces.map(index => {
+          const calc = new GameScenario(board, index, 'X', 0)
           calc.calculateScore(game)
           calc.calculateForks(game)
           return calc
@@ -120,17 +115,12 @@ describe('ScoreCalculator', () => {
                        'O', 'X', ' ',
                        ' ', 'O', ' ']
 
-        const openings = board.reduce((res, m, index) => {
-          if (m === ' ') return [...res, index]
-            return res
-        }, [])
-
         const game = new Game({ board: new Board(board),
                                 markerOne: 'O',
                                 markerTwo: 'X' })
 
-        const scoresByPosition = openings.map(index => {
-          const calc = new ScoreCalculator(board, index, 'X', 0)
+        const scoresByPosition = game.board.openSpaces.map(index => {
+          const calc = new GameScenario(board, index, 'X', 0)
           calc.calculateScore(game)
           calc.calculateForks(game)
           return calc

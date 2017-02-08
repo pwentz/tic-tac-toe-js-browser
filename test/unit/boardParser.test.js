@@ -1,5 +1,5 @@
 const assert = require('chai').assert
-const BoardParser = require('../../boardParser')
+const BoardParser = require('../../lib/boardParser')
 
 describe('boardParser', () => {
   describe('#indexOfWinningPositionDiagonally', () => {

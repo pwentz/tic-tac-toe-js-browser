@@ -1,7 +1,7 @@
 const assert = require('chai').assert
-const Computer = require('../../computer')
-const Board = require('../../board')
-const Game = require('../../game')
+const Computer = require('../../lib/computer')
+const Board = require('../../lib/board')
+const Game = require('../../lib/game')
 
 describe('Computer', () => {
   describe('#getMove', () => {
@@ -80,9 +80,9 @@ describe('Computer', () => {
 
         const move = computer.getMove(game)
 
-        const isTwoOrSeven = move => (move === 1) || (move === 7)
+        const isOneOrSeven = move => (move === 1) || (move === 7)
 
-        assert.isTrue(isTwoOrSeven(move))
+        assert.isTrue(isOneOrSeven(move))
       })
 
       it('then takes a corner', () => {
