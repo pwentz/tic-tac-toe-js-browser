@@ -14,36 +14,21 @@ module.exports = class ScoreCalculator {
     this.depth = depth
   }
 
-  get opposingSymbols() {
-    return {
-      'X': 'O',
-      'O': 'X'
-    }
-  }
-
   get outcome() {
     return Outcome
   }
 
-  get parser() {
-    return new BoardParser(this.board.state)
-  }
+  calculateScore(game) {
+    const { opponents } = game
 
-  get forks() {
-    const opposingMarker = this.opposingSymbols[this.marker]
-
-    return this.board.forks(opposingMarker)
-  }
-
-  calculateScore() {
     if (this.outcome.didWin(this.board, this.marker)) {
       this.score = (100 - (this.depth * 2))
       return;
     }
 
-    const opposingMarker = this.opposingSymbols[this.marker]
+    const opposingMarker = opponents[this.marker]
 
-    const didOpponentWin = this.forks.some(fork => {
+    const didOpponentWin = this.board.forks(opposingMarker).some(fork => {
       return this.outcome.didWin(fork, opposingMarker)
     })
 
@@ -54,8 +39,10 @@ module.exports = class ScoreCalculator {
 
   }
 
-  calculateForks() {
-    this.forks.forEach(fork => {
+  calculateForks(game) {
+    const { opponents } = game
+
+    this.board.forks(opponents[this.marker]).forEach(fork => {
       const winningPosition = new BoardParser(fork.state).indexOfWinningPosition(this.marker)
       const opponentWillLetMeWin = fork.openSpaces.includes(winningPosition)
 
@@ -65,7 +52,7 @@ module.exports = class ScoreCalculator {
 
       fork.openSpaces.forEach(index => {
         const newCalc = new this.constructor(fork.state, index, this.marker, this.depth + 10)
-        newCalc.calculateScore()
+        newCalc.calculateScore(game)
         this.score += newCalc.score
       })
     })

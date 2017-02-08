@@ -1,6 +1,7 @@
 const assert = require('chai').assert
 const ScoreCalculator = require('../../scoreCalculator')
 const Board = require('../../board')
+const Game = require('../../game')
 
 describe('ScoreCalculator', () => {
   describe('#calculateScore', () => {
@@ -13,8 +14,12 @@ describe('ScoreCalculator', () => {
         const goodMoveCalc = new ScoreCalculator(board, 4, 'O', 0)
         const badMoveCalc = new ScoreCalculator(board, 5, 'O', 0)
 
-        goodMoveCalc.calculateScore()
-        badMoveCalc.calculateScore()
+        const game = new Game({ board: new Board(board),
+                                markerOne: 'O',
+                                markerTwo: 'X' })
+
+        goodMoveCalc.calculateScore(game)
+        badMoveCalc.calculateScore(game)
 
         assert.isAbove(goodMoveCalc.score, badMoveCalc.score)
       })
@@ -27,8 +32,12 @@ describe('ScoreCalculator', () => {
         const goodMoveCalc = new ScoreCalculator(board, 4, 'X', 0)
         const badMoveCalc = new ScoreCalculator(board, 5, 'X', 0)
 
-        goodMoveCalc.calculateScore()
-        badMoveCalc.calculateScore()
+        const game = new Game({ board: new Board(board),
+                                markerOne: 'O',
+                                markerTwo: 'X' })
+
+        goodMoveCalc.calculateScore(game)
+        badMoveCalc.calculateScore(game)
 
         assert.isAbove(goodMoveCalc.score, badMoveCalc.score)
       })
@@ -41,8 +50,12 @@ describe('ScoreCalculator', () => {
         const goodMoveCalc = new ScoreCalculator(board, 1, 'X', 0)
         const badMoveCalc = new ScoreCalculator(board, 7, 'X', 0)
 
-        goodMoveCalc.calculateScore()
-        badMoveCalc.calculateScore()
+        const game = new Game({ board: new Board(board),
+                                markerOne: 'O',
+                                markerTwo: 'X' })
+
+        goodMoveCalc.calculateScore(game)
+        badMoveCalc.calculateScore(game)
 
         assert.isAbove(goodMoveCalc.score, badMoveCalc.score)
       })
@@ -59,8 +72,16 @@ describe('ScoreCalculator', () => {
         const immediateWinCalc = new ScoreCalculator(immediateWinState, 4, 'O', 0)
         const eventualWinCalc = new ScoreCalculator(eventualWinState, 4, 'O', 0)
 
-        immediateWinCalc.calculateScore()
-        eventualWinCalc.calculateScore()
+        const immediateWinGame = new Game({ board: new Board(immediateWinState),
+                                            markerOne: 'O',
+                                            markerTwo: 'X' })
+
+        const eventualWinGame = new Game({ board: new Board(eventualWinState),
+                                           markerOne: 'O',
+                                           markerTwo: 'X' })
+
+        immediateWinCalc.calculateScore(immediateWinGame)
+        eventualWinCalc.calculateScore(eventualWinGame)
 
         assert.isAbove(immediateWinCalc.score, eventualWinCalc.score)
       })
@@ -78,10 +99,14 @@ describe('ScoreCalculator', () => {
             return res
         }, [])
 
+        const game = new Game({ board: new Board(board),
+                                markerOne: 'O',
+                                markerTwo: 'X' })
+
         const scoresByPosition = openings.map(index => {
           const calc = new ScoreCalculator(board, index, 'X', 0)
-          calc.calculateScore()
-          calc.calculateForks()
+          calc.calculateScore(game)
+          calc.calculateForks(game)
           return calc
         })
 
@@ -100,10 +125,14 @@ describe('ScoreCalculator', () => {
             return res
         }, [])
 
+        const game = new Game({ board: new Board(board),
+                                markerOne: 'O',
+                                markerTwo: 'X' })
+
         const scoresByPosition = openings.map(index => {
           const calc = new ScoreCalculator(board, index, 'X', 0)
-          calc.calculateScore()
-          calc.calculateForks()
+          calc.calculateScore(game)
+          calc.calculateForks(game)
           return calc
         })
 

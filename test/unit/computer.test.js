@@ -1,6 +1,7 @@
 const assert = require('chai').assert
 const Computer = require('../../computer')
 const Board = require('../../board')
+const Game = require('../../game')
 
 describe('Computer', () => {
   describe('#getMove', () => {
@@ -11,8 +12,11 @@ describe('Computer', () => {
                        ' ', ' ', 'X']
 
         const computer = new Computer('X')
+        const game = new Game({ board: new Board(board),
+                                markerOne: 'X',
+                                markerTwo: 'O' })
 
-        assert.equal(computer.getMove(new Board(board)), 4)
+        assert.equal(computer.getMove(game), 4)
       })
 
       it('can return another move that will seal the victory', () => {
@@ -22,7 +26,11 @@ describe('Computer', () => {
 
         const computer = new Computer('O')
 
-        const move = computer.getMove(new Board(board))
+        const game = new Game({ board: new Board(board),
+                                markerOne: 'X',
+                                markerTwo: 'O' })
+
+        const move = computer.getMove(game)
 
         const isFourOrEight = (move) => move === 8 || move === 4
 
@@ -36,7 +44,11 @@ describe('Computer', () => {
 
         const computer = new Computer('O')
 
-        assert.equal(computer.getMove(new Board(board)), 8)
+        const game = new Game({ board: new Board(board),
+                                markerOne: 'X',
+                                markerTwo: 'O' })
+
+        assert.equal(computer.getMove(game), 8)
       })
 
       it('can return another move that will block opponent', () => {
@@ -46,7 +58,11 @@ describe('Computer', () => {
 
         const computer = new Computer('O')
 
-        assert.equal(computer.getMove(new Board(board)), 8)
+        const game = new Game({ board: new Board(board),
+                                markerOne: 'X',
+                                markerTwo: 'O' })
+
+        assert.equal(computer.getMove(game), 8)
       })
     })
 
@@ -58,7 +74,11 @@ describe('Computer', () => {
 
         const computer = new Computer('X')
 
-        const move = computer.getMove(new Board(board))
+        const game = new Game({ board: new Board(board),
+                                markerOne: 'X',
+                                markerTwo: 'O' })
+
+        const move = computer.getMove(game)
 
         const isTwoOrSeven = move => (move === 1) || (move === 7)
 
@@ -72,7 +92,11 @@ describe('Computer', () => {
 
         const computer = new Computer('X')
 
-        assert.equal(computer.getMove(new Board(board)), 8)
+        const game = new Game({ board: new Board(board),
+                                markerOne: 'X',
+                                markerTwo: 'O' })
+
+        assert.equal(computer.getMove(game), 8)
       })
     })
   })

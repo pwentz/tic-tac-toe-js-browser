@@ -4,16 +4,17 @@ module.exports = class Computer {
     this.marker = marker
   }
 
-  getMove(board) {
+  getMove(game) {
+    const { board } = game
     const scoresByOpenPosition = board.openSpaces.map(opening => {
       const calculator = new ScoreCalculator(board.state, opening, this.marker, 0)
-      calculator.calculateScore()
+      calculator.calculateScore(game)
       return calculator
     })
 
     if (scoresByOpenPosition.every(s => s.score === 0)) {
       scoresByOpenPosition.forEach((s) => {
-        s.calculateForks()
+        s.calculateForks(game)
       })
     }
 

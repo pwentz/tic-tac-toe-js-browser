@@ -2,6 +2,7 @@ const assert = require('chai').assert
 const Computer = require('../../computer')
 const Outcome = require('../../outcome')
 const Board = require('../../board')
+const Game = require('../../game')
 
 
 describe('Game Simulation', function() {
@@ -20,6 +21,8 @@ describe('Game Simulation', function() {
         const computerMarker = 'X'
         const computer = new Computer(computerMarker)
         const userMarker = 'O'
+        const game = new Game({ board, markerOne: computerMarker,
+                                       markerTwo: userMarker })
 
         while(!Outcome.isGameOver(board, computerMarker)) {
           const randomPosition = board.openSpaces[Math.round(Math.random() * (board.openSpaces.length - 1))]
@@ -34,7 +37,7 @@ describe('Game Simulation', function() {
             break
           }
 
-          const move = computer.getMove(board)
+          const move = computer.getMove(game)
 
           board.addMarker(computerMarker, move)
 
@@ -64,9 +67,11 @@ describe('Game Simulation', function() {
         const computerOne = new Computer(computerOneMarker)
         const computerTwoMarker = 'O'
         const computerTwo = new Computer(computerTwoMarker)
+        const game = new Game({ board, markerOne: computerOneMarker,
+                                       markerTwo: computerTwoMarker })
 
         while(!Outcome.isGameOver(board, computerTwoMarker)) {
-          const computerOneMove = computerOne.getMove(board)
+          const computerOneMove = computerOne.getMove(game)
 
           board.addMarker(computerOneMarker, computerOneMove)
 
@@ -74,7 +79,7 @@ describe('Game Simulation', function() {
             break
           }
 
-          const computerTwoMove = computerTwo.getMove(board)
+          const computerTwoMove = computerTwo.getMove(game)
 
           board.addMarker(computerTwoMarker, computerTwoMove)
         }
