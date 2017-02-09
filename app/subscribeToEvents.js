@@ -8,6 +8,9 @@ const subscribeToEvents = () => {
       return [...result, ...node.children]
     }, []).map(n => n.innerText)
 
+    const nodes = [...document.querySelectorAll('td')]
+
+    nodes[textField.value].innerText = 'X'
     console.log(totalSpaces)
 
     e.preventDefault()
