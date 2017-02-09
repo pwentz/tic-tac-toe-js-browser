@@ -1,61 +1,44 @@
-const Computer = require('./computer')
-const Outcome = require('./outcome')
-const Board = require('./board')
-const Game = require('./game')
+const setup = require('./setup')
 
-const subscribeToEvents = () => {
+const logResults = (result) => {
+  const newText = document.createElement('p')
+  newText.classList.add('result-text')
+  newText.innerText = result
+  document.querySelector('body').appendChild(newText)
+}
 
-  const state = [' ', ' ', ' ',
-                 ' ', ' ', ' ',
-                 ' ', ' ', ' ']
+(() => {
+  const { game, userMarker, computerMarker, computer, board, isGameOver } = setup()
 
-  const board = new Board(state)
-  const computerMarker = 'X'
-  const userMarker = 'O'
-  const computer = new Computer(computerMarker)
-  const game = new Game({ board, markerOne: computerMarker,
-                                 markerTwo: userMarker })
+  document.addEventListener('click', (e) => {
+    if (!e.target.matches('td')) return
 
-  const submitButton = document.querySelector('#play-turn')
-
-  submitButton.addEventListener('click', (e) => {
     e.preventDefault()
-    if(!Outcome.isGameOver(board, computerMarker)) {
-      const textField = document.querySelector('input')
-      const tableBody = document.querySelector('tbody')
 
-      const nodes = [...document.querySelectorAll('td')]
-      nodes[textField.value].innerText = userMarker
-      board.addMarker(userMarker, textField.value)
+    if (!isGameOver()) {
+      const userSelection = parseInt(e.target.getAttribute('ref'))
+      // this is game logic
+      if (!board.openSpaces.includes(userSelection)) return
+      //
+      e.target.innerText = userMarker
+      board.addMarker(userMarker, userSelection)
 
-      if (Outcome.didWin(board, userMarker)) {
-        console.log('user wins')
-        return
-      }
-
-      if (Outcome.isGameOver(board, userMarker)) {
-        console.log('tie!')
+      if (isGameOver()) {
+        const getMessage = isGameOver()
+        logResults(getMessage())
         return
       }
 
       const move = computer.getMove(game)
-
-      board.addMarker(computerMarker, move)
+      const nodes = [...document.querySelectorAll('td')]
       nodes[move].innerText = computerMarker
+      board.addMarker(computerMarker, move)
 
-      if (Outcome.isGameOver(board, computerMarker)) {
-        console.log('computer wins')
+      if (isGameOver()) {
+        const getMessage = isGameOver()
+        logResults(getMessage())
         return
       }
-
-      if (Outcome.isGameOver(board, userMarker)) {
-        console.log('tie!')
-        return
-      }
-
     }
-    document.querySelector('input').value = ''
   })
-}
-
-subscribeToEvents()
+})()

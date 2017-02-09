@@ -38,7 +38,6 @@ module.exports = class GameScenario {
       this.score = -100 + (this.depth * 2)
       return;
     }
-
   }
 
   calculateForks(game) {

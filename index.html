@@ -7,31 +7,22 @@
     <table id='board'>
       <tbody>
         <tr>
-          <td>_</td>
-          <td class='middle-top'>_</td>
-          <td>_</td>
+          <td class='left-column' id='top-left' ref='0'></td>
+          <td id='top-center' ref='1'></td>
+          <td class='right-column' id='top-right' ref='2'></td>
         </tr>
         <tr id='middle-row'>
-          <td>_</td>
-          <td class='middle-cell'>_</td>
-          <td>_</td>
+          <td class='left-column' id='center-left' ref='3'></td>
+          <td id='center-center' ref='4'></td>
+          <td class='right-column' id='center-right' ref='5'></td>
         </tr>
         <tr id='right-row'>
-          <td>_</td>
-          <td class='middle-bottom'>_</td>
-          <td>_</td>
+          <td class='left-column' id='bottom-left' ref='6'></td>
+          <td ref='7'></td>
+          <td class='right-column' id='bottom-right' ref='8'></td>
         </tr>
       </tbody>
     </table>
-
-    <div>
-      <div>
-        <input />
-        <button type="submit" id="play-turn">
-          Submit
-        </button>
-      </div>
-    </div>
   </body>
   <script src='bundle.js'></script>
 </html>
