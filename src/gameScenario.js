@@ -50,9 +50,9 @@ module.exports = class GameScenario {
 
     eligibleForks.forEach(fork => {
       fork.openSpaces.forEach(indexOfOpenSpace => {
-        const newCalc = new this.constructor(fork.state, indexOfOpenSpace, this.marker, this.depth + 10)
-        newCalc.calculateScore(game)
-        this.score += newCalc.score
+        const newScenario = new this.constructor(fork.state, indexOfOpenSpace, this.marker, this.depth + 10)
+        newScenario.calculateScore(game)
+        this.score += newScenario.score
       })
     })
   }

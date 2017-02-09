@@ -1,8 +1,8 @@
 const assert = require('chai').assert
-const Computer = require('../../lib/computer')
-const Outcome = require('../../lib/outcome')
-const Board = require('../../lib/board')
-const Game = require('../../lib/game')
+const Computer = require('../../src/computer')
+const Outcome = require('../../src/outcome')
+const Board = require('../../src/board')
+const Game = require('../../src/game')
 
 
 describe('Game Simulation', function() {
@@ -28,10 +28,10 @@ describe('Game Simulation', function() {
           const randomPosition = board.openSpaces[Math.round(Math.random() * (board.openSpaces.length - 1))]
 
           board.addMarker(userMarker, randomPosition)
-          // console.log(board.state.slice(0,3))
-          // console.log(board.state.slice(3,6))
-          // console.log(board.state.slice(6,9))
-          // console.log('---------------')
+          console.log(board.state.slice(0,3))
+          console.log(board.state.slice(3,6))
+          console.log(board.state.slice(6,9))
+          console.log('---------------')
 
           if (Outcome.isGameOver(board, userMarker)) {
             break
@@ -41,13 +41,13 @@ describe('Game Simulation', function() {
 
           board.addMarker(computerMarker, move)
 
-          // console.log(board.state.slice(0,3))
-          // console.log(board.state.slice(3,6))
-          // console.log(board.state.slice(6,9))
-          // console.log('---------------')
+          console.log(board.state.slice(0,3))
+          console.log(board.state.slice(3,6))
+          console.log(board.state.slice(6,9))
+          console.log('---------------')
         }
 
-        // console.log('GAME OVER')
+        console.log('GAME OVER')
 
         assert.isFalse(Outcome.didWin(board, userMarker))
       }
