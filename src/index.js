@@ -4,7 +4,7 @@ const logResults = (result) => {
   console.log(result)
 }
 
-const subscribeToEvents = () => {
+(() => {
   const { game, userMarker, computerMarker, computer, board, isGameOver } = setup()
 
   const submitButton = document.querySelector('#play-turn')
@@ -39,6 +39,4 @@ const subscribeToEvents = () => {
 
     document.querySelector('input').value = ''
   })
-}
-
-subscribeToEvents()
+})()
