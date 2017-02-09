@@ -22,10 +22,10 @@ module.exports = () => {
            board,
            isGameOver() {
              if (Outcome.didWin(board, userMarker)){
-                return () => 'user wins'
+                return () => 'you win!'
              }
              if (Outcome.didWin(board, computerMarker)) {
-                return () => 'computer wins'
+                return () => 'computer wins!'
              }
              if (Outcome.isGameOver(board, userMarker)) {
                 return () => 'tie!'

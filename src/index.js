@@ -1,7 +1,10 @@
 const setup = require('./setup')
 
 const logResults = (result) => {
-  console.log(result)
+  const newText = document.createElement('p')
+  newText.classList.add('result-text')
+  newText.innerText = result
+  document.querySelector('body').appendChild(newText)
 }
 
 (() => {
@@ -14,6 +17,9 @@ const logResults = (result) => {
 
     if (!isGameOver()) {
       const userSelection = parseInt(e.target.getAttribute('ref'))
+      // this is game logic
+      if (!board.openSpaces.includes(userSelection)) return
+      //
       e.target.innerText = userMarker
       board.addMarker(userMarker, userSelection)
 
