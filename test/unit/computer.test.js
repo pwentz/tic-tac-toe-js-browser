@@ -1,7 +1,7 @@
 const assert = require('chai').assert
-const Computer = require('../../lib/computer')
-const Board = require('../../lib/board')
-const Game = require('../../lib/game')
+const Computer = require('../../src/computer')
+const Board = require('../../src/board')
+const Game = require('../../src/game')
 
 describe('Computer', () => {
   describe('#getMove', () => {

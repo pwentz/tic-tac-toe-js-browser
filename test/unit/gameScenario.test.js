@@ -1,7 +1,7 @@
 const assert = require('chai').assert
-const GameScenario = require('../../lib/gameScenario')
-const Board = require('../../lib/board')
-const Game = require('../../lib/game')
+const GameScenario = require('../../src/gameScenario')
+const Board = require('../../src/board')
+const Game = require('../../src/game')
 
 describe('GameScenario', () => {
   describe('#calculateScore', () => {

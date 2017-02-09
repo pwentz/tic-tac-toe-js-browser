@@ -1,8 +1,8 @@
 const assert = require('chai').assert
-const Computer = require('../../lib/computer')
-const Outcome = require('../../lib/outcome')
-const Board = require('../../lib/board')
-const Game = require('../../lib/game')
+const Computer = require('../../src/computer')
+const Outcome = require('../../src/outcome')
+const Board = require('../../src/board')
+const Game = require('../../src/game')
 
 
 describe('Game Simulation', function() {
