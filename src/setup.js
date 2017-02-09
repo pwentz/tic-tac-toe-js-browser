@@ -28,7 +28,7 @@ module.exports = () => {
                 return () => 'computer wins!'
              }
              if (Outcome.isGameOver(board, userMarker)) {
-                return () => 'tie!'
+                return () => "it's a tie!"
              }
            }
   }

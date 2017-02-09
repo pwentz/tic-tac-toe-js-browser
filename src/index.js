@@ -17,11 +17,14 @@ const logResults = (result) => {
 
     if (!isGameOver()) {
       const userSelection = parseInt(e.target.getAttribute('ref'))
-      // this is game logic
-      if (!board.openSpaces.includes(userSelection)) return
-      //
+
+      const isValidInput = board.addMarker(userMarker, userSelection)
+
+      if (!isValidInput) {
+        return
+      }
+
       e.target.innerText = userMarker
-      board.addMarker(userMarker, userSelection)
 
       if (isGameOver()) {
         const getMessage = isGameOver()
