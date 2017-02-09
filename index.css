@@ -1,5 +1,12 @@
+#input-container {
+  display: flex;
+  justify-content: center;
+  align-items: center
+}
+
 #board {
   margin: 0 auto;
+  margin-top: 150px;
 }
 
 .middle-top {
@@ -15,4 +22,24 @@
 .middle-cell {
   border-left: 1px solid black;
   border-right: 1px solid black;
+}
+
+td {
+  height: 100px;
+  width: 100px;
+  text-align: center;
+  font-size: 32px;
+  font-family: sans-serif;
+}
+
+.left-column {
+  border-right: 3px solid black;
+}
+
+.right-column {
+  border-left: 3px solid black;
+}
+
+#top-left, #center-left, #top-right, #center-right, #top-center, #center-center {
+  border-bottom: 3px solid black;
 }

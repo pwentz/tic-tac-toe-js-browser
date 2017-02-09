@@ -7,17 +7,15 @@ const logResults = (result) => {
 (() => {
   const { game, userMarker, computerMarker, computer, board, isGameOver } = setup()
 
-  const submitButton = document.querySelector('#play-turn')
+  document.addEventListener('click', (e) => {
+    if (!e.target.matches('td')) return
 
-  submitButton.addEventListener('click', (e) => {
     e.preventDefault()
 
-    if(!isGameOver()) {
-      const textField = document.querySelector('input')
-
-      const nodes = [...document.querySelectorAll('td')]
-      nodes[textField.value].innerText = userMarker
-      board.addMarker(userMarker, textField.value)
+    if (!isGameOver()) {
+      const userSelection = parseInt(e.target.getAttribute('ref'))
+      e.target.innerText = userMarker
+      board.addMarker(userMarker, userSelection)
 
       if (isGameOver()) {
         const getMessage = isGameOver()
@@ -26,9 +24,9 @@ const logResults = (result) => {
       }
 
       const move = computer.getMove(game)
-
-      board.addMarker(computerMarker, move)
+      const nodes = [...document.querySelectorAll('td')]
       nodes[move].innerText = computerMarker
+      board.addMarker(computerMarker, move)
 
       if (isGameOver()) {
         const getMessage = isGameOver()
@@ -36,7 +34,5 @@ const logResults = (result) => {
         return
       }
     }
-
-    document.querySelector('input').value = ''
   })
 })()
