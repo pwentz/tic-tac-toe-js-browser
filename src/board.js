@@ -2,7 +2,7 @@ const { transpose } = require('./util')
 
 module.exports = class Board {
   constructor(boardState) {
-    this.state = boardState
+    this.state = [...boardState]
   }
 
   transpose() {
@@ -30,8 +30,14 @@ module.exports = class Board {
   }
 
   addMarker(marker, position) {
+    if (!this.openSpaces.includes(position)) {
+      return false
+    }
+
     const copy = [...this.state]
     copy[position] = marker
     this.state = copy
+
+    return true
   }
 }

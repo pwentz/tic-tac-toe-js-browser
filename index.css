@@ -2,6 +2,14 @@ body {
   background-color: black;
 }
 
+#title {
+  font-family: 'Pangolin', cursive;
+  color: white;
+  text-align: center;
+  font-size: 48px;
+  font-weight: 600;
+}
+
 #input-container {
   display: flex;
   justify-content: center;
@@ -10,22 +18,8 @@ body {
 
 #board {
   margin: 0 auto;
-  margin-top: 150px;
-}
-
-.middle-top {
-  border-left: 1px solid white;
-  border-right: 1px solid white;
-}
-
-.middle-bottom {
-  border-left: 1px solid white;
-  border-right: 1px solid white;
-}
-
-.middle-cell {
-  border-left: 1px solid white;
-  border-right: 1px solid white;
+  margin-top: 125px;
+  margin-bottom: 25px;
 }
 
 td {
@@ -34,7 +28,7 @@ td {
   text-align: center;
   font-size: 32px;
   color: white;
-  font-family: sans-serif;
+  font-family: 'Pangolin', cursive;
 }
 
 .left-column {
@@ -52,6 +46,6 @@ td {
 .result-text {
   color: white;
   font-size: 32px;
-  font-family: sans-serif;
+  font-family: 'Pangolin', cursive;
   text-align: center;
 }
