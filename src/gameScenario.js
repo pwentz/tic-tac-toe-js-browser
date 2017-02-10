@@ -27,13 +27,12 @@ module.exports = class GameScenario {
   validForks(game) {
     const { opponents } = game
 
-    const constraint = (fork) => {
+    const opponentWillNotLetMeWin = (fork) => {
       const winningPosition = BoardParser.indexOfWinningPosition(fork.state, this.marker)
-      const willOpponentLetMeWin = fork.openSpaces.includes(winningPosition)
-      return !willOpponentLetMeWin
+      return !fork.isOpen(winningPosition)
     }
 
-    return this.board.getForks(opponents[this.marker], constraint)
+    return this.board.getForks(opponents[this.marker], opponentWillNotLetMeWin)
   }
 
   calculateScore(game) {

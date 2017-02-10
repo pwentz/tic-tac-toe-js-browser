@@ -1,5 +1,3 @@
-const { transpose } = require('./util')
-
 module.exports = class BoardParser {
   static hasWinningSetup(trio, markersInTrio) {
     return markersInTrio.length === 2 && trio.includes(' ')

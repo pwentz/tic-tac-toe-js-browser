@@ -14,15 +14,15 @@ module.exports = class Board {
     return this.indicesOf(' ')
   }
 
-  getForks(marker, filterConstraint) {
+  getForks(marker, constraint) {
     const forks = this.openSpaces.map(position => {
       const boardCopy = [...this.state]
       boardCopy[position] = marker
       return new this.constructor(boardCopy)
     })
 
-    if (filterConstraint) {
-      return forks.filter(filterConstraint)
+    if (constraint) {
+      return forks.filter(constraint)
     }
 
     return forks
@@ -45,5 +45,9 @@ module.exports = class Board {
     this.state = copy
 
     return true
+  }
+
+  isOpen(index) {
+    return this.openSpaces.includes(index)
   }
 }

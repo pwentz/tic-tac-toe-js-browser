@@ -1,5 +1,4 @@
 class Outcome {
-
   static didWinDiagonally(board, selectedMarker) {
     const mySpaces = board.indicesOf(selectedMarker)
 
