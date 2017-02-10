@@ -42,7 +42,7 @@ module.exports = class GameScenario {
 
   calculateForks(game) {
     const eligibleForks = this.forks(game).filter(fork => {
-      const winningPosition = new BoardParser(fork.state).indexOfWinningPosition(this.marker)
+      const winningPosition = BoardParser.indexOfWinningPosition(fork.state, this.marker)
       const willOpponentLetMeWin = fork.openSpaces.includes(winningPosition)
       return !willOpponentLetMeWin
     })

@@ -1,21 +1,13 @@
 const { transpose } = require('./util')
 
 module.exports = class BoardParser {
-  constructor(board) {
-    this.board = board
-  }
-
-  get transposedBoard() {
-    return transpose(this.board)
-  }
-
-  hasWinningSetup(trio, markersInTrio) {
+  static hasWinningSetup(trio, markersInTrio) {
     return markersInTrio.length === 2 && trio.includes(' ')
   }
 
-  indexOfWinningPositionDiagonally(marker) {
-    const downwardSlope = [this.board[0], this.board[4], this.board[8]]
-    const upwardSlope = [this.board[2], this.board[4], this.board[6]]
+  static indexOfWinningPositionDiagonally(board, marker) {
+    const downwardSlope = [board[0], board[4], board[8]]
+    const upwardSlope = [board[2], board[4], board[6]]
 
     const downwardMarkers = downwardSlope.filter(m => m === marker)
     const upwardMarkers = upwardSlope.filter(m => m === marker)
@@ -43,12 +35,12 @@ module.exports = class BoardParser {
     return -1
   }
 
-  indexOfWinningPositionHorizontally(marker) {
-    for (let i = 0 ; i < this.board.length ; i++) {
+  static indexOfWinningPositionHorizontally(board, marker) {
+    for (let i = 0 ; i < board.length ; i++) {
       const isBeginningOfRow = i % 3 === 0
 
       if (isBeginningOfRow) {
-        const row = this.board.slice(i, i + 3)
+        const row = board.slice(i, i + 3)
         const rowMarkers = row.filter(m => m === marker)
 
         if (this.hasWinningSetup(row, rowMarkers)) {
@@ -60,12 +52,12 @@ module.exports = class BoardParser {
     return -1
   }
 
-  indexOfWinningPositionVertically(marker) {
-    for (let i = 0 ; i < this.board.length ; i++) {
+  static indexOfWinningPositionVertically(board, marker) {
+    for (let i = 0 ; i < board.length ; i++) {
       const isTopOfColumn = i < 3
 
       if (isTopOfColumn) {
-        const column = [this.board[i], this.board[i + 3], this.board[i + 6]]
+        const column = [board[i], board[i + 3], board[i + 6]]
         const columnMarkers = column.filter(m => m === marker)
 
         if (this.hasWinningSetup(column, columnMarkers)) {
@@ -77,10 +69,10 @@ module.exports = class BoardParser {
     return -1
   }
 
-  indexOfWinningPosition(marker) {
-    const diagonalPosition = this.indexOfWinningPositionDiagonally(marker)
-    const horizontalPosition = this.indexOfWinningPositionHorizontally(marker)
-    const verticalPosition = this.indexOfWinningPositionVertically(marker)
+  static indexOfWinningPosition(board, marker) {
+    const diagonalPosition = this.indexOfWinningPositionDiagonally(board, marker)
+    const horizontalPosition = this.indexOfWinningPositionHorizontally(board, marker)
+    const verticalPosition = this.indexOfWinningPositionVertically(board, marker)
 
     if (diagonalPosition >= 0) return diagonalPosition
     if (horizontalPosition >= 0) return horizontalPosition
