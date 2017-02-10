@@ -1,5 +1,5 @@
 module.exports = class Game {
-  constructor({ board, markerOne, markerTwo }) {
+  constructor({ board, markerOne, markerTwo}) {
     this.board = board
     this.markerOne = markerOne
     this.markerTwo = markerTwo
