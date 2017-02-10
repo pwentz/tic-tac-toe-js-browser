@@ -34,7 +34,8 @@ td {
   height: 100px;
   width: 100px;
   text-align: center;
-  font-size: 32px;
+  font-size: 48px;
+  font-weight: 600;
   color: white;
   font-family: 'Pangolin', cursive;
 }

@@ -1,5 +1,4 @@
 const setup = require('./setup')
-const Computer = require('./computer')
 
 const logResults = (result) => {
   const newText = document.createElement('p')
