@@ -1,4 +1,5 @@
 const Board = require('./board')
+const BoardParser = require('./boardParser')
 const Outcome = require('./outcome')
 
 module.exports = class GameScenario {
@@ -20,13 +21,19 @@ module.exports = class GameScenario {
   allForks(game) {
     const { opponents } = game
 
-    return this.board.allForks(opponents[this.marker])
+    return this.board.getForks(opponents[this.marker])
   }
 
   validForks(game) {
     const { opponents } = game
 
-    return this.board.validForks(this.marker, opponents[this.marker])
+    const constraint = (fork) => {
+      const winningPosition = BoardParser.indexOfWinningPosition(fork.state, this.marker)
+      const willOpponentLetMeWin = fork.openSpaces.includes(winningPosition)
+      return !willOpponentLetMeWin
+    }
+
+    return this.board.getForks(opponents[this.marker], constraint)
   }
 
   calculateScore(game) {

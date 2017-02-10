@@ -1,5 +1,4 @@
 const { transpose } = require('./util')
-const BoardParser = require('./boardParser')
 
 module.exports = class Board {
   constructor(boardState) {
@@ -15,23 +14,10 @@ module.exports = class Board {
     return this.indicesOf(' ')
   }
 
-  get parser() {
-    return BoardParser
-  }
-
-  validForks(myMarker, opponentsMarker) {
-    const constraint = (fork) => {
-      const winningPosition = this.parser.indexOfWinningPosition(fork.state, myMarker)
-      return !fork.openSpaces.includes(winningPosition)
-    }
-
-    return this.allForks(opponentsMarker, constraint)
-  }
-
-  allForks(opponentsMarker, filterConstraint) {
+  getForks(marker, filterConstraint) {
     const forks = this.openSpaces.map(position => {
       const boardCopy = [...this.state]
-      boardCopy[position] = opponentsMarker
+      boardCopy[position] = marker
       return new this.constructor(boardCopy)
     })
 
