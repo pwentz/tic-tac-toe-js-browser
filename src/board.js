@@ -15,21 +15,31 @@ module.exports = class Board {
     return this.indicesOf(' ')
   }
 
-  validForks(myMarker, opponentsMarker) {
-    const forks = this.allForks(opponentsMarker)
-
-    return forks.filter(fork => {
-      const winningPosition = BoardParser.indexOfWinningPosition(fork.state, myMarker)
-      return !fork.openSpaces.includes(winningPosition)
-    })
+  get parser() {
+    return BoardParser
   }
 
-  allForks(opponentsMarker) {
-    return this.openSpaces.map(position => {
+  validForks(myMarker, opponentsMarker) {
+    const constraint = (fork) => {
+      const winningPosition = this.parser.indexOfWinningPosition(fork.state, myMarker)
+      return !fork.openSpaces.includes(winningPosition)
+    }
+
+    return this.allForks(opponentsMarker, constraint)
+  }
+
+  allForks(opponentsMarker, filterConstraint) {
+    const forks = this.openSpaces.map(position => {
       const boardCopy = [...this.state]
       boardCopy[position] = opponentsMarker
       return new this.constructor(boardCopy)
     })
+
+    if (filterConstraint) {
+      return forks.filter(filterConstraint)
+    }
+
+    return forks
   }
 
   indicesOf(marker) {
