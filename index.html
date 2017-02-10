@@ -18,25 +18,12 @@
     </div>
 
 
-    <table id='board' class='hide'>
-      <tbody>
-        <tr>
-          <td class='left-column' id='top-left' ref='0'></td>
-          <td id='top-center' ref='1'></td>
-          <td class='right-column' id='top-right' ref='2'></td>
-        </tr>
-        <tr id='middle-row'>
-          <td class='left-column' id='center-left' ref='3'></td>
-          <td id='center-center' ref='4'></td>
-          <td class='right-column' id='center-right' ref='5'></td>
-        </tr>
-        <tr id='right-row'>
-          <td class='left-column' id='bottom-left' ref='6'></td>
-          <td ref='7'></td>
-          <td class='right-column' id='bottom-right' ref='8'></td>
-        </tr>
-      </tbody>
-    </table>
+    <div id='canvas-container'>
+      <canvas class='hide'
+              id='game-board'
+              width='300px'
+              height='300px'></canvas>
+    </div>
   </body>
   <script src='bundle.js'></script>
 </html>

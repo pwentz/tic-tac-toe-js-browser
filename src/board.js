@@ -35,16 +35,16 @@ module.exports = class Board {
     }, [])
   }
 
-  addMarker(marker, position) {
-    if (!this.openSpaces.includes(position)) {
-      return false
-    }
+  addMarker(marker, position, onSuccess) {
+    if (!this.isOpen(position)) return
 
     const copy = [...this.state]
     copy[position] = marker
     this.state = copy
 
-    return true
+    if (onSuccess) {
+      onSuccess()
+    }
   }
 
   isOpen(index) {

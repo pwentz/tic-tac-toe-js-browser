@@ -69,17 +69,6 @@ describe('Board', () => {
 
         assert.equal(board.state[input], 'O')
       })
-
-      it('returns true', () => {
-        const state = ['X', 'O', 'X',
-                       ' ', ' ', ' ',
-                       'O', ' ', 'O']
-
-        const board = new Board(state)
-        const input = 4
-
-        assert.isTrue(board.addMarker('O', input))
-      })
     })
 
     context('position is taken', () => {
@@ -94,17 +83,6 @@ describe('Board', () => {
         board.addMarker('X', invalidInput)
 
         assert.equal(board.state[invalidInput], 'O')
-      })
-
-      it('returns false', () => {
-        const state = ['X', ' ', ' ',
-                       ' ', 'O', ' ',
-                       ' ', ' ', 'X']
-
-        const board = new Board(state)
-        const invalidInput = 4
-
-        assert.isFalse(board.addMarker('X', invalidInput))
       })
     })
   })
