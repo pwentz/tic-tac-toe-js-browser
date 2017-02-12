@@ -2,6 +2,14 @@ body {
   background-color: black;
 }
 
+.instructional-text {
+  font-family: 'Pangolin', cursive;
+  color: white;
+  text-align: center;
+  font-size: 24px;
+  font-weight: 600;
+}
+
 #title {
   font-family: 'Pangolin', cursive;
   color: white;
@@ -18,7 +26,7 @@ body {
 
 #board {
   margin: 0 auto;
-  margin-top: 125px;
+  margin-top: 25px;
   margin-bottom: 25px;
 }
 
@@ -26,7 +34,8 @@ td {
   height: 100px;
   width: 100px;
   text-align: center;
-  font-size: 32px;
+  font-size: 48px;
+  font-weight: 600;
   color: white;
   font-family: 'Pangolin', cursive;
 }
@@ -48,4 +57,26 @@ td {
   font-size: 32px;
   font-family: 'Pangolin', cursive;
   text-align: center;
+}
+
+.hide {
+  display: none;
+}
+
+#X h1 {
+  font-family: 'Pangolin', cursive;
+  color: white;
+  text-align: center;
+  font-size: 64px;
+  font-weight: 600;
+  margin-right: 20px;
+}
+
+#O h1 {
+  font-family: 'Pangolin', cursive;
+  color: white;
+  text-align: center;
+  font-size: 64px;
+  font-weight: 600;
+  margin-left: 20px;
 }

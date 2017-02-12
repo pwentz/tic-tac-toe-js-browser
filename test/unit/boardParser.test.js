@@ -8,9 +8,9 @@ describe('boardParser', () => {
                      ' ', ' ', 'O',
                      ' ', 'O', 'X']
 
-      const parser = new BoardParser(board)
+      const result = BoardParser.indexOfWinningPositionDiagonally(board, 'X')
 
-      assert.equal(parser.indexOfWinningPositionDiagonally('X'), 4)
+      assert.equal(result, 4)
     })
 
     it('returns an open space if markers are sloping upwards', () => {
@@ -18,9 +18,9 @@ describe('boardParser', () => {
                      ' ', 'X', 'O',
                      'X', 'O', 'X']
 
-      const parser = new BoardParser(board)
+      const result = BoardParser.indexOfWinningPositionDiagonally(board, 'X')
 
-      assert.equal(parser.indexOfWinningPositionDiagonally('X'), 2)
+      assert.equal(result, 2)
     })
 
     it('returns -1 if no markers are in position diagonally', () => {
@@ -28,9 +28,9 @@ describe('boardParser', () => {
                      'X', ' ', 'X',
                      'O', 'O', 'X']
 
-      const parser = new BoardParser(board)
+      const result = BoardParser.indexOfWinningPositionDiagonally(board, 'X')
 
-      assert.equal(parser.indexOfWinningPositionDiagonally('X'), -1)
+      assert.equal(result, -1)
     })
   })
 
@@ -40,9 +40,9 @@ describe('boardParser', () => {
                      'X', ' ', 'O',
                      'O', 'O', ' ']
 
-      const parser = new BoardParser(board)
+      const result = BoardParser.indexOfWinningPositionHorizontally(board, 'X')
 
-      assert.strictEqual(parser.indexOfWinningPositionHorizontally('X'), 1)
+      assert.strictEqual(result, 1)
     })
 
     it('returns open space if markers are aligned on middle row', () => {
@@ -50,9 +50,9 @@ describe('boardParser', () => {
                      'O', 'O', ' ',
                      ' ', 'X', 'X']
 
-      const parser = new BoardParser(board)
+      const result = BoardParser.indexOfWinningPositionHorizontally(board, 'O')
 
-      assert.equal(parser.indexOfWinningPositionHorizontally('O'), 5)
+      assert.equal(result, 5)
     })
 
     it('returns open space if markers are aligned on bottom row', () => {
@@ -60,9 +60,9 @@ describe('boardParser', () => {
                      'O', ' ', 'X',
                      ' ', 'O', 'O']
 
-      const parser = new BoardParser(board)
+      const result = BoardParser.indexOfWinningPositionHorizontally(board, 'O')
 
-      assert.equal(parser.indexOfWinningPositionHorizontally('O'), 6)
+      assert.equal(result, 6)
     })
 
     it('returns -1 if markers are not aligned horizonally', () => {
@@ -70,9 +70,9 @@ describe('boardParser', () => {
                      'O', 'X', ' ',
                      'O', 'X', 'O']
 
-      const parser = new BoardParser(board)
+      const result = BoardParser.indexOfWinningPositionHorizontally(board, 'O')
 
-      assert.equal(parser.indexOfWinningPositionHorizontally('O'), -1)
+      assert.equal(result, -1)
     })
   })
 
@@ -82,9 +82,9 @@ describe('boardParser', () => {
                      'O', 'X', 'X',
                      ' ', 'X', 'O']
 
-      const parser = new BoardParser(board)
+      const result = BoardParser.indexOfWinningPositionVertically(board, 'O')
 
-      assert.strictEqual(parser.indexOfWinningPositionVertically('O'), 6)
+      assert.strictEqual(result, 6)
     })
 
     it('returns the open space if markers are aligned in middle column', () => {
@@ -92,9 +92,9 @@ describe('boardParser', () => {
                      'O', 'O', 'X',
                      'X', 'O', 'O']
 
-      const parser = new BoardParser(board)
+      const result = BoardParser.indexOfWinningPositionVertically(board, 'O')
 
-      assert.strictEqual(parser.indexOfWinningPositionVertically('O'), 1)
+      assert.strictEqual(result, 1)
     })
 
     it('returns the open space if markers are aligned in right column', () => {
@@ -102,9 +102,9 @@ describe('boardParser', () => {
                      'O', 'X', ' ',
                      'X', 'O', 'X']
 
-      const parser = new BoardParser(board)
+      const result = BoardParser.indexOfWinningPositionVertically(board, 'X')
 
-      assert.equal(parser.indexOfWinningPositionVertically('X'), 5)
+      assert.equal(result, 5)
     })
 
     it('returns -1 if markers are not aligned vertically', () => {
@@ -112,9 +112,9 @@ describe('boardParser', () => {
                      'O', 'O', 'O',
                      'X', 'X', 'X']
 
-      const parser = new BoardParser(board)
+      const result = BoardParser.indexOfWinningPositionVertically(board, 'X')
 
-      assert.equal(parser.indexOfWinningPositionVertically('X'), -1)
+      assert.equal(result, -1)
     })
   })
 
@@ -125,9 +125,9 @@ describe('boardParser', () => {
                        'O', 'X', 'O',
                        'O', ' ', ' ']
 
-        const parser = new BoardParser(board)
+        const result = BoardParser.indexOfWinningPosition(board, 'X')
 
-        assert.equal(parser.indexOfWinningPosition('X'), 8)
+        assert.equal(result, 8)
       })
 
       it('can return a position for a horizontal victory', () => {
@@ -135,9 +135,9 @@ describe('boardParser', () => {
                        ' ', 'O', 'O',
                        'X', 'X', ' ']
 
-        const parser = new BoardParser(board)
+        const result = BoardParser.indexOfWinningPosition(board, 'O')
 
-        assert.equal(parser.indexOfWinningPosition('O'), 3)
+        assert.equal(result, 3)
       })
 
       it('can return a position for a vertical victory', () => {
@@ -145,9 +145,9 @@ describe('boardParser', () => {
                        ' ', 'X', 'O',
                        'X', 'X', 'O']
 
-        const parser = new BoardParser(board)
+        const result = BoardParser.indexOfWinningPosition(board, 'O')
 
-        assert.equal(parser.indexOfWinningPosition('O'), 2)
+        assert.equal(result, 2)
       })
 
       it('returns -1 if there are no positions to win', () => {
@@ -155,9 +155,9 @@ describe('boardParser', () => {
                        ' ', 'O', ' ',
                        'X', ' ', ' ']
 
-        const parser = new BoardParser(board)
+        const result = BoardParser.indexOfWinningPosition(board, 'O')
 
-        assert.equal(parser.indexOfWinningPosition('O'), -1)
+        assert.equal(result, -1)
       })
     })
   })

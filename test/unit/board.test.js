@@ -24,7 +24,7 @@ describe('Board', () => {
     })
   })
 
-  describe('#forks', () => {
+  describe('#getForks', () => {
 
     it('returns all forks when passed a board state and a marker', () => {
       const originalBoard = ['X', 'O', 'X',
@@ -52,7 +52,7 @@ describe('Board', () => {
       const result = [new Board(forkedBoardOne), new Board(forkedBoardTwo),
                       new Board(forkedBoardThree), new Board(forkedBoardFour)]
 
-      assert.sameDeepMembers(board.forks('X'), result)
+      assert.sameDeepMembers(board.getForks('X'), result)
     })
   })
 

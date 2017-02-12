@@ -9,25 +9,24 @@ module.exports = () => {
                  ' ', ' ', ' ']
 
   const board = new Board(state)
-  const computerMarker = 'X'
-  const userMarker = 'O'
-  const computer = new Computer(computerMarker)
-  const game = new Game({ board, markerOne: computerMarker,
-                                 markerTwo: userMarker })
+  const game = new Game({ board, markerOne: null,
+                                 markerTwo: null })
+  const computer = new Computer()
+
+  const markerDict = { 'X': 'O', 'O':'X' }
 
   return { game,
-           userMarker,
-           computerMarker,
+           markerDict,
            computer,
            board,
            isGameOver() {
-             if (Outcome.didWin(board, userMarker)){
+             if (Outcome.didWin(board, game.markerOne)){
                 return () => 'you win!'
              }
-             if (Outcome.didWin(board, computerMarker)) {
+             if (Outcome.didWin(board, game.markerTwo)) {
                 return () => 'computer wins!'
              }
-             if (Outcome.isGameOver(board, userMarker)) {
+             if (Outcome.isGameOver(board, game.markerTwo)) {
                 return () => "it's a tie!"
              }
            }
