@@ -1,4 +1,3 @@
-const markerDictionary = { X: 'O', O:'X' }
 const setup = require('./setup')
 const Computer = require('./computer')
 
@@ -7,7 +6,8 @@ module.exports = (endGameCallback) => {
   const { game, board, isGameOver } = setup()
 
   const setMarkers = (chosenMarker) => {
-    const computerMarker = markerDictionary[chosenMarker]
+    const computerMarker = chosenMarker !== 'X' ? 'X'
+                                                : 'O'
 
     game.markerOne = chosenMarker
     game.markerTwo = computerMarker

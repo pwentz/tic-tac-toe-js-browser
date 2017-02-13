@@ -15,22 +15,8 @@ module.exports = (document) => {
     return new Canvas(document)
   }
 
-  const selectionX = document.querySelector('#X h1')
-  const selectionO = document.querySelector('#O h1')
-
   const hideMarkerSettings = () => {
     document.querySelector('#marker-selection').classList.add('hide')
-  }
-
-  const subscribeToMarkerSelection = (selection, callback) => {
-    const options = {
-      x: selectionX,
-      o: selectionO
-    }
-
-    options[selection].addEventListener('click', callback)
-    options[selection].addEventListener('mouseenter', changeMouseToPointer)
-    options[selection].addEventListener('mouseleave', changeMouseBack)
   }
 
   const orderSelection = document.querySelector('#order-selection')
@@ -56,6 +42,10 @@ module.exports = (document) => {
 
   const hideTitle = () => {
     document.querySelector('#title').classList.add('hide')
+  }
+
+  const subscribeToMarkerSelection = (callback) => {
+    document.querySelector('#marker-selection button').addEventListener('click', callback)
   }
 
   return {
