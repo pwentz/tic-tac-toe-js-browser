@@ -17,7 +17,7 @@ module.exports = class {
     const text = this.document.createElementNS('http://www.w3.org/2000/svg', 'text')
 
     text.setAttribute('x', x + 40)
-    text.setAttribute('y', y + 40)
+    text.setAttribute('y', y + 60)
     text.setAttribute('font-size', '40')
     text.setAttribute('font-family', 'Pangolin')
     const content = this.document.createTextNode(marker)

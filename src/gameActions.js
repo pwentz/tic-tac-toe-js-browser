@@ -7,7 +7,7 @@ module.exports = (endGameCallback) => {
 
   const setMarkers = (chosenMarker) => {
     const computerMarker = chosenMarker !== 'X' ? 'X'
-                                                : 'O'
+                                                : String.fromCharCode(0x30A0 + Math.random() * (0x30FF-0x30A0+1))
 
     game.markerOne = chosenMarker
     game.markerTwo = computerMarker
