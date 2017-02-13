@@ -45,7 +45,9 @@ module.exports = (document) => {
   }
 
   const subscribeToMarkerSelection = (callback) => {
-    document.querySelector('#marker-selection button').addEventListener('click', callback)
+    const input = document.querySelector('#marker-selection input')
+    input.addEventListener('keyup', callback)
+    input.focus()
   }
 
   return {

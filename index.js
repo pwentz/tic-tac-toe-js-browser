@@ -11,8 +11,7 @@ const ticTacToe = () => {
   const canvas = getCanvas()
 
   const onMarkerSelection = (e) => {
-    console.log('TARGET:', e.target)
-    const selection = document.querySelector('#marker-selection input').value
+    const selection = e.target.value.slice(0, 1)
     setMarkers(selection)
     hideMarkerSettings()
     showOrderSelection()
