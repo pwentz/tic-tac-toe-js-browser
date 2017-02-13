@@ -2,13 +2,13 @@ const createDomActions = require('./app/domActions')
 const createGameActions = require('./src/gameActions')
 
 const ticTacToe = () => {
-  const { logResults, getCanvas,
+  const { logResults, getSvgActions,
           showOrderSelection, hideOrderSelection,
           subscribeToOrderSelection,
           hideMarkerSettings, subscribeToMarkerSelection } = createDomActions(document)
 
   const { setMarkers, playUserTurn, playComputerTurn } = createGameActions(logResults)
-  const canvas = getCanvas()
+  const svg = getSvgActions()
 
   const onMarkerSelection = (e) => {
     if (e.keyCode === 13) {
@@ -21,32 +21,32 @@ const ticTacToe = () => {
 
   const onOrderSelection = (e) => {
     hideOrderSelection()
-    canvas.drawBoard()
+    svg.drawBoard()
   }
 
   const onUserDefer = (e) => {
     playComputerTurn()
      .then(({ marker, selection }) => {
-        canvas.drawMarker(marker, selection)
+        svg.drawMarker(marker, selection)
      })
   }
 
   const play = (e) => {
     e.preventDefault()
 
-    const userSelection = canvas.getCellNumber(e)
+    const userSelection = svg.getCellNumber(e)
 
     playUserTurn(userSelection)
       .then(({ marker, selection }) => {
-        canvas.drawMarker(marker, selection)
+        svg.drawMarker(marker, selection)
 
         return playComputerTurn()
       })
       .then(({ marker, selection }) => {
-        canvas.drawMarker(marker, selection)
+        svg.drawMarker(marker, selection)
       })
       .catch(() => {
-        canvas.unsubscribe(play)
+        svg.unsubscribe(play)
       })
   }
 
@@ -54,7 +54,7 @@ const ticTacToe = () => {
   subscribeToOrderSelection('yes', onOrderSelection)
   subscribeToOrderSelection('no', onOrderSelection)
   subscribeToOrderSelection('no', onUserDefer)
-  canvas.onClick(play)
+  svg.onClick(play)
 }
 
 ticTacToe()

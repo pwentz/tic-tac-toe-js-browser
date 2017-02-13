@@ -1,4 +1,4 @@
-const Canvas = require('./svgBoard')
+const createSvgActions = require('./svgActions')
 
 module.exports = (document) => {
   const changeMouseToPointer = () => document.body.style.cursor = 'pointer'
@@ -11,8 +11,8 @@ module.exports = (document) => {
     document.querySelector('body').appendChild(newText)
   }
 
-  const getCanvas = () => {
-    return new Canvas(document)
+  const getSvgActions = () => {
+    return createSvgActions(document)
   }
 
   const hideMarkerSettings = () => {
@@ -48,7 +48,7 @@ module.exports = (document) => {
 
   return {
     logResults,
-    getCanvas,
+    getSvgActions,
     showOrderSelection,
     hideOrderSelection,
     hideMarkerSettings,
