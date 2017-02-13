@@ -33,7 +33,7 @@ module.exports = {
     const drawRightStrike = (startingX, startingY) => {
       const newX = startingX - (1.25 + (1.25 / 2))
       const newY = startingY + 3
-      context.fillRect(newX, newY, 10, 5)
+      context.fillRect(newX, newY, 7, 7)
 
       if ((newY + 5) <= (endingY)) {
         requestAnimationFrame(() => {
@@ -46,7 +46,7 @@ module.exports = {
       const newX = x + (1.25 + (1.25 / 2))
       const newY = y + 3
 
-      context.fillRect(newX, newY, 10, 5)
+      context.fillRect(newX, newY, 7, 7)
 
       if ((newY + 5) <= (endingY)) {
         requestAnimationFrame(() => {
