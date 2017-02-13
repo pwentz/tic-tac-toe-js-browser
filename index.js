@@ -3,6 +3,8 @@ const createGameActions = require('./src/gameActions')
 
 const ticTacToe = () => {
   const { logResults, getCanvas,
+          showOrderSelection, hideOrderSelection,
+          subscribeToOrderSelection,
           hideMarkerSettings, subscribeToMarkerSelection } = createDomActions(document)
 
   const { setMarkers, playUserTurn, playComputerTurn } = createGameActions(logResults)
@@ -11,7 +13,19 @@ const ticTacToe = () => {
   const onMarkerSelection = (e) => {
     setMarkers(e.target.innerText)
     hideMarkerSettings()
+    showOrderSelection()
+  }
+
+  const onOrderSelection = (e) => {
+    hideOrderSelection()
     canvas.drawBoard()
+  }
+
+  const onUserDefer = (e) => {
+    playComputerTurn()
+     .then(({ marker, selection }) => {
+        canvas.drawMarker(marker, selection)
+     })
   }
 
   const play = (e) => {
@@ -34,6 +48,7 @@ const ticTacToe = () => {
   }
 
   subscribeToMarkerSelection(onMarkerSelection)
+  subscribeToOrderSelection(onOrderSelection, onUserDefer)
   canvas.onClick(play)
 }
 

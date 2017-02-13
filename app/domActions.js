@@ -29,10 +29,32 @@ module.exports = (document) => {
     selectionO.addEventListener('click', callback)
   }
 
+  const orderSelection = document.querySelector('#order-selection')
+
+  const showOrderSelection = () => {
+    orderSelection.classList.remove('hide')
+  }
+
+  const hideOrderSelection = () => {
+    orderSelection.classList.add('hide')
+  }
+
+  const yesGoFirst = document.querySelector('#select-first-yes')
+  const noGoFirst = document.querySelector('#select-first-no')
+
+  const subscribeToOrderSelection = (callback, onDefer) => {
+    yesGoFirst.addEventListener('click', callback)
+    noGoFirst.addEventListener('click', callback)
+    noGoFirst.addEventListener('click', onDefer)
+  }
+
   return {
     logResults,
     getCanvas,
+    showOrderSelection,
+    hideOrderSelection,
     hideMarkerSettings,
+    subscribeToOrderSelection,
     subscribeToMarkerSelection
   }
 }
