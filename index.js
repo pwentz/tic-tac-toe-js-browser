@@ -11,10 +11,12 @@ const ticTacToe = () => {
   const canvas = getCanvas()
 
   const onMarkerSelection = (e) => {
-    const selection = e.target.value.slice(0, 1)
-    setMarkers(selection)
-    hideMarkerSettings()
-    showOrderSelection()
+    if (e.keyCode === 13) {
+      const selection = e.target.value.slice(0, 1)
+      setMarkers(selection ? selection : 'O')
+      hideMarkerSettings()
+      canvas.drawBoard()
+    }
   }
 
   const onOrderSelection = (e) => {

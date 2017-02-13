@@ -18,10 +18,10 @@ body {
   font-weight: 600;
 }
 
-#board-container {
+.center {
   display: flex;
   justify-content: center;
-  align-items: center
+  align-items: center;
 }
 
 #game-board {
@@ -41,20 +41,8 @@ body {
   display: none;
 }
 
-#X h1 {
-  font-family: 'Pangolin', cursive;
-  color: black;
-  text-align: center;
-  font-size: 64px;
-  font-weight: 600;
-}
-
-#O h1 {
-  font-family: 'Pangolin', cursive;
-  color: black;
-  text-align: center;
-  font-size: 64px;
-  font-weight: 600;
+#marker-selection {
+  margin: 0 auto;
 }
 
 #board {
@@ -62,4 +50,17 @@ body {
   height: 300px;
   background: url(http://en.fffuuu.net/Content/Templates/Empty/Comics_3x3.svg) center;
   background-size: 100%;
+}
+
+#marker-selection input {
+  border: none;
+  border-color: transparent;
+  text-align: center;
+  height: 100px;
+  font-family: 'Pangolin';
+  font-size: 56px;
+}
+
+#marker-selection input:focus {
+  outline: none;
 }
