@@ -40,10 +40,6 @@ module.exports = (document) => {
     options[selection].addEventListener('mouseleave', changeMouseBack)
   }
 
-  const hideTitle = () => {
-    document.querySelector('#title').classList.add('hide')
-  }
-
   const subscribeToMarkerSelection = (callback) => {
     const input = document.querySelector('#marker-selection input')
     input.addEventListener('keyup', callback)
@@ -52,7 +48,6 @@ module.exports = (document) => {
 
   return {
     logResults,
-    hideTitle,
     getCanvas,
     showOrderSelection,
     hideOrderSelection,
