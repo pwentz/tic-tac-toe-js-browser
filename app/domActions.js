@@ -1,4 +1,4 @@
-const Canvas = require('./canvas')
+const Canvas = require('./svgBoard')
 
 module.exports = (document) => {
   const changeMouseToPointer = () => document.body.style.cursor = 'pointer'
@@ -12,10 +12,7 @@ module.exports = (document) => {
   }
 
   const getCanvas = () => {
-    const canvas = document.getElementById('game-board')
-    const context = canvas.getContext('2d')
-
-    return new Canvas(canvas, context)
+    return new Canvas(document)
   }
 
   const selectionX = document.querySelector('#X h1')
