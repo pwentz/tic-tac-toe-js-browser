@@ -1,6 +1,9 @@
 const Canvas = require('./canvas')
 
 module.exports = (document) => {
+  const changeMouseToPointer = () => document.body.style.cursor = 'pointer'
+  const changeMouseBack = () => document.body.style.cursor = 'default'
+
   const logResults = (result) => {
     const newText = document.createElement('p')
     newText.classList.add('result-text')
@@ -31,6 +34,8 @@ module.exports = (document) => {
     }
 
     options[selection].addEventListener('click', callback)
+    options[selection].addEventListener('mouseenter', changeMouseToPointer)
+    options[selection].addEventListener('mouseleave', changeMouseBack)
   }
 
   const orderSelection = document.querySelector('#order-selection')
@@ -50,6 +55,8 @@ module.exports = (document) => {
     }
 
     options[selection].addEventListener('click', callback)
+    options[selection].addEventListener('mouseenter', changeMouseToPointer)
+    options[selection].addEventListener('mouseleave', changeMouseBack)
   }
 
   return {

@@ -12,7 +12,7 @@ module.exports = (canvas, context) => {
         }
       }
     },
-    ACROSS_Y: (x, y) => {
+    DOWN_Y: (x, y) => {
       const width = 5
       const height = speed
       const newY = y + speed
@@ -26,7 +26,7 @@ module.exports = (canvas, context) => {
   }
 
   const verticalStroke = (x, y, stroke, nextStroke) => {
-    const drawIfPossible = draw['ACROSS_Y'](x, y)
+    const drawIfPossible = draw['DOWN_Y'](x, y)
     if (drawIfPossible) {
       drawIfPossible(stroke)
     }
