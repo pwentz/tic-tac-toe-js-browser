@@ -8,7 +8,7 @@ module.exports = {
     const centerY = cellY + 55
 
     const draw = (currentPercentage, currentAngle) => {
-      context.lineWidth = 7
+      context.lineWidth = 8
       context.beginPath()
       context.arc(centerX, centerY, radius, startAngle, currentAngle)
       context.stroke()
