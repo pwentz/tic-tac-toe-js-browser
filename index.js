@@ -4,7 +4,7 @@ const createGameActions = require('./src/gameActions')
 const ticTacToe = () => {
   const { logResults, getCanvas,
           showOrderSelection, hideOrderSelection,
-          subscribeToOrderSelection,
+          subscribeToOrderSelection, hideTitle,
           hideMarkerSettings, subscribeToMarkerSelection } = createDomActions(document)
 
   const { setMarkers, playUserTurn, playComputerTurn } = createGameActions(logResults)
@@ -19,6 +19,7 @@ const ticTacToe = () => {
 
   const onOrderSelection = (e) => {
     hideOrderSelection()
+    hideTitle()
     canvas.drawBoard()
   }
 

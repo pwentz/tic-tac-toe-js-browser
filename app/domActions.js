@@ -57,8 +57,13 @@ module.exports = (document) => {
     options[selection].addEventListener('mouseleave', changeMouseBack)
   }
 
+  const hideTitle = () => {
+    document.querySelector('#title').classList.add('hide')
+  }
+
   return {
     logResults,
+    hideTitle,
     getCanvas,
     showOrderSelection,
     hideOrderSelection,
