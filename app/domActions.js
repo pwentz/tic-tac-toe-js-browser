@@ -22,9 +22,7 @@ module.exports = (document) => {
   const selectionO = document.querySelector('#O h1')
 
   const hideMarkerSettings = () => {
-    selectionX.classList.add('hide')
-    selectionO.classList.add('hide')
-    document.querySelector('.instructional-text').classList.add('hide')
+    document.querySelector('#marker-selection').classList.add('hide')
   }
 
   const subscribeToMarkerSelection = (selection, callback) => {

@@ -12,7 +12,6 @@ module.exports = class {
 
   setContextStyles() {
     this.context.lineWidth = 5
-    this.context.font = 'Pangolin'
     this.context.fillStyle = 'white'
     this.context.strokeStyle = 'white'
   }

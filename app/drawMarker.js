@@ -4,10 +4,11 @@ module.exports = {
     const circum = Math.PI * 2
     const startAngle = Math.PI / -2
     const endPercentage = 100
-    const centerX = cellX + 50
-    const centerY = cellY + 50
+    const centerX = cellX + 55
+    const centerY = cellY + 55
 
     const draw = (currentPercentage, currentAngle) => {
+      context.lineWidth = 7
       context.beginPath()
       context.arc(centerX, centerY, radius, startAngle, currentAngle)
       context.stroke()
@@ -20,6 +21,7 @@ module.exports = {
       }
     }
 
+    context.lineWidth = 5
     draw(0)
   },
 
@@ -29,9 +31,9 @@ module.exports = {
     const endingY = cellY + 80
 
     const drawRightStrike = (startingX, startingY) => {
-      const newX = startingX - 1.25
-      const newY = startingY + 2
-      context.fillRect(newX, newY, 5, 5)
+      const newX = startingX - (1.25 + (1.25 / 2))
+      const newY = startingY + 3
+      context.fillRect(newX, newY, 10, 5)
 
       if ((newY + 5) <= (endingY)) {
         requestAnimationFrame(() => {
@@ -41,10 +43,10 @@ module.exports = {
     }
 
     const drawLeftStrike = (x,y) => {
-      const newX = x + 1.25
-      const newY = y + 2
+      const newX = x + (1.25 + (1.25 / 2))
+      const newY = y + 3
 
-      context.fillRect(newX, newY, 5, 5)
+      context.fillRect(newX, newY, 10, 5)
 
       if ((newY + 5) <= (endingY)) {
         requestAnimationFrame(() => {
