@@ -11,7 +11,8 @@ const ticTacToe = () => {
   const canvas = getCanvas()
 
   const onMarkerSelection = (e) => {
-    setMarkers(e.target.innerText)
+    const userSelection = e.target.innerText
+    setMarkers(userSelection)
     hideMarkerSettings()
     showOrderSelection()
   }
@@ -47,8 +48,11 @@ const ticTacToe = () => {
       })
   }
 
-  subscribeToMarkerSelection(onMarkerSelection)
-  subscribeToOrderSelection(onOrderSelection, onUserDefer)
+  subscribeToMarkerSelection('x', onMarkerSelection)
+  subscribeToMarkerSelection('o', onMarkerSelection)
+  subscribeToOrderSelection('yes', onOrderSelection)
+  subscribeToOrderSelection('no', onOrderSelection)
+  subscribeToOrderSelection('no', onUserDefer)
   canvas.onClick(play)
 }
 

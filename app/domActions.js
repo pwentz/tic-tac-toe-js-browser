@@ -24,9 +24,13 @@ module.exports = (document) => {
     document.querySelector('.instructional-text').classList.add('hide')
   }
 
-  const subscribeToMarkerSelection = (callback) => {
-    selectionX.addEventListener('click', callback)
-    selectionO.addEventListener('click', callback)
+  const subscribeToMarkerSelection = (selection, callback) => {
+    const options = {
+      x: selectionX,
+      o: selectionO
+    }
+
+    options[selection].addEventListener('click', callback)
   }
 
   const orderSelection = document.querySelector('#order-selection')
@@ -39,13 +43,13 @@ module.exports = (document) => {
     orderSelection.classList.add('hide')
   }
 
-  const yesGoFirst = document.querySelector('#select-first-yes')
-  const noGoFirst = document.querySelector('#select-first-no')
+  const subscribeToOrderSelection = (selection, callback) => {
+    const options = {
+      yes: document.querySelector('#select-first-yes'),
+      no: document.querySelector('#select-first-no')
+    }
 
-  const subscribeToOrderSelection = (callback, onDefer) => {
-    yesGoFirst.addEventListener('click', callback)
-    noGoFirst.addEventListener('click', callback)
-    noGoFirst.addEventListener('click', onDefer)
+    options[selection].addEventListener('click', callback)
   }
 
   return {
