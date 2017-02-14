@@ -5,10 +5,15 @@ module.exports = (document) => {
   const changeMouseBack = () => document.body.style.cursor = 'default'
 
   const logResults = (result) => {
+    const { positions, message } = result
     const newText = document.createElement('p')
     newText.classList.add('result-text')
-    newText.innerText = result
+    newText.innerText = message
     document.querySelector('body').appendChild(newText)
+
+    // CODE GOES HERE
+    const svg = getSvgActions(document)
+    svg.drawResults(positions)
   }
 
   const getSvgActions = () => {

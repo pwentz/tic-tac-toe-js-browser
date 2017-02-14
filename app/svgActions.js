@@ -33,7 +33,30 @@ module.exports = (document) => {
     document.querySelector('#board').removeEventListener('click', callback)
   }
 
+  const drawResults = (positions) => {
+    const strikeCoords = positions.map(pos => {
+      const { x, y } = cellToCoords(pos)
+      return { x: x + 50, y: y + 10 }
+    })
+
+    const relativeXOne = strikeCoords[1].x - strikeCoords[0].x
+    const relativeYOne = strikeCoords[1].y - strikeCoords[0].y
+
+    const relativeXTwo = strikeCoords[2].x - strikeCoords[1].x
+    const relativeYTwo = strikeCoords[2].y - strikeCoords[1].y
+
+    const d = `M${strikeCoords[0].x},${strikeCoords[0].y} L${strikeCoords[1].x},${strikeCoords[1].y} L${strikeCoords[2].x},${strikeCoords[2].y}`
+
+    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path')
+    path.setAttribute('d', d)
+    path.setAttribute('stroke', 'black')
+    path.setAttribute('fill', 'black')
+    path.setAttribute('stroke-width', '5')
+    document.querySelector('#board').appendChild(path)
+  }
+
   return {
+    drawResults,
     getCellNumber,
     drawMarker,
     onClick,

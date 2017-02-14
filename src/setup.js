@@ -15,13 +15,15 @@ module.exports = () => {
            board,
            isGameOver() {
              if (Outcome.didWin(board, game.markerOne)){
-                return 'you win!'
+               const positions = Outcome.didWin(board, game.markerOne)
+               return { positions, message: 'you win!' }
              }
              if (Outcome.didWin(board, game.markerTwo)) {
-                return 'you lose!'
+               const positions = Outcome.didWin(board, game.markerTwo)
+               return { positions, message: 'you lose!' }
              }
              if (Outcome.isGameOver(board, game.markerTwo)) {
-                return "it's a tie!"
+               return { positions: null, message: "it's a tie!" }
              }
            }
   }
