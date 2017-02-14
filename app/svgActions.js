@@ -49,11 +49,48 @@ module.exports = (document) => {
     board.appendChild(path)
     path.classList.add('winning-path')
     board.classList.add('flatten-board')
+
+    const title = document.querySelector('.title h3')
+    title.setAttribute('contentEditable', 'true')
+    title.classList.add('animated-input')
+
+    replaceTitleWithReplayText(title, title.innerText.length)
+
     board.addEventListener('animationend', (e) => {
       if (e.target.matches('svg')) {
         board.setAttribute('height', '0px')
       }
     })
+  }
+
+  const replaceTitleWithReplayText = (textElement, charNumber) => {
+    moveCursorToEndOfInput(textElement, charNumber)
+    backspace(textElement)
+    if (textElement.innerText.length > 0) {
+      setTimeout(1000, () => {
+        replaceTitleWithReplayText(textElement, charNumber - 1)
+      })
+    }
+  }
+
+  const moveCursorToEndOfInput = (textElement, newLength) => {
+    textElement.focus()
+    const textNode = textElement.firstChild
+    const range = document.createRange()
+
+    range.setStart(textNode, newLength)
+    range.setEnd(textNode, newLength)
+    const sel = window.getSelection()
+    sel.removeAllRanges()
+    sel.addRange(range)
+  }
+
+  const backspace = (text) => {
+    const { innerText } = text
+    console.log(innerText)
+    const newText = innerText.slice(0, innerText.length - 1)
+    console.log(newText)
+    text.innerText = newText
   }
 
   return {

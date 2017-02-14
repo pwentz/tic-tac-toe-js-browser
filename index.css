@@ -10,7 +10,7 @@ body {
   font-weight: 600;
 }
 
-#title {
+.title {
   font-family: 'Pangolin', cursive;
   color: black;
   text-align: center;
@@ -50,16 +50,17 @@ body {
   background-size: 100%;
 }
 
-#marker-selection input {
+.invisible-input {
   border: none;
   border-color: transparent;
   text-align: center;
   height: 100px;
   font-family: 'Pangolin';
-  font-size: 56px;
+  font-size: 48px;
+  font-weight: 600;
 }
 
-#marker-selection input:focus {
+.invisible-input:focus {
   outline: none;
 }
 
@@ -136,4 +137,8 @@ body {
   to {
     height: 0px;
   }
+}
+
+.animated-input:focus {
+  outline: none;
 }
