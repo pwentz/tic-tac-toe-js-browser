@@ -76,13 +76,10 @@ body {
 
 @keyframes enter {
   0% {
-    opacity: 0;
-    font-size: 40px;
+    font-size: 24px;
   }
   50% {
-    transform: translateX(-1px);
-    transform: translateY(8px);
-    opacity: 1;
+    transform: translateX(-0.08em) translateY(0.08em);
     font-size: 64px;
   }
   100% {
