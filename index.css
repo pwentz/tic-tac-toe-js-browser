@@ -64,3 +64,28 @@ body {
 #marker-selection input:focus {
   outline: none;
 }
+
+.marker {
+  animation-duration: 1s;
+  animation-name: enter;
+  font-family: 'Pangolin', cursive;
+  animation-timing-function: cubic-bezier(.31,.03,.08,.95);
+  font-size: 40px;
+  position: relative;
+}
+
+@keyframes enter {
+  0% {
+    opacity: 0;
+    font-size: 40px;
+  }
+  50% {
+    transform: translateX(-1px);
+    transform: translateY(8px);
+    opacity: 1;
+    font-size: 64px;
+  }
+  100% {
+    font-size: 40px;
+  }
+}

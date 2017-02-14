@@ -12,10 +12,14 @@ module.exports = (document) => {
 
     const text = document.createElementNS('http://www.w3.org/2000/svg', 'text')
 
-    text.setAttribute('x', x + 40)
-    text.setAttribute('y', y + 60)
-    text.setAttribute('font-size', '40')
-    text.setAttribute('font-family', 'Pangolin')
+    // text.setAttribute('x', x + 30)
+    // text.setAttribute('y', y + 75)
+    text.classList.add('marker')
+//     text.addEventListener('animationend', () => {
+      text.setAttribute('x', x + 40)
+      text.setAttribute('y', y + 60)
+//     })
+
     const content = document.createTextNode(marker)
     text.appendChild(content)
     document.querySelector('#board').appendChild(text)
