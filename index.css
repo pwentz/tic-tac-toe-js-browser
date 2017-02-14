@@ -84,3 +84,56 @@ body {
     font-size: 40px;
   }
 }
+
+.winning-path {
+  animation-duration: 1s;
+  animation-name: widen;
+  animation-timing-function: ease-in;
+  stroke-linecap: round;
+  stroke-width: 5;
+}
+
+@keyframes widen {
+  0% {
+    stroke-width: 0;
+  }
+  50% {
+    stroke-width: 8;
+  }
+  60% {
+    stroke-width: 9;
+  }
+  70% {
+    stroke-width: 10;
+  }
+  75% {
+    stroke-width: 9;
+  }
+  80% {
+    stroke-width: 8;
+  }
+  85% {
+    stroke-width: 7;
+  }
+  90% {
+    stroke-width: 6;
+  }
+  100% {
+    stroke-width: 5;
+  }
+}
+
+.flatten-board {
+  animation-duration: 3s;
+  animation-delay: 2s;
+  animation-name: flatten;
+}
+
+@keyframes flatten {
+  from {
+    height: 300px;
+  }
+  to {
+    height: 0px;
+  }
+}
