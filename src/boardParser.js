@@ -1,12 +1,10 @@
-const BoardDimensions = require('./boardDimensions')
-
 module.exports = class BoardParser {
-  static dimensions(board) {
-    return new BoardDimensions(Math.sqrt(board.state.length))
+  constructor(dimensions) {
+    this.dimensions = dimensions
   }
 
-  static indexOfWinningPositionDiagonally(board, marker) {
-    const dimensions = this.dimensions(board)
+  indexOfWinningPositionDiagonally(board, marker) {
+    const dimensions = this.dimensions
     const { downwardDiagonals, upwardDiagonals, gameLength } = dimensions
     const myPositions = board.indicesOf(marker)
     const myDownwardPositions = downwardDiagonals.filter(num => myPositions.includes(num))
@@ -28,8 +26,8 @@ module.exports = class BoardParser {
     return -1
   }
 
-  static indexOfWinner(structure, board, marker, condition) {
-    const dimensions = this.dimensions(board)
+  indexOfWinner(structure, board, marker, condition) {
+    const dimensions = this.dimensions
     const { gameLength, totalCells } = dimensions
 
     for (let i = 0 ; i < totalCells ; i++) {
@@ -51,19 +49,19 @@ module.exports = class BoardParser {
     return -1
   }
 
-  static indexOfWinningPositionHorizontally(board, marker) {
+  indexOfWinningPositionHorizontally(board, marker) {
     const isBeginningOfRow = (num, gameLength) => (num % gameLength) === 0
 
     return this.indexOfWinner('row', board, marker, isBeginningOfRow)
   }
 
-  static indexOfWinningPositionVertically(board, marker) {
+  indexOfWinningPositionVertically(board, marker) {
     const isTopOfColumn = (num, gameLength) => num < gameLength
 
     return this.indexOfWinner('column', board, marker, isTopOfColumn)
   }
 
-  static indexOfWinningPosition(board, marker) {
+  indexOfWinningPosition(board, marker) {
     const diagonalPosition = this.indexOfWinningPositionDiagonally(board, marker)
     const horizontalPosition = this.indexOfWinningPositionHorizontally(board, marker)
     const verticalPosition = this.indexOfWinningPositionVertically(board, marker)

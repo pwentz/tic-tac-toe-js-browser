@@ -1,8 +1,10 @@
 const { transpose } = require('./util')
+const BoardDimensions = require('./boardDimensions')
 
 module.exports = class Board {
   constructor(boardState) {
     this.state = [...boardState]
+    this.dimensions = new BoardDimensions(Math.sqrt(this.state.length))
   }
 
   transpose() {
