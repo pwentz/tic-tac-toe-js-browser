@@ -5,86 +5,84 @@ const Game = require('../../src/game')
 
 describe('GameScenario', () => {
   describe('#calculateScore', () => {
-    context('comparisons', () => {
-      it('has a higher score if position will win', () => {
-        const board = ['O', ' ', 'X',
-                       ' ', ' ', ' ',
-                       ' ', ' ', 'O']
+    it('has a higher score if position will win', () => {
+      const board = ['O', ' ', 'X',
+                     ' ', ' ', ' ',
+                     ' ', ' ', 'O']
 
-        const goodMoveCalc = new GameScenario(board, 4, 'O', 0)
-        const badMoveCalc = new GameScenario(board, 5, 'O', 0)
+      const goodMoveCalc = new GameScenario(board, 4, 'O', 0)
+      const badMoveCalc = new GameScenario(board, 5, 'O', 0)
 
-        const game = new Game({ board: new Board(board),
-                                markerOne: 'O',
-                                markerTwo: 'X' })
+      const game = new Game({ board: new Board(board),
+                              markerOne: 'O',
+                              markerTwo: 'X' })
 
-        goodMoveCalc.calculateScore(game)
-        badMoveCalc.calculateScore(game)
+      goodMoveCalc.calculateScore(game)
+      badMoveCalc.calculateScore(game)
 
-        assert.isAbove(goodMoveCalc.score, badMoveCalc.score)
-      })
+      assert.isAbove(goodMoveCalc.score, badMoveCalc.score)
+    })
 
-      it('has a higher score if position will block opponent', () => {
-        const board = ['O', ' ', 'X',
-                       ' ', ' ', ' ',
-                       ' ', ' ', 'O']
+    it('has a higher score if position will block opponent', () => {
+      const board = ['O', ' ', 'X',
+                     ' ', ' ', ' ',
+                     ' ', ' ', 'O']
 
-        const goodMoveCalc = new GameScenario(board, 4, 'X', 0)
-        const badMoveCalc = new GameScenario(board, 5, 'X', 0)
+      const goodMoveCalc = new GameScenario(board, 4, 'X', 0)
+      const badMoveCalc = new GameScenario(board, 5, 'X', 0)
 
-        const game = new Game({ board: new Board(board),
-                                markerOne: 'O',
-                                markerTwo: 'X' })
+      const game = new Game({ board: new Board(board),
+                              markerOne: 'O',
+                              markerTwo: 'X' })
 
-        goodMoveCalc.calculateScore(game)
-        badMoveCalc.calculateScore(game)
+      goodMoveCalc.calculateScore(game)
+      badMoveCalc.calculateScore(game)
 
-        assert.isAbove(goodMoveCalc.score, badMoveCalc.score)
-      })
+      assert.isAbove(goodMoveCalc.score, badMoveCalc.score)
+    })
 
-      it('has a higher score if position will win than if position will block', () => {
-        const board = ['X', ' ', 'X',
-                       ' ', ' ', ' ',
-                       'O', ' ', 'O']
+    it('has a higher score if position will win than if position will block', () => {
+      const board = ['X', ' ', 'X',
+                     ' ', ' ', ' ',
+                     'O', ' ', 'O']
 
-        const goodMoveCalc = new GameScenario(board, 1, 'X', 0)
-        const badMoveCalc = new GameScenario(board, 7, 'X', 0)
+      const goodMoveCalc = new GameScenario(board, 1, 'X', 0)
+      const badMoveCalc = new GameScenario(board, 7, 'X', 0)
 
-        const game = new Game({ board: new Board(board),
-                                markerOne: 'O',
-                                markerTwo: 'X' })
+      const game = new Game({ board: new Board(board),
+                              markerOne: 'O',
+                              markerTwo: 'X' })
 
-        goodMoveCalc.calculateScore(game)
-        badMoveCalc.calculateScore(game)
+      goodMoveCalc.calculateScore(game)
+      badMoveCalc.calculateScore(game)
 
-        assert.isAbove(goodMoveCalc.score, badMoveCalc.score)
-      })
+      assert.isAbove(goodMoveCalc.score, badMoveCalc.score)
+    })
 
-      it('has a higher score if move can yield positive immediate results', () => {
-        const immediateWinState = [' ', ' ', 'O',
-                                   ' ', ' ', 'X',
-                                   'O', ' ', 'X']
+    it('has a higher score if move can yield positive immediate results', () => {
+      const immediateWinState = [' ', ' ', 'O',
+                                 ' ', ' ', 'X',
+                                 'O', ' ', 'X']
 
-        const eventualWinState = [' ', ' ', ' ',
-                                  ' ', ' ', ' ',
-                                  ' ', ' ', ' ']
+      const eventualWinState = [' ', ' ', ' ',
+                                ' ', ' ', ' ',
+                                ' ', ' ', ' ']
 
-        const immediateWinCalc = new GameScenario(immediateWinState, 4, 'O', 0)
-        const eventualWinCalc = new GameScenario(eventualWinState, 4, 'O', 0)
+      const immediateWinCalc = new GameScenario(immediateWinState, 4, 'O', 0)
+      const eventualWinCalc = new GameScenario(eventualWinState, 4, 'O', 0)
 
-        const immediateWinGame = new Game({ board: new Board(immediateWinState),
-                                            markerOne: 'O',
-                                            markerTwo: 'X' })
+      const immediateWinGame = new Game({ board: new Board(immediateWinState),
+                                          markerOne: 'O',
+                                          markerTwo: 'X' })
 
-        const eventualWinGame = new Game({ board: new Board(eventualWinState),
-                                           markerOne: 'O',
-                                           markerTwo: 'X' })
+      const eventualWinGame = new Game({ board: new Board(eventualWinState),
+                                         markerOne: 'O',
+                                         markerTwo: 'X' })
 
-        immediateWinCalc.calculateScore(immediateWinGame)
-        eventualWinCalc.calculateScore(eventualWinGame)
+      immediateWinCalc.calculateScore(immediateWinGame)
+      eventualWinCalc.calculateScore(eventualWinGame)
 
-        assert.isAbove(immediateWinCalc.score, eventualWinCalc.score)
-      })
+      assert.isAbove(immediateWinCalc.score, eventualWinCalc.score)
     })
   })
 
