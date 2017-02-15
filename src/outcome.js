@@ -1,18 +1,38 @@
+const BoardDimensions = require('./boardDimensions')
+
 class Outcome {
+  static dimensions(board) {
+    return new BoardDimensions(Math.sqrt(board.state.length))
+  }
+
   static didWinDiagonally(board, selectedMarker) {
+    const dimensions = this.dimensions(board)
+    const upwardDiagonal = dimensions.upwardDiagonals
+    const downwardDiagonal = dimensions.downwardDiagonals
     const mySpaces = board.indicesOf(selectedMarker)
 
-    return (mySpaces.includes(0) && mySpaces.includes(4) && mySpaces.includes(8)) ||
-      (mySpaces.includes(2) && mySpaces.includes(4) && mySpaces.includes(6))
+    const isMySpaceOccupying = num => mySpaces.includes(num)
+
+    if (upwardDiagonal.every(isMySpaceOccupying)) {
+      return true
+    }
+
+    if (downwardDiagonal.every(isMySpaceOccupying)) {
+      return true
+    }
+
+    return false
   }
 
   static didWinHorizontally(board, selectedMarker) {
+    const gameLength = this.dimensions(board).gameLength
+
     for (let i = 0 ; i < board.state.length ; i++) {
-      if (i % 3 === 0) {
-        const nextThree = board.state.slice(i, i + 3)
+      if (i % gameLength === 0) {
+        const nextThree = board.state.slice(i, i + gameLength)
         const rowMarkers = nextThree.filter(m => m === selectedMarker)
 
-        if (rowMarkers.length === 3) return true
+        if (rowMarkers.length === gameLength) return true
       }
     }
 
@@ -20,7 +40,20 @@ class Outcome {
   }
 
   static didWinVertically(board, selectedMarker) {
-    return this.didWinHorizontally(board.transpose(), selectedMarker)
+    const gameLength = this.dimensions(board).gameLength
+
+    for (let i = 0 ; i < board.state.length ; i++) {
+      const isTopOfColumn = i < gameLength
+
+      if (isTopOfColumn) {
+        const column = [board.state[i], board.state[i + gameLength], board.state[i + (gameLength * 2)]]
+        const columnMarkers = column.filter(m => m === selectedMarker)
+
+        if (columnMarkers.length === gameLength) return true
+      }
+    }
+
+    return false
   }
 
   static didWin(board, selectedMarker) {

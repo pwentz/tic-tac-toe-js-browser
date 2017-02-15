@@ -1,5 +1,6 @@
 const assert = require('chai').assert
 const BoardParser = require('../../src/boardParser')
+const Board = require('../../src/board')
 
 describe('boardParser', () => {
   describe('#indexOfWinningPositionDiagonally', () => {
@@ -8,7 +9,7 @@ describe('boardParser', () => {
                      ' ', ' ', 'O',
                      ' ', 'O', 'X']
 
-      const result = BoardParser.indexOfWinningPositionDiagonally(board, 'X')
+      const result = BoardParser.indexOfWinningPositionDiagonally(new Board(board), 'X')
 
       assert.equal(result, 4)
     })
@@ -18,7 +19,7 @@ describe('boardParser', () => {
                      ' ', 'X', 'O',
                      'X', 'O', 'X']
 
-      const result = BoardParser.indexOfWinningPositionDiagonally(board, 'X')
+      const result = BoardParser.indexOfWinningPositionDiagonally(new Board(board), 'X')
 
       assert.equal(result, 2)
     })
@@ -28,7 +29,7 @@ describe('boardParser', () => {
                      'X', ' ', 'X',
                      'O', 'O', 'X']
 
-      const result = BoardParser.indexOfWinningPositionDiagonally(board, 'X')
+      const result = BoardParser.indexOfWinningPositionDiagonally(new Board(board), 'X')
 
       assert.equal(result, -1)
     })
@@ -125,7 +126,7 @@ describe('boardParser', () => {
                        'O', 'X', 'O',
                        'O', ' ', ' ']
 
-        const result = BoardParser.indexOfWinningPosition(board, 'X')
+        const result = BoardParser.indexOfWinningPosition(new Board(board), 'X')
 
         assert.equal(result, 8)
       })
@@ -135,7 +136,7 @@ describe('boardParser', () => {
                        ' ', 'O', 'O',
                        'X', 'X', ' ']
 
-        const result = BoardParser.indexOfWinningPosition(board, 'O')
+        const result = BoardParser.indexOfWinningPosition(new Board(board), 'O')
 
         assert.equal(result, 3)
       })
@@ -145,7 +146,7 @@ describe('boardParser', () => {
                        ' ', 'X', 'O',
                        'X', 'X', 'O']
 
-        const result = BoardParser.indexOfWinningPosition(board, 'O')
+        const result = BoardParser.indexOfWinningPosition(new Board(board), 'O')
 
         assert.equal(result, 2)
       })
@@ -155,7 +156,7 @@ describe('boardParser', () => {
                        ' ', 'O', ' ',
                        'X', ' ', ' ']
 
-        const result = BoardParser.indexOfWinningPosition(board, 'O')
+        const result = BoardParser.indexOfWinningPosition(new Board(board), 'O')
 
         assert.equal(result, -1)
       })
