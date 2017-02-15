@@ -28,41 +28,16 @@ module.exports = class BoardParser {
     if (hasWinningSetup(upwardDiagonals, myUpwardPositions)) {
       return upwardDiagonals.find(i => board.isOpen(i))
     }
-    // const downwardSlope = [board[0], board[4], board[8]]
-    // const upwardSlope = [board[2], board[4], board[6]]
-
-    // const downwardMarkers = downwardSlope.filter(m => m === marker)
-    // const upwardMarkers = upwardSlope.filter(m => m === marker)
-
-    // if (this.hasWinningSetup(downwardSlope, downwardMarkers)) {
-    //   const mappedIndices = {
-    //     0: 0,
-    //     1: 4,
-    //     2: 8
-    //   }
-
-    //   return mappedIndices[downwardSlope.indexOf(' ')]
-    // }
-
-    // if (this.hasWinningSetup(upwardSlope, upwardMarkers)) {
-    //   const mappedIndices = {
-    //     0: 2,
-    //     1: 4,
-    //     2: 6
-    //   }
-
-    //   return mappedIndices[upwardSlope.indexOf(' ')]
-    // }
 
     return -1
   }
 
   static indexOfWinningPositionHorizontally(board, marker) {
-    for (let i = 0 ; i < board.length ; i++) {
+    for (let i = 0 ; i < board.state.length ; i++) {
       const isBeginningOfRow = i % 3 === 0
 
       if (isBeginningOfRow) {
-        const row = board.slice(i, i + 3)
+        const row = board.state.slice(i, i + 3)
         const rowMarkers = row.filter(m => m === marker)
 
         if (this.hasWinningSetup(row, rowMarkers)) {
@@ -75,11 +50,11 @@ module.exports = class BoardParser {
   }
 
   static indexOfWinningPositionVertically(board, marker) {
-    for (let i = 0 ; i < board.length ; i++) {
+    for (let i = 0 ; i < board.state.length ; i++) {
       const isTopOfColumn = i < 3
 
       if (isTopOfColumn) {
-        const column = [board[i], board[i + 3], board[i + 6]]
+        const column = [board.state[i], board.state[i + 3], board.state[i + 6]]
         const columnMarkers = column.filter(m => m === marker)
 
         if (this.hasWinningSetup(column, columnMarkers)) {
@@ -93,8 +68,8 @@ module.exports = class BoardParser {
 
   static indexOfWinningPosition(board, marker) {
     const diagonalPosition = this.indexOfWinningPositionDiagonally(board, marker)
-    const horizontalPosition = this.indexOfWinningPositionHorizontally(board.state, marker)
-    const verticalPosition = this.indexOfWinningPositionVertically(board.state, marker)
+    const horizontalPosition = this.indexOfWinningPositionHorizontally(board, marker)
+    const verticalPosition = this.indexOfWinningPositionVertically(board, marker)
 
     if (diagonalPosition >= 0) return diagonalPosition
     if (horizontalPosition >= 0) return horizontalPosition

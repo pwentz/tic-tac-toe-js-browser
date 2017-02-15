@@ -41,7 +41,7 @@ describe('boardParser', () => {
                      'X', ' ', 'O',
                      'O', 'O', ' ']
 
-      const result = BoardParser.indexOfWinningPositionHorizontally(board, 'X')
+      const result = BoardParser.indexOfWinningPositionHorizontally(new Board(board), 'X')
 
       assert.strictEqual(result, 1)
     })
@@ -51,7 +51,7 @@ describe('boardParser', () => {
                      'O', 'O', ' ',
                      ' ', 'X', 'X']
 
-      const result = BoardParser.indexOfWinningPositionHorizontally(board, 'O')
+      const result = BoardParser.indexOfWinningPositionHorizontally(new Board(board), 'O')
 
       assert.equal(result, 5)
     })
@@ -61,7 +61,7 @@ describe('boardParser', () => {
                      'O', ' ', 'X',
                      ' ', 'O', 'O']
 
-      const result = BoardParser.indexOfWinningPositionHorizontally(board, 'O')
+      const result = BoardParser.indexOfWinningPositionHorizontally(new Board(board), 'O')
 
       assert.equal(result, 6)
     })
@@ -71,7 +71,7 @@ describe('boardParser', () => {
                      'O', 'X', ' ',
                      'O', 'X', 'O']
 
-      const result = BoardParser.indexOfWinningPositionHorizontally(board, 'O')
+      const result = BoardParser.indexOfWinningPositionHorizontally(new Board(board), 'O')
 
       assert.equal(result, -1)
     })
@@ -83,7 +83,7 @@ describe('boardParser', () => {
                      'O', 'X', 'X',
                      ' ', 'X', 'O']
 
-      const result = BoardParser.indexOfWinningPositionVertically(board, 'O')
+      const result = BoardParser.indexOfWinningPositionVertically(new Board(board), 'O')
 
       assert.strictEqual(result, 6)
     })
@@ -93,7 +93,7 @@ describe('boardParser', () => {
                      'O', 'O', 'X',
                      'X', 'O', 'O']
 
-      const result = BoardParser.indexOfWinningPositionVertically(board, 'O')
+      const result = BoardParser.indexOfWinningPositionVertically(new Board(board), 'O')
 
       assert.strictEqual(result, 1)
     })
@@ -103,7 +103,7 @@ describe('boardParser', () => {
                      'O', 'X', ' ',
                      'X', 'O', 'X']
 
-      const result = BoardParser.indexOfWinningPositionVertically(board, 'X')
+      const result = BoardParser.indexOfWinningPositionVertically(new Board(board), 'X')
 
       assert.equal(result, 5)
     })
@@ -113,7 +113,7 @@ describe('boardParser', () => {
                      'O', 'O', 'O',
                      'X', 'X', 'X']
 
-      const result = BoardParser.indexOfWinningPositionVertically(board, 'X')
+      const result = BoardParser.indexOfWinningPositionVertically(new Board(board), 'X')
 
       assert.equal(result, -1)
     })
