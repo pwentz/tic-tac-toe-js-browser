@@ -1,5 +1,3 @@
-const BoardDimensions = require('./boardDimensions')
-
 class Outcome {
   constructor(dimensions) {
     this.dimensions = dimensions
@@ -60,7 +58,7 @@ class Outcome {
   }
 
   isGameOver(board, marker) {
-    return this.didWin(board, marker) || !board.openSpaces.length
+    return this.didWin(board, marker) || board.isFull()
   }
 }
 

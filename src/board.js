@@ -1,15 +1,9 @@
-const { transpose } = require('./util')
 const BoardDimensions = require('./boardDimensions')
 
 module.exports = class Board {
   constructor(boardState) {
     this.state = [...boardState]
     this.dimensions = new BoardDimensions(Math.sqrt(this.state.length))
-  }
-
-  transpose() {
-    const transposedBoard = transpose(this.state)
-    return new this.constructor(transposedBoard)
   }
 
   get openSpaces() {
@@ -51,5 +45,9 @@ module.exports = class Board {
 
   isOpen(index) {
     return this.openSpaces.includes(index)
+  }
+
+  isFull() {
+    return this.openSpaces.length === 0
   }
 }
