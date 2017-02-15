@@ -40,4 +40,22 @@ module.exports = class {
 
     return indices
   }
+
+  column(index) {
+    let indices = []
+    for (let i = index ; i < this.totalCells ; i += this.gameLength) {
+      indices.push(i)
+    }
+
+    return indices
+  }
+
+  row(index) {
+    let indices = [index]
+    for (let i = index + 1 ; i % this.gameLength !== 0 ; i++) {
+      indices.push(i)
+    }
+
+    return indices
+  }
 }
