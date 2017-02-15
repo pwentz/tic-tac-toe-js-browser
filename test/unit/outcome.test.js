@@ -484,42 +484,92 @@ describe('Outcome', () => {
 
   describe('#isGameOver', () => {
     context('either player has won', () => {
-      it('returns true if playerOne has won', () => {
-        const state = ['X', 'O', 'O',
-                       'O', 'X', 'O',
-                       'O', 'O', 'X']
+      context('3x3 board', () => {
+        it('returns true if playerOne has won', () => {
+          const state = ['X', 'O', 'O',
+                         'O', 'X', 'O',
+                         'O', 'O', 'X']
 
-        const marker = 'X'
-        const board = new Board(state)
-        const outcome = new Outcome(board.dimensions)
+          const marker = 'X'
+          const board = new Board(state)
+          const outcome = new Outcome(board.dimensions)
 
-        assert.isTrue(outcome.isGameOver(board, marker))
+          assert.isTrue(outcome.isGameOver(board, marker))
+        })
+
+        it('returns true if playerTwo has won', () => {
+          const state = ['X', 'O', 'X',
+                         'O', ' ', 'X',
+                         'O', 'O', 'O']
+
+          const marker = 'O'
+          const board = new Board(state)
+          const outcome = new Outcome(board.dimensions)
+
+          assert.isTrue(outcome.isGameOver(board, marker))
+        })
       })
 
-      it('returns true if playerTwo has won', () => {
-        const state = ['X', 'O', 'X',
-                       'O', ' ', 'X',
-                       'O', 'O', 'O']
+      context('5x5 board', () => {
+        it('returns true if given marker has one', () => {
+          const state = ['O', 'O', 'X', 'O', ' ',
+                         'X', 'X', 'X', 'O', 'X',
+                         ' ', 'X', 'X', 'O', ' ',
+                         'X', 'O', ' ', 'O', 'O',
+                         'X', 'X', 'O', 'O', 'X']
 
-        const marker = 'O'
-        const board = new Board(state)
-        const outcome = new Outcome(board.dimensions)
+          const marker = 'O'
+          const board = new Board(state)
+          const outcome = new Outcome(board.dimensions)
 
-        assert.isTrue(outcome.isGameOver(board, marker))
+          assert.isTrue(outcome.isGameOver(board, marker))
+        })
+
+        it('returns true if given marker has one', () => {
+          const state = ['X', 'O', 'X', 'O', ' ',
+                         'X', 'X', 'X', 'O', 'X',
+                         ' ', 'X', 'X', 'O', ' ',
+                         'X', 'O', ' ', 'X', 'O',
+                         'X', 'X', 'O', 'O', 'X']
+
+          const marker = 'X'
+          const board = new Board(state)
+          const outcome = new Outcome(board.dimensions)
+
+          assert.isTrue(outcome.isGameOver(board, marker))
+        })
       })
     })
 
     context('neither player has won and board is full', () => {
-      it('returns true', () => {
-        const state = ['X', 'O', 'X',
-                       'O', 'X', 'X',
-                       'O', 'O', 'O']
+      context('3x3 board', () => {
+        it('returns true', () => {
+          const state = ['X', 'O', 'X',
+                         'O', 'X', 'X',
+                         'O', 'O', 'O']
 
-        const marker = 'O'
-        const board = new Board(state)
-        const outcome = new Outcome(board.dimensions)
+          const marker = 'O'
+          const board = new Board(state)
+          const outcome = new Outcome(board.dimensions)
 
-        assert.isTrue(outcome.isGameOver(board, marker))
+          assert.isTrue(outcome.isGameOver(board, marker))
+        })
+      })
+
+      context('5x5 board', () => {
+        it('returns true', () => {
+          const state = ['X', 'O', 'X', 'O', 'X',
+                         'X', 'X', 'X', 'O', 'X',
+                         'O', 'X', 'O', 'O', 'X',
+                         'X', 'O', 'O', 'X', 'O',
+                         'X', 'X', 'O', 'O', 'O']
+
+          const marker = 'X'
+          const board = new Board(state)
+          const outcome = new Outcome(board.dimensions)
+
+          assert.isTrue(outcome.isGameOver(board, marker))
+        })
       })
     })
   })

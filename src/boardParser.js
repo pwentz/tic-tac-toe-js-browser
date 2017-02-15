@@ -26,7 +26,7 @@ module.exports = class BoardParser {
     return -1
   }
 
-  indexOfWinner(structure, board, marker, condition) {
+  indexOfWinnerHorizontallyOrVertically(structure, board, marker, condition) {
     const dimensions = this.dimensions
     const { gameLength, totalCells } = dimensions
 
@@ -52,13 +52,13 @@ module.exports = class BoardParser {
   indexOfWinningPositionHorizontally(board, marker) {
     const isBeginningOfRow = (num, gameLength) => (num % gameLength) === 0
 
-    return this.indexOfWinner('row', board, marker, isBeginningOfRow)
+    return this.indexOfWinnerHorizontallyOrVertically('row', board, marker, isBeginningOfRow)
   }
 
   indexOfWinningPositionVertically(board, marker) {
     const isTopOfColumn = (num, gameLength) => num < gameLength
 
-    return this.indexOfWinner('column', board, marker, isTopOfColumn)
+    return this.indexOfWinnerHorizontallyOrVertically('column', board, marker, isTopOfColumn)
   }
 
   indexOfWinningPosition(board, marker) {
