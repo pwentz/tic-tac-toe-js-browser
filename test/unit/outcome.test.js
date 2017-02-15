@@ -5,142 +5,191 @@ const Board = require('../../src/board')
 describe('Outcome', () => {
   describe('#didWinDiagonally', () => {
     it('can return true when given board, marker, and 3 of them in a row sloping upward', () => {
-      const board = [' ', 'X', 'O',
+      const state = [' ', 'X', 'O',
                      ' ', 'O', 'X',
                      'O', 'O', 'X']
-      assert.isTrue(Outcome.didWinDiagonally(new Board(board), 'O'))
+
+      const board = new Board(state)
+      const outcome = new Outcome(board.dimensions)
+
+      assert.isTrue(outcome.didWinDiagonally(board, 'O'))
     })
 
     it('can return true when given board, marker, and 3 of them sloping downward', () => {
-      const board = ['X', 'O', 'O',
+      const state = ['X', 'O', 'O',
                      'O', 'X', 'X',
                      'O', 'O', 'X']
-      assert.isTrue(Outcome.didWinDiagonally(new Board(board), 'X'))
+
+      const board = new Board(state)
+      const outcome = new Outcome(board.dimensions)
+
+      assert.isTrue(outcome.didWinDiagonally(board, 'X'))
     })
 
     it('will return false when symbol does not have 3 in a row diagonally', () => {
-      const board = ['O', 'O', 'O',
+      const state = ['O', 'O', 'O',
                      'O', 'X', 'O',
                      'O', 'O', 'O']
 
-      assert.isFalse(Outcome.didWinDiagonally(new Board(board), 'O'))
+      const board = new Board(state)
+      const outcome = new Outcome(board.dimensions)
+
+      assert.isFalse(outcome.didWinDiagonally(board, 'O'))
     })
   })
 
   describe('#didWinHorizontally', () => {
     it('can return true when given board, marker, and 3 in a row on top row', () => {
-      const board = ['O', 'O', 'O',
+      const state = ['O', 'O', 'O',
                      'X', 'X', 'X',
                      'X', 'X', 'X']
 
-      assert.isTrue(Outcome.didWinHorizontally(new Board(board), 'O'))
+      const board = new Board(state)
+      const outcome = new Outcome(board.dimensions)
+
+      assert.isTrue(outcome.didWinHorizontally(board, 'O'))
     })
 
     it('can return true when given board, marker, and 3 in a row on middle row', () => {
-        const board = ['X', 'X', 'X',
+        const state = ['X', 'X', 'X',
                        'O', 'O', 'O',
                        'X', 'X', 'X']
 
-        assert.isTrue(Outcome.didWinHorizontally(new Board(board), 'O'))
+        const board = new Board(state)
+        const outcome = new Outcome(board.dimensions)
+
+        assert.isTrue(outcome.didWinHorizontally(board, 'O'))
     })
 
     it('can return true when given board, marker, and 3 in a row on bottom row', () => {
-        const board = ['X', 'G', 'M',
+        const state = ['X', 'G', 'M',
                        'O', 'N', 'O',
                        'X', 'X', 'X']
 
-        assert.isTrue(Outcome.didWinHorizontally(new Board(board), 'X'))
+        const board = new Board(state)
+        const outcome = new Outcome(board.dimensions)
+
+        assert.isTrue(outcome.didWinHorizontally(board, 'X'))
     })
 
     it('can return false when given board, marker, and no 3 in a row horizontally', () => {
-        const board = ['X', 'O', 'O',
+        const state = ['X', 'O', 'O',
                        'O', 'X', 'O',
                        'O', 'X', 'X']
 
-        assert.isFalse(Outcome.didWinHorizontally(new Board(board), 'X'))
+        const board = new Board(state)
+        const outcome = new Outcome(board.dimensions)
+
+        assert.isFalse(outcome.didWinHorizontally(board, 'X'))
     })
 
     it('can return false when given board, marker, and no 3 in a row for given marker', () => {
-        const board = ['X', 'O', 'X',
+        const state = ['X', 'O', 'X',
                        'X', 'X', 'O',
                        'O', 'O', 'O']
 
-        assert.isFalse(Outcome.didWinHorizontally(new Board(board), 'X'))
+        const board = new Board(state)
+        const outcome = new Outcome(board.dimensions)
+
+        assert.isFalse(outcome.didWinHorizontally(board, 'X'))
     })
   })
 
   describe('#didWinVertically', () => {
     it('can return true when given board, marker, and 3 in a row for given marker to the left', () => {
-        const board = ['O', 'O', 'O',
+        const state = ['O', 'O', 'O',
                        'O', 'X', 'X',
                        'O', 'O', 'O']
 
-        assert.isTrue(Outcome.didWinVertically(new Board(board), 'O'))
+        const board = new Board(state)
+        const outcome = new Outcome(board.dimensions)
+
+        assert.isTrue(outcome.didWinVertically(board, 'O'))
     })
 
     it('can return true when given board, marker, and 3 in a row for given marker in middle', () => {
-        const board = ['O', 'X', 'O',
+        const state = ['O', 'X', 'O',
                        'O', 'X', 'X',
                        'O', 'X', 'O']
 
-        assert.isTrue(Outcome.didWinVertically(new Board(board), 'X'))
+        const board = new Board(state)
+        const outcome = new Outcome(board.dimensions)
+
+        assert.isTrue(outcome.didWinVertically(board, 'X'))
     })
 
     it('can return true when given board, marker, and 3 in a row for given marker to the right', () => {
-        const board = ['O', 'X', 'O',
+        const state = ['O', 'X', 'O',
                        'X', 'X', 'O',
                        'O', 'X', 'O']
 
-        assert.isTrue(Outcome.didWinVertically(new Board(board), 'O'))
+        const board = new Board(state)
+        const outcome = new Outcome(board.dimensions)
+
+        assert.isTrue(outcome.didWinVertically(board, 'O'))
     })
 
     it('can return false when given board, marker, and no 3 in a row for given marker', () => {
-        const board = ['X', 'O', 'O',
+        const state = ['X', 'O', 'O',
                        'O', 'X', 'O',
                        'O', 'O', 'X']
 
-        assert.isFalse(Outcome.didWinVertically(new Board(board), 'O'))
+        const board = new Board(state)
+        const outcome = new Outcome(board.dimensions)
+        assert.isFalse(outcome.didWinVertically(board, 'O'))
     })
   })
 
   describe('#didWin', () => {
     context('3 in a row diagonally', () => {
       it('can return true', () => {
-        const board = ['X', 'O', 'O',
+        const state = ['X', 'O', 'O',
                        'O', 'X', 'O',
                        'O', 'O', 'X']
 
-        assert.isTrue(Outcome.didWin(new Board(board), 'X'))
+        const board = new Board(state)
+        const outcome = new Outcome(board.dimensions)
+
+        assert.isTrue(outcome.didWin(board, 'X'))
       })
     })
 
     context('3 in horizontally', () => {
       it('can return true', () => {
-        const board = ['X', 'X', 'X',
+        const state = ['X', 'X', 'X',
                        'O', ' ', 'O',
                        'O', ' ', 'X']
 
-        assert.isTrue(Outcome.didWin(new Board(board), 'X'))
+        const board = new Board(state)
+        const outcome = new Outcome(board.dimensions)
+
+        assert.isTrue(outcome.didWin(board, 'X'))
       })
     })
 
     context('3 in a row vertically', () => {
       it('can return true', () => {
-        const board = ['O', 'X', 'X',
+        const state = ['O', 'X', 'X',
                        'O', 'X', 'O',
                        'O', ' ', 'X']
 
-        assert.isTrue(Outcome.didWin(new Board(board), 'O'))
+        const board = new Board(state)
+        const outcome = new Outcome(board.dimensions)
+
+        assert.isTrue(outcome.didWin(board, 'O'))
       })
     })
 
     context('board is full, but no winner', () => {
       it('returns false', () => {
-        const board = ['O', 'X', 'X',
+        const state = ['O', 'X', 'X',
                        'X', 'X', 'O',
                        'O', 'O', 'X']
 
-        assert.isFalse(Outcome.didWin(new Board(board), 'X'))
+        const board = new Board(state)
+        const outcome = new Outcome(board.dimensions)
+
+        assert.isFalse(outcome.didWin(board, 'X'))
       })
     })
   })
@@ -148,35 +197,41 @@ describe('Outcome', () => {
   describe('#isGameOver', () => {
     context('either player has won', () => {
       it('returns true if playerOne has won', () => {
-        const board = ['X', 'O', 'O',
+        const state = ['X', 'O', 'O',
                        'O', 'X', 'O',
                        'O', 'O', 'X']
 
         const marker = 'X'
+        const board = new Board(state)
+        const outcome = new Outcome(board.dimensions)
 
-        assert.isTrue(Outcome.isGameOver(new Board(board), marker))
+        assert.isTrue(outcome.isGameOver(board, marker))
       })
 
       it('returns true if playerTwo has won', () => {
-        const board = ['X', 'O', 'X',
+        const state = ['X', 'O', 'X',
                        'O', ' ', 'X',
                        'O', 'O', 'O']
 
         const marker = 'O'
+        const board = new Board(state)
+        const outcome = new Outcome(board.dimensions)
 
-        assert.isTrue(Outcome.isGameOver(new Board(board), marker))
+        assert.isTrue(outcome.isGameOver(board, marker))
       })
     })
 
     context('neither player has won and board is full', () => {
       it('returns true', () => {
-        const board = ['X', 'O', 'X',
+        const state = ['X', 'O', 'X',
                        'O', 'X', 'X',
                        'O', 'O', 'O']
 
         const marker = 'O'
+        const board = new Board(state)
+        const outcome = new Outcome(board.dimensions)
 
-        assert.isTrue(Outcome.isGameOver(new Board(board), marker))
+        assert.isTrue(outcome.isGameOver(board, marker))
       })
     })
   })

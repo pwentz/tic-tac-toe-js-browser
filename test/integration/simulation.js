@@ -21,10 +21,11 @@ describe('Game Simulation', function() {
         const computerMarker = 'X'
         const computer = new Computer(computerMarker)
         const userMarker = 'O'
+        const outcome = new Outcome(board.dimensions)
         const game = new Game({ board, markerOne: computerMarker,
                                        markerTwo: userMarker })
 
-        while(!Outcome.isGameOver(board, computerMarker)) {
+        while(!outcome.isGameOver(board, computerMarker)) {
           const randomPosition = board.openSpaces[Math.round(Math.random() * (board.openSpaces.length - 1))]
 
           board.addMarker(userMarker, randomPosition)
@@ -33,7 +34,7 @@ describe('Game Simulation', function() {
           console.log(board.state.slice(6,9))
           console.log('---------------')
 
-          if (Outcome.isGameOver(board, userMarker)) {
+          if (outcome.isGameOver(board, userMarker)) {
             break
           }
 
@@ -49,7 +50,7 @@ describe('Game Simulation', function() {
 
         console.log('GAME OVER')
 
-        assert.isFalse(Outcome.didWin(board, userMarker))
+        assert.isFalse(outcome.didWin(board, userMarker))
       }
     })
   })
@@ -63,6 +64,7 @@ describe('Game Simulation', function() {
                        ' ', ' ', ' ']
 
         const board = new Board(state)
+        const outcome = new Outcome(board.dimensions)
         const computerOneMarker = 'X'
         const computerOne = new Computer(computerOneMarker)
         const computerTwoMarker = 'O'
@@ -70,12 +72,12 @@ describe('Game Simulation', function() {
         const game = new Game({ board, markerOne: computerOneMarker,
                                        markerTwo: computerTwoMarker })
 
-        while(!Outcome.isGameOver(board, computerTwoMarker)) {
+        while(!outcome.isGameOver(board, computerTwoMarker)) {
           const computerOneMove = computerOne.getMove(game)
 
           board.addMarker(computerOneMarker, computerOneMove)
 
-          if (Outcome.isGameOver(board, computerOneMarker)) {
+          if (outcome.isGameOver(board, computerOneMarker)) {
             break
           }
 
@@ -84,8 +86,8 @@ describe('Game Simulation', function() {
           board.addMarker(computerTwoMarker, computerTwoMove)
         }
 
-        assert.isFalse(Outcome.didWin(board, computerOneMarker))
-        assert.isFalse(Outcome.didWin(board, computerTwoMarker))
+        assert.isFalse(outcome.didWin(board, computerOneMarker))
+        assert.isFalse(outcome.didWin(board, computerTwoMarker))
       }
     })
   })

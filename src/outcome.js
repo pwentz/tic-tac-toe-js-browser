@@ -1,12 +1,12 @@
 const BoardDimensions = require('./boardDimensions')
 
 class Outcome {
-  static dimensions(board) {
-    return new BoardDimensions(Math.sqrt(board.state.length))
+  constructor(dimensions) {
+    this.dimensions = dimensions
   }
 
-  static didWinDiagonally(board, selectedMarker) {
-    const dimensions = this.dimensions(board)
+  didWinDiagonally(board, selectedMarker) {
+    const dimensions = this.dimensions
     const upwardDiagonal = dimensions.upwardDiagonals
     const downwardDiagonal = dimensions.downwardDiagonals
     const mySpaces = board.indicesOf(selectedMarker)
@@ -24,8 +24,8 @@ class Outcome {
     return false
   }
 
-  static didWinHorizontallyOrVertically(structure, board, marker, condition) {
-    const dimensions = this.dimensions(board)
+  didWinHorizontallyOrVertically(structure, board, marker, condition) {
+    const dimensions = this.dimensions
     const { gameLength, totalCells } = dimensions
 
     for (let i = 0 ; i < totalCells ; i++) {
@@ -41,25 +41,25 @@ class Outcome {
     return false
   }
 
-  static didWinHorizontally(board, selectedMarker) {
+  didWinHorizontally(board, selectedMarker) {
     const isBeginningOfRow = (num, gameLength) => num % gameLength === 0
 
     return this.didWinHorizontallyOrVertically('row', board, selectedMarker, isBeginningOfRow)
   }
 
-  static didWinVertically(board, selectedMarker) {
+  didWinVertically(board, selectedMarker) {
     const isTopOfColumn = (num, gameLength) => num < gameLength
 
     return this.didWinHorizontallyOrVertically('column', board, selectedMarker, isTopOfColumn)
   }
 
-  static didWin(board, selectedMarker) {
+  didWin(board, selectedMarker) {
     return this.didWinDiagonally(board, selectedMarker) ||
             this.didWinHorizontally(board, selectedMarker) ||
              this.didWinVertically(board, selectedMarker)
   }
 
-  static isGameOver(board, marker) {
+  isGameOver(board, marker) {
     return this.didWin(board, marker) || !board.openSpaces.length
   }
 }
