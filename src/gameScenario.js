@@ -15,7 +15,7 @@ module.exports = class GameScenario {
   }
 
   get outcome() {
-    return Outcome
+    return new Outcome(this.board.dimensions)
   }
 
   allForks(game) {
