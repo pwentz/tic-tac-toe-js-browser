@@ -18,38 +18,16 @@ body {
   font-weight: 600;
 }
 
-#input-container {
+#canvas-container {
   display: flex;
   justify-content: center;
   align-items: center
 }
 
-#board {
+#game-board {
   margin: 0 auto;
   margin-top: 25px;
   margin-bottom: 25px;
-}
-
-td {
-  height: 100px;
-  width: 100px;
-  text-align: center;
-  font-size: 48px;
-  font-weight: 600;
-  color: white;
-  font-family: 'Pangolin', cursive;
-}
-
-.left-column {
-  border-right: 3px solid white;
-}
-
-.right-column {
-  border-left: 3px solid white;
-}
-
-#top-left, #center-left, #top-right, #center-right, #top-center, #center-center {
-  border-bottom: 3px solid white;
 }
 
 .result-text {
