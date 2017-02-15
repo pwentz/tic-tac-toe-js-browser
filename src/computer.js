@@ -25,10 +25,11 @@ module.exports = class Computer {
     const topPositionByScore = sortedScores.shift()
     const isBestPositionUnclear = sortedScores.some(i => i.score === topPositionByScore.score)
 
-    const isCenterOpen = board.isOpen(4)
+    const { center } = board.dimensions
+    const isCenterOpen = board.isOpen(center)
 
     if (isBestPositionUnclear && isCenterOpen) {
-      return 4
+      return center
     }
 
     return topPositionByScore.position

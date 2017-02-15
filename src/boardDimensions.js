@@ -1,22 +1,8 @@
 module.exports = class {
   constructor(gameLength) {
     this.gameLength = gameLength
-  }
-
-  get totalCells() {
-    return this.gameLength * this.gameLength
-  }
-
-  get center() {
-    return Math.floor(this.totalCells / 2)
-  }
-
-  get topLeftCorner() {
-    return 0
-  }
-
-  get topRightCorner() {
-    return this.gameLength - 1
+    this.totalCells = gameLength * gameLength
+    this.center = Math.floor(this.totalCells / 2)
   }
 
   get downwardDiagonals() {
