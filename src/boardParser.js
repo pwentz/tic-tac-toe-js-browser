@@ -28,24 +28,22 @@ module.exports = class BoardParser {
     return -1
   }
 
-  static indexOfWinningPositionHorizontally(board, marker) {
+  static indexOfWinner(structure, board, marker, condition) {
     const dimensions = this.dimensions(board)
     const { gameLength, totalCells } = dimensions
 
     for (let i = 0 ; i < totalCells ; i++) {
-      const isBeginningOfRow = i % gameLength === 0
-
-      if (isBeginningOfRow) {
-        const row = dimensions.row(i)
-        const myRowPositions = row.filter(num => board.indicesOf(marker).includes(num))
+      if (condition(i, gameLength)) {
+        const winningElements = dimensions[structure](i);
+        const myPositions = winningElements.filter(num => board.indicesOf(marker).includes(num))
 
         const hasWinningSetup = (winningSetup, mySetup) => {
           return (mySetup.length === (gameLength - 1)) &&
                   (winningSetup.some(i => board.isOpen(i)))
         }
 
-        if (hasWinningSetup(row, myRowPositions)) {
-          return row.find(i => board.isOpen(i))
+        if (hasWinningSetup(winningElements, myPositions)) {
+          return winningElements.find(i => board.isOpen(i))
         }
       }
     }
@@ -53,30 +51,16 @@ module.exports = class BoardParser {
     return -1
   }
 
+  static indexOfWinningPositionHorizontally(board, marker) {
+    const isBeginningOfRow = (num, gameLength) => (num % gameLength) === 0
+
+    return this.indexOfWinner('row', board, marker, isBeginningOfRow)
+  }
+
   static indexOfWinningPositionVertically(board, marker) {
-    const dimensions = this.dimensions(board)
-    const { gameLength, totalCells } = dimensions
+    const isTopOfColumn = (num, gameLength) => num < gameLength
 
-    for (let i = 0 ; i < totalCells ; i++) {
-      const isTopOfColumn = i < gameLength
-
-      if (isTopOfColumn) {
-        const column = dimensions.column(i)
-        const myPositions = board.indicesOf(marker)
-        const myColumnPositions = column.filter(num => myPositions.includes(num))
-
-        const hasWinningSetup = (winningSetup, mySetup) => {
-          return (mySetup.length === (gameLength - 1)) &&
-                  (winningSetup.some(i => board.isOpen(i)))
-        }
-
-        if (hasWinningSetup(column, myColumnPositions)) {
-          return column.find(i => board.isOpen(i))
-        }
-      }
-    }
-
-    return -1
+    return this.indexOfWinner('column', board, marker, isTopOfColumn)
   }
 
   static indexOfWinningPosition(board, marker) {
