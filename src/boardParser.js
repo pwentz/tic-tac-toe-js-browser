@@ -33,14 +33,22 @@ module.exports = class BoardParser {
   }
 
   static indexOfWinningPositionHorizontally(board, marker) {
-    for (let i = 0 ; i < board.state.length ; i++) {
-      const isBeginningOfRow = i % 3 === 0
+    const dimensions = this.dimensions(board)
+    const { gameLength, totalCells } = dimensions
+
+    for (let i = 0 ; i < totalCells ; i++) {
+      const isBeginningOfRow = i % gameLength === 0
 
       if (isBeginningOfRow) {
-        const row = board.state.slice(i, i + 3)
+        const row = board.state.slice(i, i + gameLength)
         const rowMarkers = row.filter(m => m === marker)
 
-        if (this.hasWinningSetup(row, rowMarkers)) {
+        const hasWinningSetup = (winningSetup, mySetup) => {
+          return (mySetup.length === (gameLength - 1)) &&
+                  (winningSetup.includes(' '))
+        }
+
+        if (hasWinningSetup(row, rowMarkers)) {
           return row.indexOf(' ') + i
         }
       }
@@ -50,7 +58,10 @@ module.exports = class BoardParser {
   }
 
   static indexOfWinningPositionVertically(board, marker) {
-    for (let i = 0 ; i < board.state.length ; i++) {
+    const dimensions = this.dimensions(board)
+    const { gameLength, totalCells } = dimensions
+
+    for (let i = 0 ; i < totalCells ; i++) {
       const isTopOfColumn = i < 3
 
       if (isTopOfColumn) {
