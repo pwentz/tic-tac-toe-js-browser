@@ -24,36 +24,33 @@ class Outcome {
     return false
   }
 
-  static didWinHorizontally(board, selectedMarker) {
-    const gameLength = this.dimensions(board).gameLength
+  static didWinHorizontallyOrVertically(structure, board, marker, condition) {
+    const dimensions = this.dimensions(board)
+    const { gameLength, totalCells } = dimensions
 
-    for (let i = 0 ; i < board.state.length ; i++) {
-      if (i % gameLength === 0) {
-        const nextThree = board.state.slice(i, i + gameLength)
-        const rowMarkers = nextThree.filter(m => m === selectedMarker)
+    for (let i = 0 ; i < totalCells ; i++) {
+      if (condition(i, gameLength)) {
+        const winningSetup = dimensions[structure](i)
+        const myPositions = board.indicesOf(marker)
+        const didWin = winningSetup.every(i => myPositions.includes(i))
 
-        if (rowMarkers.length === gameLength) return true
+        if (didWin) return true
       }
     }
 
     return false
   }
 
+  static didWinHorizontally(board, selectedMarker) {
+    const isBeginningOfRow = (num, gameLength) => num % gameLength === 0
+
+    return this.didWinHorizontallyOrVertically('row', board, selectedMarker, isBeginningOfRow)
+  }
+
   static didWinVertically(board, selectedMarker) {
-    const gameLength = this.dimensions(board).gameLength
+    const isTopOfColumn = (num, gameLength) => num < gameLength
 
-    for (let i = 0 ; i < board.state.length ; i++) {
-      const isTopOfColumn = i < gameLength
-
-      if (isTopOfColumn) {
-        const column = [board.state[i], board.state[i + gameLength], board.state[i + (gameLength * 2)]]
-        const columnMarkers = column.filter(m => m === selectedMarker)
-
-        if (columnMarkers.length === gameLength) return true
-      }
-    }
-
-    return false
+    return this.didWinHorizontallyOrVertically('column', board, selectedMarker, isTopOfColumn)
   }
 
   static didWin(board, selectedMarker) {
