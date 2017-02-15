@@ -1,3 +1,4 @@
+const R = require('ramda')
 const GameScenario = require('./gameScenario')
 
 module.exports = class Computer {
@@ -21,14 +22,17 @@ module.exports = class Computer {
       })
     }
 
-    const sortedScores = potentialGameScenarios.sort((a,b) => b.score > a.score)
-    const topPositionByScore = sortedScores.shift()
-    const isBestPositionUnclear = sortedScores.some(i => i.score === topPositionByScore.score)
+    const sortByScore = R.sortBy(R.prop('score'))
 
-    const isCenterOpen = board.isOpen(4)
+    const sortedScores = sortByScore(potentialGameScenarios)
+    const topPositionByScore = sortedScores.slice(-1)[0]
+    const isBestPositionUnclear = sortedScores.filter(i => i.score === topPositionByScore.score).length > 1
+
+    const { center } = board.dimensions
+    const isCenterOpen = board.isOpen(center)
 
     if (isBestPositionUnclear && isCenterOpen) {
-      return 4
+      return center
     }
 
     return topPositionByScore.position

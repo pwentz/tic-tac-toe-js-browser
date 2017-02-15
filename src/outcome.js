@@ -1,36 +1,64 @@
 class Outcome {
-  static didWinDiagonally(board, selectedMarker) {
-    const mySpaces = board.indicesOf(selectedMarker)
-
-    return (mySpaces.includes(0) && mySpaces.includes(4) && mySpaces.includes(8)) ||
-      (mySpaces.includes(2) && mySpaces.includes(4) && mySpaces.includes(6))
+  constructor(dimensions) {
+    this.dimensions = dimensions
   }
 
-  static didWinHorizontally(board, selectedMarker) {
-    for (let i = 0 ; i < board.state.length ; i++) {
-      if (i % 3 === 0) {
-        const nextThree = board.state.slice(i, i + 3)
-        const rowMarkers = nextThree.filter(m => m === selectedMarker)
+  didWinDiagonally(board, selectedMarker) {
+    const dimensions = this.dimensions
+    const upwardDiagonal = dimensions.upwardDiagonals
+    const downwardDiagonal = dimensions.downwardDiagonals
+    const mySpaces = board.indicesOf(selectedMarker)
 
-        if (rowMarkers.length === 3) return true
+    const isMySpaceOccupying = num => mySpaces.includes(num)
+
+    if (upwardDiagonal.every(isMySpaceOccupying)) {
+      return true
+    }
+
+    if (downwardDiagonal.every(isMySpaceOccupying)) {
+      return true
+    }
+
+    return false
+  }
+
+  didWinHorizontallyOrVertically(structure, board, marker, condition) {
+    const dimensions = this.dimensions
+    const { gameLength, totalCells } = dimensions
+
+    for (let i = 0 ; i < totalCells ; i++) {
+      if (condition(i, gameLength)) {
+        const winningSetup = dimensions[structure](i)
+        const myPositions = board.indicesOf(marker)
+        const didWin = winningSetup.every(i => myPositions.includes(i))
+
+        if (didWin) return true
       }
     }
 
     return false
   }
 
-  static didWinVertically(board, selectedMarker) {
-    return this.didWinHorizontally(board.transpose(), selectedMarker)
+  didWinHorizontally(board, selectedMarker) {
+    const isBeginningOfRow = (num, gameLength) => num % gameLength === 0
+
+    return this.didWinHorizontallyOrVertically('row', board, selectedMarker, isBeginningOfRow)
   }
 
-  static didWin(board, selectedMarker) {
+  didWinVertically(board, selectedMarker) {
+    const isTopOfColumn = (num, gameLength) => num < gameLength
+
+    return this.didWinHorizontallyOrVertically('column', board, selectedMarker, isTopOfColumn)
+  }
+
+  didWin(board, selectedMarker) {
     return this.didWinDiagonally(board, selectedMarker) ||
             this.didWinHorizontally(board, selectedMarker) ||
              this.didWinVertically(board, selectedMarker)
   }
 
-  static isGameOver(board, marker) {
-    return this.didWin(board, marker) || !board.openSpaces.length
+  isGameOver(board, marker) {
+    return this.didWin(board, marker) || board.isFull()
   }
 }
 
