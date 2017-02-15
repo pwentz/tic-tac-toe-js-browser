@@ -50,4 +50,5 @@ module.exports = class Board {
   isFull() {
     return this.openSpaces.length === 0
   }
+
 }

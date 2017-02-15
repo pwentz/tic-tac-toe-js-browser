@@ -22,46 +22,6 @@ describe('BoardDimensions', () => {
     })
   })
 
-  describe('#topLeftCorner', () => {
-    it('can return the top left corner index for a 3x3 board', () => {
-      const dimensions = new BoardDimensions(3)
-
-      assert.equal(dimensions.topLeftCorner, 0)
-    })
-
-    it('can return the top left corner index for a 5x5 board', () => {
-      const dimensions = new BoardDimensions(5)
-
-      assert.equal(dimensions.topLeftCorner, 0)
-    })
-
-    it('can return the top left corner index for a 7x7 board', () => {
-      const dimensions = new BoardDimensions(7)
-
-      assert.equal(dimensions.topLeftCorner, 0)
-    })
-  })
-
-  describe('#topRightCorner', () => {
-    it('can return the top right corner index for 3x3 board', () => {
-      const dimensions = new BoardDimensions(3)
-
-      assert.equal(dimensions.topRightCorner, 2)
-    })
-
-    it('can return the top right corner index for 5x5 board', () => {
-      const dimensions = new BoardDimensions(5)
-
-      assert.equal(dimensions.topRightCorner, 4)
-    })
-
-    it('can return the top right corner index for a 7x7 board', () => {
-      const dimensions = new BoardDimensions(7)
-
-      assert.equal(dimensions.topRightCorner, 6)
-    })
-  })
-
   describe('#downwardDiagonals', () => {
     context('3x3 board', () => {
       it('returns an array of indices from top left to bottom right', () => {
