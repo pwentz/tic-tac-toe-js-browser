@@ -22,11 +22,13 @@ module.exports = class Computer {
       })
     }
 
-    const sortByScore = R.sortBy(R.prop('score'))
+    const sortByScore = R.sortWith([R.descend(R.prop('score'))])
 
     const sortedScores = sortByScore(potentialGameScenarios)
-    const topPositionByScore = sortedScores.slice(-1)[0]
-    const isBestPositionUnclear = sortedScores.filter(i => i.score === topPositionByScore.score).length > 1
+    const topPositionByScore = sortedScores[0]
+    const topPositions = sortedScores.filter(i => i.score === topPositionByScore.score)
+
+    const isBestPositionUnclear = topPositions.length > 1
 
     const { center } = board.dimensions
     const isCenterOpen = board.isOpen(center)

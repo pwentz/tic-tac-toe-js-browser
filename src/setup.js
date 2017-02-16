@@ -3,9 +3,8 @@ const Board = require('./board')
 const Game = require('./game')
 
 module.exports = () => {
-  const state = [' ', ' ', ' ',
-                 ' ', ' ', ' ',
-                 ' ', ' ', ' ']
+  const state = new Array(9)
+  state.fill(' ')
 
   const board = new Board(state)
   const outcome = new Outcome(board.dimensions)

@@ -4,35 +4,32 @@ class Outcome {
   }
 
   didWinDiagonally(board, selectedMarker) {
-    const dimensions = this.dimensions
-    const upwardDiagonal = dimensions.upwardDiagonals
-    const downwardDiagonal = dimensions.downwardDiagonals
+    const { upwardDiagonals, downwardDiagonals } = this.dimensions
     const mySpaces = board.indicesOf(selectedMarker)
 
     const isMySpaceOccupying = num => mySpaces.includes(num)
 
-    if (upwardDiagonal.every(isMySpaceOccupying)) {
-      return upwardDiagonal
+    if (upwardDiagonals.every(isMySpaceOccupying)) {
+      return upwardDiagonals
     }
 
-    if (downwardDiagonal.every(isMySpaceOccupying)) {
-      return downwardDiagonal
+    if (downwardDiagonals.every(isMySpaceOccupying)) {
+      return downwardDiagonals
     }
 
     return false
   }
 
   didWinHorizontallyOrVertically(rowOrColumn, board, marker, isFirstOfCollection) {
-    const dimensions = this.dimensions
-    const { boardSize, count } = dimensions
+    const { boardSize, count } = this.dimensions
 
     for (let i = 0 ; i < count ; i++) {
       if (isFirstOfCollection(i, boardSize)) {
-        const winningSetup = dimensions[rowOrColumn](i)
+        const indicesOfAlignment = this.dimensions[rowOrColumn](i)
         const myPositions = board.indicesOf(marker)
-        const didWin = winningSetup.every(i => myPositions.includes(i))
+        const didWin = indicesOfAlignment.every(i => myPositions.includes(i))
 
-        if (didWin) return winningSetup
+        if (didWin) return indicesOfAlignment
       }
     }
 
