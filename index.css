@@ -125,12 +125,12 @@ body {
 }
 
 .flatten-board {
-  animation-duration: 3s;
-  animation-delay: 2s;
-  animation-name: flatten;
+  animation-duration: 1s;
+  animation-delay: 1s;
+  animation-name: flatten-horizontal;
 }
 
-@keyframes flatten {
+@keyframes flatten-horizontal {
   from {
     height: 300px;
   }
@@ -141,4 +141,36 @@ body {
 
 .animated-input:focus {
   outline: none;
+}
+
+.flatten-title {
+  animation-duration: 0.5s;
+  animation-delay: 1.5s;
+  animation-name: flatten-vertical
+}
+
+.expand-title {
+  animation-duration: 0.5s;
+  animation-timing-function: ease-out;
+  animation-name: expand-vertical
+}
+
+@keyframes flatten-vertical {
+  from {
+    width: 100%;
+    font-size: 48px;
+  }
+  to {
+    font-size: 0px;
+    width: 0%
+  }
+}
+
+@keyframes expand-vertical {
+  from {
+    font-size: 0px;
+  }
+  to {
+    font-size: 56px;
+  }
 }

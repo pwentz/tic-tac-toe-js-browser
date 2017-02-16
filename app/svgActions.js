@@ -51,43 +51,64 @@ module.exports = (document) => {
     board.classList.add('flatten-board')
 
     const title = document.querySelector('.title h3')
-    title.setAttribute('contentEditable', 'true')
-    title.classList.add('animated-input')
+    title.classList.add('flatten-title')
+    // title.setAttribute('contentEditable', 'true')
+    // title.classList.add('animated-input')
 
     board.addEventListener('animationend', (e) => {
       if (e.target.matches('svg')) {
         board.setAttribute('height', '0px')
-        replaceTitleWithReplayText(title)
+        // replaceTitleWithReplayText(title)
       }
+    })
+
+    title.addEventListener('animationend', (e) => {
+      const { animationName, target } = e
+      const { parentElement } = target
+      if (animationName === 'flatten-vertical') {
+        console.log('HIT!')
+        // const grandParent = document.querySelector('.title-container')
+        // grandParent.innerHTML = ''
+        parentElement.innerHTML = ''
+        const newTitle = document.createElement('h3')
+        newTitle.innerText = 'Press ENTER to replay.'
+        newTitle.classList.add('expand-title')
+        parentElement.appendChild(newTitle)
+      }
+
+      // if (animationName === 'expand-vertical') {
+      //   target.setAttribute('font-size', '48px')
+      //   target.setAttribute('width', '100%')
+      // }
     })
   }
 
   const replaceTitleWithReplayText = (textElement) => {
-    let newText = 'Press ENTER to replay'
-    textElement.focus()
-    textElement.innerText = ''
-    const type = (textElement, newLetter) => {
-      const newText = textElement.innerText.concat(newLetter)
-      textElement.innerText = newText
-    }
+    // let newText = 'Press ENTER to replay'
+    // textElement.focus()
+    // textElement.innerText = ''
+    // const type = (textElement, newLetter) => {
+    //   const newText = textElement.innerText.concat(newLetter)
+    //   textElement.innerText = newText
+    // }
 
-    const replaceText = (newText) => {
-      let text;
-      if (newText[0] === ' ') {
-        type(textElement, newText.slice(0, 2))
-        text = newText.slice(2)
-      }
-      else {
-        type(textElement, newText[0])
-        text = newText.slice(1)
-      }
+    // const replaceText = (newText) => {
+    //   let text;
+    //   if (newText[0] === ' ') {
+    //     type(textElement, newText.slice(0, 2))
+    //     text = newText.slice(2)
+    //   }
+    //   else {
+    //     type(textElement, newText[0])
+    //     text = newText.slice(1)
+    //   }
 
-      if (newText.length > 1) {
-        replaceText(text)
-      }
-    }
+    //   if (newText.length > 1) {
+    //     replaceText(text)
+    //   }
+    // }
 
-    replaceText(newText)
+    // replaceText(newText)
   }
 
   return {
