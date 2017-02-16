@@ -1,5 +1,5 @@
-const R = require('ramda')
 const GameScenario = require('./gameScenario')
+const { sortByScore } = require('./util')
 
 module.exports = class Computer {
   constructor(marker) {
@@ -22,13 +22,11 @@ module.exports = class Computer {
       })
     }
 
-    const sortByScore = R.sortWith([R.descend(R.prop('score'))])
+    const scenariosByTopScore = sortByScore(potentialGameScenarios)
+    const topPositionByScore = scenariosByTopScore[0]
+    const restOfPositionsByScore = scenariosByTopScore.filter(i => i.score === topPositionByScore.score)
 
-    const sortedScores = sortByScore(potentialGameScenarios)
-    const topPositionByScore = sortedScores[0]
-    const topPositions = sortedScores.filter(i => i.score === topPositionByScore.score)
-
-    const isBestPositionUnclear = topPositions.length > 1
+    const isBestPositionUnclear = restOfPositionsByScore.length > 1
 
     const { center } = board.dimensions
     const isCenterOpen = board.isOpen(center)

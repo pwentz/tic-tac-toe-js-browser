@@ -1,3 +1,5 @@
+const R = require('ramda')
+
 module.exports = {
   cellToCoords(cellNumber) {
     switch(cellNumber) {
@@ -52,5 +54,7 @@ module.exports = {
             return 8
         }
     }
-  }
+  },
+
+  sortByScore: R.sortWith([R.descend(R.prop('score'))])
 }
