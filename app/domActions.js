@@ -54,6 +54,7 @@ module.exports = (document) => {
     const startButton = document.querySelector('.start-button')
 
     input.addEventListener('keyup', (e) => {
+      e.cancelBubble = true
       if (input.value.trim()) {
         startButton.classList.remove('hide')
 
@@ -70,6 +71,14 @@ module.exports = (document) => {
     input.focus()
   }
 
+  const subscribeToReplay = (callback) => {
+    document.addEventListener('keyup', (e) => {
+      if (e.key === 'Enter') {
+        callback()
+      }
+    })
+  }
+
   return {
     onGameOver,
     getSvgActions,
@@ -77,6 +86,7 @@ module.exports = (document) => {
     hideOrderSelection,
     hideMarkerSettings,
     subscribeToOrderSelection,
-    subscribeToMarkerSelection
+    subscribeToMarkerSelection,
+    subscribeToReplay
   }
 }

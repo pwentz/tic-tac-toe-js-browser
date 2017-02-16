@@ -54,7 +54,14 @@ module.exports = (endGameCallback) => {
     })
   }
 
+  const replay = () => {
+    if (isGameOver()) {
+      // REPLAY GAME
+    }
+  }
+
   return {
+    replay,
     setMarkers,
     playUserTurn,
     playComputerTurn

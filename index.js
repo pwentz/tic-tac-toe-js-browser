@@ -4,10 +4,10 @@ const createGameActions = require('./src/gameActions')
 const ticTacToe = () => {
   const { onGameOver, getSvgActions,
           showOrderSelection, hideOrderSelection,
-          subscribeToOrderSelection,
+          subscribeToOrderSelection, subscribeToReplay,
           hideMarkerSettings, subscribeToMarkerSelection } = createDomActions(document)
 
-  const { setMarkers, playUserTurn, playComputerTurn } = createGameActions(onGameOver)
+  const { setMarkers, playUserTurn, playComputerTurn, replay } = createGameActions(onGameOver)
   const svg = getSvgActions()
 
   const onMarkerSelection = (selection) => {
@@ -51,6 +51,7 @@ const ticTacToe = () => {
   subscribeToOrderSelection('yes', onOrderSelection)
   subscribeToOrderSelection('no', onOrderSelection)
   subscribeToOrderSelection('no', onUserDefer)
+  subscribeToReplay(replay)
   svg.onClick(play)
 }
 
