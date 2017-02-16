@@ -7,7 +7,7 @@ const ticTacToe = () => {
           subscribeToOrderSelection, subscribeToReplay,
           hideMarkerSettings, subscribeToMarkerSelection } = createDomActions(document)
 
-  const { setMarkers, playUserTurn, playComputerTurn, replay } = createGameActions(onGameOver)
+  const { setMarkers, playUserTurn, playComputerTurn, onReplay } = createGameActions(onGameOver, ticTacToe)
   const svg = getSvgActions()
 
   const onMarkerSelection = (selection) => {
@@ -51,7 +51,7 @@ const ticTacToe = () => {
   subscribeToOrderSelection('yes', onOrderSelection)
   subscribeToOrderSelection('no', onOrderSelection)
   subscribeToOrderSelection('no', onUserDefer)
-  subscribeToReplay(replay)
+  subscribeToReplay(onReplay)
   svg.onClick(play)
 }
 

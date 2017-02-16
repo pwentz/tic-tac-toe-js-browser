@@ -1,7 +1,7 @@
 const setup = require('./setup')
 const Computer = require('./computer')
 
-module.exports = (endGameCallback) => {
+module.exports = (endGameCallback, replayCallback) => {
   const computer = new Computer()
   const { game, board, isGameOver } = setup()
 
@@ -54,14 +54,15 @@ module.exports = (endGameCallback) => {
     })
   }
 
-  const replay = () => {
+  const onReplay = (onPressEnterAndGameOver) => {
     if (isGameOver()) {
-      // REPLAY GAME
+      onPressEnterAndGameOver()
+      replayCallback()
     }
   }
 
   return {
-    replay,
+    onReplay,
     setMarkers,
     playUserTurn,
     playComputerTurn

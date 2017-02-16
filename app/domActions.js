@@ -1,6 +1,9 @@
 const createSvgActions = require('./svgActions')
+const domSetup = require('./domSetup')
 
 module.exports = (document) => {
+  domSetup(document)
+
   const changeMouseToPointer = () => document.body.style.cursor = 'pointer'
   const changeMouseBack = () => document.body.style.cursor = 'default'
 
@@ -67,14 +70,14 @@ module.exports = (document) => {
         startButton.classList.add('hide')
       }
     })
-
-    input.focus()
   }
 
-  const subscribeToReplay = (callback) => {
+  const subscribeToReplay = (onReplay) => {
     document.addEventListener('keyup', (e) => {
       if (e.key === 'Enter') {
-        callback()
+        onReplay(() => {
+          document.querySelector('body').innerHTML = ''
+        })
       }
     })
   }
