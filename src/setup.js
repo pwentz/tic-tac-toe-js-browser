@@ -8,21 +8,22 @@ module.exports = () => {
                  ' ', ' ', ' ']
 
   const board = new Board(state)
+  const outcome = new Outcome(board.dimensions)
   const game = new Game({ board, markerOne: null,
                                  markerTwo: null })
 
   return { game,
            board,
            isGameOver() {
-             if (Outcome.didWin(board, game.markerOne)){
-               const positions = Outcome.didWin(board, game.markerOne)
+             if (outcome.didWin(board, game.markerOne)){
+               const positions = outcome.didWin(board, game.markerOne)
                return { positions, message: 'you win!' }
              }
-             if (Outcome.didWin(board, game.markerTwo)) {
-               const positions = Outcome.didWin(board, game.markerTwo)
+             if (outcome.didWin(board, game.markerTwo)) {
+               const positions = outcome.didWin(board, game.markerTwo)
                return { positions, message: 'you lose!' }
              }
-             if (Outcome.isGameOver(board, game.markerTwo)) {
+             if (outcome.isGameOver(board, game.markerTwo)) {
                return { positions: null, message: "it's a tie!" }
              }
            }

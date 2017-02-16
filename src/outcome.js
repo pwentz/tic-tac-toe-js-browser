@@ -12,11 +12,11 @@ class Outcome {
     const isMySpaceOccupying = num => mySpaces.includes(num)
 
     if (upwardDiagonal.every(isMySpaceOccupying)) {
-      return true
+      return upwardDiagonal
     }
 
     if (downwardDiagonal.every(isMySpaceOccupying)) {
-      return true
+      return downwardDiagonal
     }
 
     return false
@@ -32,7 +32,7 @@ class Outcome {
         const myPositions = board.indicesOf(marker)
         const didWin = winningSetup.every(i => myPositions.includes(i))
 
-        if (didWin) return true
+        if (didWin) return winningSetup
       }
     }
 
