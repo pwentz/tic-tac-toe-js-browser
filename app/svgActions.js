@@ -54,43 +54,40 @@ module.exports = (document) => {
     title.setAttribute('contentEditable', 'true')
     title.classList.add('animated-input')
 
-    replaceTitleWithReplayText(title, title.innerText.length)
-
     board.addEventListener('animationend', (e) => {
       if (e.target.matches('svg')) {
         board.setAttribute('height', '0px')
+        replaceTitleWithReplayText(title)
       }
     })
   }
 
-  const replaceTitleWithReplayText = (textElement, charNumber) => {
-    moveCursorToEndOfInput(textElement, charNumber)
-    backspace(textElement)
-    if (textElement.innerText.length > 0) {
-      setTimeout(1000, () => {
-        replaceTitleWithReplayText(textElement, charNumber - 1)
-      })
-    }
-  }
-
-  const moveCursorToEndOfInput = (textElement, newLength) => {
+  const replaceTitleWithReplayText = (textElement) => {
+    let newText = 'Press ENTER to replay'
     textElement.focus()
-    const textNode = textElement.firstChild
-    const range = document.createRange()
+    textElement.innerText = ''
+    const type = (textElement, newLetter) => {
+      const newText = textElement.innerText.concat(newLetter)
+      textElement.innerText = newText
+    }
 
-    range.setStart(textNode, newLength)
-    range.setEnd(textNode, newLength)
-    const sel = window.getSelection()
-    sel.removeAllRanges()
-    sel.addRange(range)
-  }
+    const replaceText = (newText) => {
+      let text;
+      if (newText[0] === ' ') {
+        type(textElement, newText.slice(0, 2))
+        text = newText.slice(2)
+      }
+      else {
+        type(textElement, newText[0])
+        text = newText.slice(1)
+      }
 
-  const backspace = (text) => {
-    const { innerText } = text
-    console.log(innerText)
-    const newText = innerText.slice(0, innerText.length - 1)
-    console.log(newText)
-    text.innerText = newText
+      if (newText.length > 1) {
+        replaceText(text)
+      }
+    }
+
+    replaceText(newText)
   }
 
   return {
