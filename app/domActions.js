@@ -4,16 +4,20 @@ module.exports = (document) => {
   const changeMouseToPointer = () => document.body.style.cursor = 'pointer'
   const changeMouseBack = () => document.body.style.cursor = 'default'
 
-  const logResults = (result) => {
-    const { positions, message } = result
+  const renderOutcome = (message) => {
     const newText = document.createElement('p')
     newText.classList.add('result-text')
     newText.innerText = message
     document.querySelector('body').appendChild(newText)
+  }
 
-    // CODE GOES HERE
-    const svg = getSvgActions(document)
-    svg.drawResults(positions)
+  const onGameOver = (result) => {
+    const { positions, message } = result
+    const svg = getSvgActions()
+
+    renderOutcome(message)
+    positions ? svg.applyResults(positions)
+              : svg.startEndGameAnimations()
   }
 
   const getSvgActions = () => {
@@ -52,7 +56,7 @@ module.exports = (document) => {
   }
 
   return {
-    logResults,
+    onGameOver,
     getSvgActions,
     showOrderSelection,
     hideOrderSelection,

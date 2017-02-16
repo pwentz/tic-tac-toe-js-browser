@@ -2,12 +2,12 @@ const createDomActions = require('./app/domActions')
 const createGameActions = require('./src/gameActions')
 
 const ticTacToe = () => {
-  const { logResults, getSvgActions,
+  const { onGameOver, getSvgActions,
           showOrderSelection, hideOrderSelection,
           subscribeToOrderSelection,
           hideMarkerSettings, subscribeToMarkerSelection } = createDomActions(document)
 
-  const { setMarkers, playUserTurn, playComputerTurn } = createGameActions(logResults)
+  const { setMarkers, playUserTurn, playComputerTurn } = createGameActions(onGameOver)
   const svg = getSvgActions()
 
   const onMarkerSelection = (e) => {

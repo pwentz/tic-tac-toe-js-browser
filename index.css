@@ -126,7 +126,7 @@ body {
 
 .flatten-board {
   animation-duration: 1s;
-  animation-delay: 1s;
+  animation-delay: 1.5s;
   animation-name: flatten-horizontal;
 }
 
