@@ -10,13 +10,10 @@ const ticTacToe = () => {
   const { setMarkers, playUserTurn, playComputerTurn } = createGameActions(onGameOver)
   const svg = getSvgActions()
 
-  const onMarkerSelection = (e) => {
-    if (e.keyCode === 13) {
-      const selection = e.target.value.slice(0, 1)
-      setMarkers(selection ? selection : 'O')
-      hideMarkerSettings()
-      showOrderSelection()
-    }
+  const onMarkerSelection = (selection) => {
+    setMarkers(selection ? selection : 'O')
+    hideMarkerSettings()
+    showOrderSelection()
   }
 
   const onOrderSelection = (e) => {

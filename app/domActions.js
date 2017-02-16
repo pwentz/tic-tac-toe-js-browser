@@ -51,7 +51,22 @@ module.exports = (document) => {
 
   const subscribeToMarkerSelection = (callback) => {
     const input = document.querySelector('#marker-selection input')
-    input.addEventListener('keyup', callback)
+    const startButton = document.querySelector('.start-button')
+
+    input.addEventListener('keyup', (e) => {
+      if (input.value.trim()) {
+        startButton.classList.remove('hide')
+
+        startButton.addEventListener('click', () => {
+          callback(input.value.slice(0, 1))
+          startButton.classList.add('hide')
+        })
+      }
+      else {
+        startButton.classList.add('hide')
+      }
+    })
+
     input.focus()
   }
 
