@@ -1,13 +1,13 @@
-const markerDictionary = { X: 'O', O:'X' }
 const setup = require('./setup')
 const Computer = require('./computer')
 
-module.exports = (endGameCallback) => {
+module.exports = (endGameCallback, replayCallback) => {
   const computer = new Computer()
   const { game, board, isGameOver } = setup()
 
   const setMarkers = (chosenMarker) => {
-    const computerMarker = markerDictionary[chosenMarker]
+    const computerMarker = chosenMarker !== 'X' ? 'X'
+                                                : String.fromCharCode(0x30A0 + Math.random() * (0x30FF-0x30A0+1))
 
     game.markerOne = chosenMarker
     game.markerTwo = computerMarker
@@ -54,7 +54,15 @@ module.exports = (endGameCallback) => {
     })
   }
 
+  const onReplay = (onPressEnterAndGameOver) => {
+    if (isGameOver()) {
+      onPressEnterAndGameOver()
+      replayCallback()
+    }
+  }
+
   return {
+    onReplay,
     setMarkers,
     playUserTurn,
     playComputerTurn

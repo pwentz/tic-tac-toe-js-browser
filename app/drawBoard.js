@@ -1,9 +1,10 @@
 module.exports = (canvas, context) => {
   const speed = 15
+  const lineWeight = 7.5
   const draw = {
     ACROSS_X: (x, y) => {
       const width = speed
-      const height = 5
+      const height = lineWeight
       const newX = x + speed
       context.fillRect(newX, y, width, height)
       if ((newX + width) <= canvas.height) {
@@ -12,8 +13,8 @@ module.exports = (canvas, context) => {
         }
       }
     },
-    ACROSS_Y: (x, y) => {
-      const width = 5
+    DOWN_Y: (x, y) => {
+      const width = lineWeight
       const height = speed
       const newY = y + speed
       context.fillRect(x, newY, width, height)
@@ -26,7 +27,7 @@ module.exports = (canvas, context) => {
   }
 
   const verticalStroke = (x, y, stroke, nextStroke) => {
-    const drawIfPossible = draw['ACROSS_Y'](x, y)
+    const drawIfPossible = draw['DOWN_Y'](x, y)
     if (drawIfPossible) {
       drawIfPossible(stroke)
     }

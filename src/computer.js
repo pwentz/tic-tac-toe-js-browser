@@ -1,4 +1,5 @@
 const GameScenario = require('./gameScenario')
+const { sortByScore } = require('./util')
 
 module.exports = class Computer {
   constructor(marker) {
@@ -21,14 +22,17 @@ module.exports = class Computer {
       })
     }
 
-    const sortedScores = potentialGameScenarios.sort((a,b) => b.score > a.score)
-    const topPositionByScore = sortedScores.shift()
-    const isBestPositionUnclear = sortedScores.some(i => i.score === topPositionByScore.score)
+    const scenariosByTopScore = sortByScore(potentialGameScenarios)
+    const topPositionByScore = scenariosByTopScore[0]
+    const restOfPositionsByScore = scenariosByTopScore.filter(i => i.score === topPositionByScore.score)
 
-    const isCenterOpen = board.isOpen(4)
+    const isBestPositionUnclear = restOfPositionsByScore.length > 1
+
+    const { center } = board.dimensions
+    const isCenterOpen = board.isOpen(center)
 
     if (isBestPositionUnclear && isCenterOpen) {
-      return 4
+      return center
     }
 
     return topPositionByScore.position

@@ -1,38 +1,95 @@
-const Canvas = require('./canvas')
+const createSvgActions = require('./svgActions')
+const domSetup = require('./domSetup')
 
 module.exports = (document) => {
-  const logResults = (result) => {
+  domSetup(document)
+
+  const changeMouseToPointer = () => document.body.style.cursor = 'pointer'
+  const changeMouseBack = () => document.body.style.cursor = 'default'
+
+  const renderOutcome = (message) => {
     const newText = document.createElement('p')
     newText.classList.add('result-text')
-    newText.innerText = result
+    newText.innerText = message
     document.querySelector('body').appendChild(newText)
   }
 
-  const getCanvas = () => {
-    const canvas = document.getElementById('game-board')
-    const context = canvas.getContext('2d')
+  const onGameOver = (result) => {
+    const { positions, message } = result
+    const svg = getSvgActions()
 
-    return new Canvas(canvas, context)
+    renderOutcome(message)
+    positions ? svg.applyResults(positions)
+              : svg.startEndGameAnimations()
   }
 
-  const selectionX = document.querySelector('#X h1')
-  const selectionO = document.querySelector('#O h1')
+  const getSvgActions = () => {
+    return createSvgActions(document)
+  }
 
   const hideMarkerSettings = () => {
-    selectionX.classList.add('hide')
-    selectionO.classList.add('hide')
-    document.querySelector('.instructional-text').classList.add('hide')
+    document.querySelector('#marker-selection').classList.add('hide')
+  }
+
+  const orderSelection = document.querySelector('#order-selection')
+
+  const showOrderSelection = () => {
+    orderSelection.classList.remove('hide')
+  }
+
+  const hideOrderSelection = () => {
+    orderSelection.classList.add('hide')
+  }
+
+  const subscribeToOrderSelection = (selection, callback) => {
+    const options = {
+      yes: document.querySelector('#select-first-yes'),
+      no: document.querySelector('#select-first-no')
+    }
+
+    options[selection].addEventListener('click', callback)
+    options[selection].addEventListener('mouseenter', changeMouseToPointer)
+    options[selection].addEventListener('mouseleave', changeMouseBack)
   }
 
   const subscribeToMarkerSelection = (callback) => {
-    selectionX.addEventListener('click', callback)
-    selectionO.addEventListener('click', callback)
+    const input = document.querySelector('#marker-selection input')
+    const startButton = document.querySelector('.start-button')
+
+    input.addEventListener('keyup', (e) => {
+      e.cancelBubble = true
+      if (input.value.trim()) {
+        startButton.classList.remove('hide')
+
+        startButton.addEventListener('click', () => {
+          callback(input.value.slice(0, 1))
+          startButton.classList.add('hide')
+        })
+      }
+      else {
+        startButton.classList.add('hide')
+      }
+    })
+  }
+
+  const subscribeToReplay = (onReplay) => {
+    document.addEventListener('keyup', (e) => {
+      if (e.key === 'Enter') {
+        onReplay(() => {
+          document.querySelector('body').innerHTML = ''
+        })
+      }
+    })
   }
 
   return {
-    logResults,
-    getCanvas,
+    onGameOver,
+    getSvgActions,
+    showOrderSelection,
+    hideOrderSelection,
     hideMarkerSettings,
-    subscribeToMarkerSelection
+    subscribeToOrderSelection,
+    subscribeToMarkerSelection,
+    subscribeToReplay
   }
 }

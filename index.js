@@ -2,39 +2,57 @@ const createDomActions = require('./app/domActions')
 const createGameActions = require('./src/gameActions')
 
 const ticTacToe = () => {
-  const { logResults, getCanvas,
+  const { onGameOver, getSvgActions,
+          showOrderSelection, hideOrderSelection,
+          subscribeToOrderSelection, subscribeToReplay,
           hideMarkerSettings, subscribeToMarkerSelection } = createDomActions(document)
 
-  const { setMarkers, playUserTurn, playComputerTurn } = createGameActions(logResults)
-  const canvas = getCanvas()
+  const { setMarkers, playUserTurn, playComputerTurn, onReplay } = createGameActions(onGameOver, ticTacToe)
+  const svg = getSvgActions()
 
-  const onMarkerSelection = (e) => {
-    setMarkers(e.target.innerText)
+  const onMarkerSelection = (selection) => {
+    setMarkers(selection ? selection : 'O')
     hideMarkerSettings()
-    canvas.drawBoard()
+    showOrderSelection()
+  }
+
+  const onOrderSelection = (e) => {
+    hideOrderSelection()
+    svg.drawBoard()
+  }
+
+  const onUserDefer = (e) => {
+    playComputerTurn()
+     .then(({ marker, selection }) => {
+        svg.drawMarker(marker, selection)
+     })
   }
 
   const play = (e) => {
     e.preventDefault()
 
-    const userSelection = canvas.getCellNumber(e)
+    const userSelection = svg.getCellNumber(e)
 
     playUserTurn(userSelection)
       .then(({ marker, selection }) => {
-        canvas.drawMarker(marker, selection)
+        svg.drawMarker(marker, selection)
 
         return playComputerTurn()
       })
       .then(({ marker, selection }) => {
-        canvas.drawMarker(marker, selection)
+        svg.drawMarker(marker, selection)
       })
       .catch(() => {
-        canvas.unsubscribe(play)
+        svg.unsubscribe(play)
       })
   }
 
   subscribeToMarkerSelection(onMarkerSelection)
-  canvas.onClick(play)
+  subscribeToOrderSelection('yes', onOrderSelection)
+  subscribeToOrderSelection('no', onOrderSelection)
+  subscribeToOrderSelection('no', onUserDefer)
+  subscribeToReplay(onReplay)
+  svg.onClick(play)
 }
 
 ticTacToe()
