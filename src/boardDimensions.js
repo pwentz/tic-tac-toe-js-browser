@@ -1,14 +1,16 @@
 module.exports = class {
-  constructor(gameLength) {
-    this.gameLength = gameLength
-    this.totalCells = gameLength * gameLength
-    this.center = Math.floor(this.totalCells / 2)
+  constructor(boardSize) {
+    this.boardSize = boardSize
+    this.count = boardSize * boardSize
+    this.center = Math.floor(this.count / 2)
+    this.downwardDiagonals = this.getDownwardDiagonals()
+    this.upwardDiagonals = this.getUpwardDiagonals()
   }
 
-  get downwardDiagonals() {
+  getDownwardDiagonals() {
     let indices = [0]
-    for (let i = 1 ; i < this.totalCells ; i++) {
-      if ((i % (this.gameLength + 1)) === 0) {
+    for (let i = 1 ; i < this.count ; i++) {
+      if ((i % (this.boardSize + 1)) === 0) {
         indices.push(i)
       }
     }
@@ -16,10 +18,10 @@ module.exports = class {
     return indices
   }
 
-  get upwardDiagonals() {
+  getUpwardDiagonals() {
     let indices = []
-    for (let i = this.totalCells - 2 ; i > 0 ; i--) {
-      if ((i % (this.gameLength - 1)) === 0) {
+    for (let i = this.count - 2 ; i > 0 ; i--) {
+      if ((i % (this.boardSize - 1)) === 0) {
         indices.push(i)
       }
     }
@@ -29,7 +31,7 @@ module.exports = class {
 
   column(index) {
     let indices = []
-    for (let i = index ; i < this.totalCells ; i += this.gameLength) {
+    for (let i = index ; i < this.count ; i += this.boardSize) {
       indices.push(i)
     }
 
@@ -38,7 +40,7 @@ module.exports = class {
 
   row(index) {
     let indices = [index]
-    for (let i = index + 1 ; i % this.gameLength !== 0 ; i++) {
+    for (let i = index + 1 ; i % this.boardSize !== 0 ; i++) {
       indices.push(i)
     }
 

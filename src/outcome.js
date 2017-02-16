@@ -22,13 +22,13 @@ class Outcome {
     return false
   }
 
-  didWinHorizontallyOrVertically(structure, board, marker, condition) {
+  didWinHorizontallyOrVertically(rowOrColumn, board, marker, isFirstOfCollection) {
     const dimensions = this.dimensions
-    const { gameLength, totalCells } = dimensions
+    const { boardSize, count } = dimensions
 
-    for (let i = 0 ; i < totalCells ; i++) {
-      if (condition(i, gameLength)) {
-        const winningSetup = dimensions[structure](i)
+    for (let i = 0 ; i < count ; i++) {
+      if (isFirstOfCollection(i, boardSize)) {
+        const winningSetup = dimensions[rowOrColumn](i)
         const myPositions = board.indicesOf(marker)
         const didWin = winningSetup.every(i => myPositions.includes(i))
 
@@ -40,13 +40,13 @@ class Outcome {
   }
 
   didWinHorizontally(board, selectedMarker) {
-    const isBeginningOfRow = (num, gameLength) => num % gameLength === 0
+    const isBeginningOfRow = (num, boardSize) => num % boardSize === 0
 
     return this.didWinHorizontallyOrVertically('row', board, selectedMarker, isBeginningOfRow)
   }
 
   didWinVertically(board, selectedMarker) {
-    const isTopOfColumn = (num, gameLength) => num < gameLength
+    const isTopOfColumn = (num, boardSize) => num < boardSize
 
     return this.didWinHorizontallyOrVertically('column', board, selectedMarker, isTopOfColumn)
   }

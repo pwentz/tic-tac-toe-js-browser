@@ -5,13 +5,13 @@ module.exports = class BoardParser {
 
   indexOfWinningPositionDiagonally(board, marker) {
     const dimensions = this.dimensions
-    const { downwardDiagonals, upwardDiagonals, gameLength } = dimensions
+    const { downwardDiagonals, upwardDiagonals, boardSize } = dimensions
     const myPositions = board.indicesOf(marker)
     const myDownwardPositions = downwardDiagonals.filter(num => myPositions.includes(num))
     const myUpwardPositions = upwardDiagonals.filter(num => myPositions.includes(num))
 
     const hasWinningSetup = (idealSetup, mySetup) => {
-      return (mySetup.length === (gameLength - 1)) &&
+      return (mySetup.length === (boardSize - 1)) &&
               (idealSetup.some(i => board.isOpen(i)))
     }
 
@@ -26,17 +26,17 @@ module.exports = class BoardParser {
     return -1
   }
 
-  indexOfWinnerHorizontallyOrVertically(structure, board, marker, condition) {
+  indexOfWinnerHorizontallyOrVertically(rowOrColumn, board, marker, isFirstOfCollection) {
     const dimensions = this.dimensions
-    const { gameLength, totalCells } = dimensions
+    const { boardSize, count } = dimensions
 
-    for (let i = 0 ; i < totalCells ; i++) {
-      if (condition(i, gameLength)) {
-        const winningElements = dimensions[structure](i);
+    for (let i = 0 ; i < count ; i++) {
+      if (isFirstOfCollection(i, boardSize)) {
+        const winningElements = dimensions[rowOrColumn](i);
         const myPositions = winningElements.filter(num => board.indicesOf(marker).includes(num))
 
         const hasWinningSetup = (winningSetup, mySetup) => {
-          return (mySetup.length === (gameLength - 1)) &&
+          return (mySetup.length === (boardSize - 1)) &&
                   (winningSetup.some(i => board.isOpen(i)))
         }
 
@@ -50,13 +50,13 @@ module.exports = class BoardParser {
   }
 
   indexOfWinningPositionHorizontally(board, marker) {
-    const isBeginningOfRow = (num, gameLength) => (num % gameLength) === 0
+    const isBeginningOfRow = (num, boardSize) => (num % boardSize) === 0
 
     return this.indexOfWinnerHorizontallyOrVertically('row', board, marker, isBeginningOfRow)
   }
 
   indexOfWinningPositionVertically(board, marker) {
-    const isTopOfColumn = (num, gameLength) => num < gameLength
+    const isTopOfColumn = (num, boardSize) => num < boardSize
 
     return this.indexOfWinnerHorizontallyOrVertically('column', board, marker, isTopOfColumn)
   }
