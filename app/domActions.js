@@ -14,13 +14,14 @@ module.exports = (document) => {
     document.querySelector('body').appendChild(newText)
   }
 
-  const onGameOver = (result) => {
+  const onGameOver = (result, onReplay) => {
     const { positions, message } = result
     const svg = getSvgActions()
 
     renderOutcome(message)
     positions ? svg.applyResults(positions)
               : svg.startEndGameAnimations()
+    subscribeToReplay(onReplay)
   }
 
   const getSvgActions = () => {
@@ -75,9 +76,8 @@ module.exports = (document) => {
   const subscribeToReplay = (onReplay) => {
     document.addEventListener('keyup', (e) => {
       if (e.key === 'Enter') {
-        onReplay(() => {
-          document.querySelector('body').innerHTML = ''
-        })
+        document.querySelector('body').innerHTML = ''
+        onReplay()
       }
     })
   }
@@ -89,7 +89,6 @@ module.exports = (document) => {
     hideOrderSelection,
     hideMarkerSettings,
     subscribeToOrderSelection,
-    subscribeToMarkerSelection,
-    subscribeToReplay
+    subscribeToMarkerSelection
   }
 }
