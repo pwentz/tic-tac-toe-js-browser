@@ -4,8 +4,8 @@ const domSetup = require('./domSetup')
 module.exports = (document) => {
   domSetup(document)
 
-  const changeMouseToPointer = () => document.body.style.cursor = 'pointer'
-  const changeMouseBack = () => document.body.style.cursor = 'default'
+  const changeCursorToPointer = () => document.body.style.cursor = 'pointer'
+  const changeCursorToDefault = () => document.body.style.cursor = 'default'
 
   const renderOutcome = (message) => {
     const newText = document.createElement('p')
@@ -49,8 +49,8 @@ module.exports = (document) => {
     }
 
     options[selection].addEventListener('click', callback)
-    options[selection].addEventListener('mouseenter', changeMouseToPointer)
-    options[selection].addEventListener('mouseleave', changeMouseBack)
+    options[selection].addEventListener('mouseenter', changeCursorToPointer)
+    options[selection].addEventListener('mouseleave', changeCursorToDefault)
   }
 
   const subscribeToMarkerSelection = (callback) => {
