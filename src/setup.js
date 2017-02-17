@@ -2,9 +2,8 @@ const Outcome = require('./outcome')
 const Board = require('./board')
 const Game = require('./game')
 
-module.exports = () => {
-  const state = new Array(9)
-  state.fill(' ')
+module.exports = (count) => {
+  const state = new Array(count).fill(' ')
 
   const board = new Board(state)
   const outcome = new Outcome(board.dimensions)

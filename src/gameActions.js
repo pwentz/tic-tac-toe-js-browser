@@ -1,9 +1,9 @@
 const setup = require('./setup')
 const Computer = require('./computer')
 
-module.exports = (onGameOver, onReplay) => {
+module.exports = (count, onGameOver, onReplay) => {
   const computer = new Computer()
-  const { game, board, isGameOver } = setup()
+  const { game, board, isGameOver } = setup(count)
 
   const setMarkers = (chosenMarker) => {
     const computerMarker = chosenMarker !== 'X' ? 'X'

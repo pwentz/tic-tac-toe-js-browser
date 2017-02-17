@@ -3,7 +3,7 @@ const Computer = require('../../src/computer')
 const Outcome = require('../../src/outcome')
 const Board = require('../../src/board')
 const Game = require('../../src/game')
-
+const createGameActions = require('../../src/gameActions')
 
 describe('Game Simulation', function() {
   this.timeout(100000)
@@ -14,10 +14,7 @@ describe('Game Simulation', function() {
       it('never loses to the user', () => {
 
         for(let i = 0 ; i < 100 ; i++) {
-
-          const state = [' ', ' ', ' ',
-                         ' ', ' ', ' ',
-                         ' ', ' ', ' ']
+          const state = new Array(9).fill(' ')
 
           const board = new Board(state)
           const computerMarker = 'X'
@@ -50,9 +47,7 @@ describe('Game Simulation', function() {
       it('is a tie everytime', () => {
         for(let i = 0 ; i < 100 ; i++) {
 
-          const state = [' ', ' ', ' ',
-                         ' ', ' ', ' ',
-                         ' ', ' ', ' ']
+          const state = new Array(9).fill(' ')
 
           const board = new Board(state)
           const outcome = new Outcome(board.dimensions)
@@ -87,12 +82,7 @@ describe('Game Simulation', function() {
   context('5x5 board', () => {
     context('user goes first', () => {
       it('never allows the user to win', () => {
-        const state = [' ', ' ', ' ', ' ', ' ',
-                       ' ', ' ', ' ', ' ', ' ',
-                       ' ', ' ', ' ', ' ', ' ',
-                       ' ', ' ', ' ', ' ', ' ',
-                       ' ', ' ', ' ', ' ', ' ']
-
+        const state = new Array(25).fill(' ')
 
         const board = new Board(state)
         const computerMarker = 'X'
