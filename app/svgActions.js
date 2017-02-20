@@ -7,7 +7,7 @@ module.exports = (document) => {
     return coordsToCell(currentCellX, currentCellY)
   }
 
-  const drawMarker = (marker, selection) => {
+  const drawMarker = (marker, selection, color) => {
     const { x, y } = cellToCoords(selection)
 
     const text = document.createElementNS('http://www.w3.org/2000/svg', 'text')
@@ -15,10 +15,19 @@ module.exports = (document) => {
     text.classList.add('marker')
     text.setAttribute('x', x + 40)
     text.setAttribute('y', y + 60)
+    text.setAttribute('fill', color)
 
     const content = document.createTextNode(marker)
     text.appendChild(content)
     document.querySelector('#board').appendChild(text)
+  }
+
+  const drawComputerMarker = (marker, selection) => {
+    drawMarker(marker, selection, 'white')
+  }
+
+  const drawUserMarker = (marker, selection) => {
+    drawMarker(marker, selection, '#7CD3F9')
   }
 
   const onClick = (callback) => {
@@ -78,7 +87,7 @@ module.exports = (document) => {
 
     parentElement.innerHTML = ''
     const newTitle = document.createElement('h3')
-    newTitle.innerText = 'Press ENTER to replay.'
+    newTitle.innerHTML = "Press <span class='blue-text'>ENTER</span> to replay."
     newTitle.classList.add('expand-title')
     parentElement.appendChild(newTitle)
   }
@@ -86,10 +95,11 @@ module.exports = (document) => {
   return {
     applyResults,
     getCellNumber,
-    drawMarker,
     onClick,
     drawBoard,
     unsubscribe,
-    startEndGameAnimations
+    startEndGameAnimations,
+    drawUserMarker,
+    drawComputerMarker
   }
 }

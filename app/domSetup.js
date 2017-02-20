@@ -7,7 +7,7 @@ module.exports = (document) => {
     titleContainer.classList.add('center')
 
     const title = document.createElement('h3')
-    title.innerText = 'Tic Tac Toe'
+    title.innerHTML = "Tic <span class='blue-text'>Tac</span> Toe"
 
     titleContainer.appendChild(title)
 
@@ -21,7 +21,7 @@ module.exports = (document) => {
 
     const textContainer = document.createElement('div')
     textContainer.classList.add('instructional-text')
-    textContainer.innerText = 'Play first?'
+    textContainer.innerHTML = "Play <span class='blue-text'>first?</span>"
     orderContainer.appendChild(textContainer)
 
     const yesText = document.createElement('h2')
@@ -45,7 +45,7 @@ module.exports = (document) => {
 
     const instructionalText = document.createElement('h6')
     instructionalText.classList.add('instructional-text')
-    instructionalText.innerText = 'Select your marker:'
+    instructionalText.innerHTML = "Select your <span class='blue-text'>marker:</span>"
     markerContainer.appendChild(instructionalText)
 
     const inputContainer = document.createElement('div')

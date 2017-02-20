@@ -54,7 +54,7 @@ body {
   border: none;
   border-color: transparent;
   background-color: black;
-  color: white;
+  color: #7CD3F9;
   text-align: center;
   height: 100px;
   font-family: 'Pangolin';
@@ -73,7 +73,6 @@ body {
   animation-timing-function: cubic-bezier(.31,.03,.08,.95);
   font-size: 32px;
   font-weight: 600;
-  fill: white;
   position: relative;
 }
 
@@ -193,4 +192,8 @@ body {
   font-family: 'Pangolin', cursive;
   font-size: 24px;
   cursor: pointer;
+}
+
+.blue-text {
+  color: #7CD3F9;
 }

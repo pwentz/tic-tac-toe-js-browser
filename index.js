@@ -25,7 +25,7 @@ const ticTacToe = () => {
   const onUserDefer = (e) => {
     playComputerTurn()
      .then(({ marker, selection }) => {
-        svg.drawMarker(marker, selection)
+        svg.drawComputerMarker(marker, selection)
      })
   }
 
@@ -36,12 +36,12 @@ const ticTacToe = () => {
 
     playUserTurn(userSelection)
       .then(({ marker, selection }) => {
-        svg.drawMarker(marker, selection)
+        svg.drawUserMarker(marker, selection)
 
         return playComputerTurn()
       })
       .then(({ marker, selection }) => {
-        svg.drawMarker(marker, selection)
+        svg.drawComputerMarker(marker, selection)
       })
       .catch(() => {
         svg.unsubscribe(play)
