@@ -1,10 +1,10 @@
 body {
-  background-color: white;
+  background-color: black;
 }
 
 .instructional-text {
   font-family: 'Pangolin', cursive;
-  color: black;
+  color: white;
   text-align: center;
   font-size: 24px;
   font-weight: 600;
@@ -12,7 +12,7 @@ body {
 
 .title {
   font-family: 'Pangolin', cursive;
-  color: black;
+  color: white;
   text-align: center;
   font-size: 48px;
   font-weight: 600;
@@ -31,7 +31,7 @@ body {
 }
 
 .result-text {
-  color: black;
+  color: white;
   font-size: 32px;
   font-family: 'Pangolin', cursive;
   text-align: center;
@@ -46,13 +46,15 @@ body {
 }
 
 #board {
-  background: url(http://en.fffuuu.net/Content/Templates/Empty/Comics_3x3.svg) center;
+  background: url(http://www.clker.com/cliparts/5/5/2/3/13498137761170088994Blank%20Tic%20Tack%20Toe.svg.hi.png) center;
   background-size: 100%;
 }
 
 .invisible-input {
   border: none;
   border-color: transparent;
+  background-color: black;
+  color: #7CD3F9;
   text-align: center;
   height: 100px;
   font-family: 'Pangolin';
@@ -69,20 +71,21 @@ body {
   animation-name: enter;
   font-family: 'Pangolin', cursive;
   animation-timing-function: cubic-bezier(.31,.03,.08,.95);
-  font-size: 40px;
+  font-size: 32px;
+  font-weight: 600;
   position: relative;
 }
 
 @keyframes enter {
   0% {
-    font-size: 24px;
+    font-size: 16px;
   }
   50% {
     transform: translateX(-0.08em) translateY(0.08em);
-    font-size: 64px;
+    font-size: 56px;
   }
   100% {
-    font-size: 40px;
+    font-size: 32px;
   }
 }
 
@@ -189,4 +192,8 @@ body {
   font-family: 'Pangolin', cursive;
   font-size: 24px;
   cursor: pointer;
+}
+
+.blue-text {
+  color: #7CD3F9;
 }
