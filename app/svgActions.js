@@ -45,8 +45,8 @@ module.exports = (document) => {
     const board = document.querySelector('#board')
 
     path.setAttribute('d', d)
-    path.setAttribute('stroke', 'black')
-    path.setAttribute('fill', 'black')
+    path.setAttribute('stroke', '#7CD3F9')
+    path.setAttribute('fill', '#7CD3F9')
 
     path.classList.add('winning-path')
 
