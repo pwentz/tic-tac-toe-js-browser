@@ -1,9 +1,9 @@
 const setup = require('./setup')
 const Computer = require('./computer')
 
-module.exports = (endGameCallback, replayCallback) => {
+module.exports = (count, onGameOver, onReplay) => {
   const computer = new Computer()
-  const { game, board, isGameOver } = setup()
+  const { game, board, isGameOver } = setup(count)
 
   const setMarkers = (chosenMarker) => {
     const computerMarker = chosenMarker !== 'X' ? 'X'
@@ -17,7 +17,7 @@ module.exports = (endGameCallback, replayCallback) => {
   const ifGameIsOver = (callback) => {
     const outcome = isGameOver()
     if (outcome) {
-      callback(outcome)
+      callback(outcome, onReplay)
     }
   }
 
@@ -31,7 +31,7 @@ module.exports = (endGameCallback, replayCallback) => {
       else {
         board.addMarker(markerOne, cellNumber, () => {
           resolve({ marker: markerOne, selection: cellNumber })
-          ifGameIsOver(endGameCallback)
+          ifGameIsOver(onGameOver)
         })
       }
     })
@@ -48,21 +48,13 @@ module.exports = (endGameCallback, replayCallback) => {
       else {
         board.addMarker(markerTwo, move, () => {
           resolve({ marker: markerTwo, selection: move })
-          ifGameIsOver(endGameCallback)
+          ifGameIsOver(onGameOver)
         })
       }
     })
   }
 
-  const onReplay = (onPressEnterAndGameOver) => {
-    if (isGameOver()) {
-      onPressEnterAndGameOver()
-      replayCallback()
-    }
-  }
-
   return {
-    onReplay,
     setMarkers,
     playUserTurn,
     playComputerTurn

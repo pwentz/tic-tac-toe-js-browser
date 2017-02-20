@@ -57,11 +57,15 @@ module.exports = (document) => {
     inputContainer.appendChild(input)
     markerContainer.appendChild(inputContainer)
 
+    const startButtonContainer = document.createElement('div')
+    startButtonContainer.id = 'start-button-container'
+    startButtonContainer.classList.add('center')
     const startButton = document.createElement('button')
     startButton.classList.add('start-button')
     startButton.classList.add('hide')
     startButton.innerText = 'Start'
-    markerContainer.appendChild(startButton)
+    startButtonContainer.appendChild(startButton)
+    markerContainer.appendChild(startButtonContainer)
 
     return markerContainer
   }
