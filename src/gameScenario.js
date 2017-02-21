@@ -28,8 +28,8 @@ module.exports = class GameScenario {
     const { opponents } = game
 
     const opponentWillNotLetMeWin = (fork) => {
-      const parser = new BoardParser(this.board.dimensions)
-      const winningPosition = parser.indexOfWinningPosition(fork, this.marker)
+      const parser = new BoardParser(this.board)
+      const winningPosition = parser.indexOfWinningPosition(this.marker)
       return !fork.isOpen(winningPosition)
     }
 
