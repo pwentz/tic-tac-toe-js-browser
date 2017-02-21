@@ -14,8 +14,8 @@ module.exports = class GameScenario {
     this.depth = depth
   }
 
-  get outcome() {
-    return new Outcome(this.board.dimensions)
+  get parser() {
+    return new BoardParser(this.board)
   }
 
   allForks(game) {
@@ -28,8 +28,7 @@ module.exports = class GameScenario {
     const { opponents } = game
 
     const opponentWillNotLetMeWin = (fork) => {
-      const parser = new BoardParser(this.board)
-      const winningPosition = parser.indexOfWinningPosition(this.marker)
+      const winningPosition = this.parser.parse(this.marker)
       return !fork.isOpen(winningPosition)
     }
 
@@ -37,13 +36,16 @@ module.exports = class GameScenario {
   }
 
   calculateScore(game) {
-    if (this.outcome.didWin(this.board, this.marker)) {
+    const outcome = this.parser.parse(this.marker)
+    if (outcome.constructor.name === 'FinalOutcome') {
       this.score = (100 - (this.depth * 2))
       return;
     }
 
     const didOpponentWin = this.allForks(game).some(fork => {
-      return this.outcome.didWin(fork, game.opponents[this.marker])
+      const outcome = new BoardParser(fork).parse(game.opponents[this.marker])
+      return outcome.constructor.name === 'FinalOutcome' &&
+              outcome.marker === game.opponents[this.marker]
     })
 
     if (didOpponentWin) {

@@ -271,8 +271,16 @@ describe('boardParser', () => {
       const parser = new BoardParser(new Board(state))
       const outcome = parser.parse(marker)
 
-      it('returns a NullOutcome', () => {
-        assert.instanceOf(outcome, NullOutcome)
+      it('returns a FinalOutcome', () => {
+        assert.instanceOf(outcome, FinalOutcome)
+      })
+
+      it('returns a FinalOutcome with a null marker', () => {
+        assert.isNull(outcome.marker)
+      })
+
+      it('returns a FinalOutcome with empty positions', () => {
+        assert.equal(outcome.positions.length, 0)
       })
     })
   })

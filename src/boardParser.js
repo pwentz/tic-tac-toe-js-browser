@@ -108,6 +108,10 @@ module.exports = class BoardParser {
       return eventualOutcome
     }
 
+    if (this.board.isFull()) {
+      return new FinalOutcome({ marker: null, positions: [] })
+    }
+
     return new NullOutcome({ marker })
   }
 
