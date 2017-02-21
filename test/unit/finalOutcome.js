@@ -9,7 +9,7 @@ describe('FinalOutcome', () => {
 
     const outcome = new FinalOutcome({ marker, positions })
 
-    assert.deepEqual(outcome.winningPositions, positions)
+    assert.deepEqual(outcome.positions, positions)
   })
 
   it('has a marker attribute', () => {

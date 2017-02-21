@@ -1,6 +1,8 @@
 const assert = require('chai').assert
 const BoardParser = require('../../src/boardParser')
 const Board = require('../../src/board')
+const FinalOutcome = require('../../src/finalOutcome')
+const EventualOutcome = require('../../src/eventualOutcome')
 
 describe('boardParser', () => {
   describe('#parseDiagonal', () => {
@@ -12,8 +14,8 @@ describe('boardParser', () => {
       const parser = new BoardParser(new Board(state))
       const outcome = parser.parseDiagonal('X')
 
-      it('returns an outcome that tells whether game is over or not', () => {
-        assert.equal(outcome.isGameOver, false)
+      it('returns a EventualOutcome object', () => {
+        assert.instanceOf(outcome, EventualOutcome)
       })
 
       it ('returns an outcome that gives us the marker we searched with', () => {
@@ -21,7 +23,7 @@ describe('boardParser', () => {
       })
 
       it('returns an outcome that gives us the open position', () => {
-        assert.equal(outcome.winningIndex, 4)
+        assert.equal(outcome.position, 4)
       })
     })
 
@@ -33,8 +35,8 @@ describe('boardParser', () => {
       const parser = new BoardParser(new Board(state))
       const outcome = parser.parseDiagonal('X')
 
-      it('returns an outcome that tells whether the game is over', () => {
-        assert.equal(outcome.isGameOver, true)
+      it('returns a FinalOutcome object', () => {
+        assert.instanceOf(outcome, FinalOutcome)
       })
 
       it('returns an outcome with the marker', () => {
@@ -42,7 +44,7 @@ describe('boardParser', () => {
       })
 
       it('returns the positions that the winning marker occupies', () => {
-        assert.sameDeepMembers(outcome.winningPositions, [2, 4, 6])
+        assert.sameDeepMembers(outcome.positions, [2, 4, 6])
       })
     })
   })

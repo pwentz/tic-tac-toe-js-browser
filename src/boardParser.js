@@ -1,3 +1,6 @@
+const FinalOutcome = require('./finalOutcome')
+const EventualOutcome = require('./eventualOutcome')
+
 module.exports = class BoardParser {
   constructor(board) {
     this.board = board
@@ -20,38 +23,24 @@ module.exports = class BoardParser {
     const myPositions = this.board.indicesOf(marker)
 
     if (this.isGameOver(downwardDiagonals, myPositions)) {
-      return {
-        isGameOver: true,
-        marker,
-        winningPositions: downwardDiagonals
-      }
+      return new FinalOutcome({ marker, positions: downwardDiagonals })
     }
 
     if (this.isGameOver(upwardDiagonals, myPositions)) {
-      return {
-        isGameOver: true,
-        marker,
-        winningPositions: upwardDiagonals
-      }
+      return new FinalOutcome({ marker, positions: upwardDiagonals })
     }
 
     if (this.hasWinningSetup(downwardDiagonals, myPositions)) {
-      return {
-        isGameOver: false,
-        marker,
-        winningIndex: downwardDiagonals.find(i => this.board.isOpen(i))
-      }
+      return new EventualOutcome({ marker,
+                                   position: downwardDiagonals.find(i => this.board.isOpen(i)) })
     }
 
     if (this.hasWinningSetup(upwardDiagonals, myPositions)) {
-      return {
-        isGameOver: false,
-        marker,
-        winningIndex: upwardDiagonals.find(i => this.board.isOpen(i))
-      }
+      return new EventualOutcome({ marker,
+                                   position: upwardDiagonals.find(i => this.board.isOpen(i)) })
     }
 
-    return -1
+    return new EventualOutcome({ marker, position: -1 })
   }
 
   indexOfWinningPositionDiagonally(marker) {
