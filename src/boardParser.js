@@ -5,8 +5,53 @@ module.exports = class BoardParser {
   }
 
   hasWinningSetup(winningSetup, markerPositions) {
-    return (markerPositions.length === (this.dimensions.boardSize - 1)) &&
+    const matchingPositions = winningSetup.filter(num => markerPositions.includes(num))
+
+    return (matchingPositions.length === (this.dimensions.boardSize - 1)) &&
             (winningSetup.some(i => this.board.isOpen(i)))
+  }
+
+  isGameOver(idealSetup, markerPositions) {
+    return idealSetup.filter(num => markerPositions.includes(num)).length === this.dimensions.boardSize
+  }
+
+  parseDiagonal(marker) {
+    const { downwardDiagonals, upwardDiagonals, boardSize } = this.dimensions
+    const myPositions = this.board.indicesOf(marker)
+
+    if (this.isGameOver(downwardDiagonals, myPositions)) {
+      return {
+        isGameOver: true,
+        marker,
+        winningPositions: downwardDiagonals
+      }
+    }
+
+    if (this.isGameOver(upwardDiagonals, myPositions)) {
+      return {
+        isGameOver: true,
+        marker,
+        winningPositions: upwardDiagonals
+      }
+    }
+
+    if (this.hasWinningSetup(downwardDiagonals, myPositions)) {
+      return {
+        isGameOver: false,
+        marker,
+        winningIndex: downwardDiagonals.find(i => this.board.isOpen(i))
+      }
+    }
+
+    if (this.hasWinningSetup(upwardDiagonals, myPositions)) {
+      return {
+        isGameOver: false,
+        marker,
+        winningIndex: upwardDiagonals.find(i => this.board.isOpen(i))
+      }
+    }
+
+    return -1
   }
 
   indexOfWinningPositionDiagonally(marker) {
