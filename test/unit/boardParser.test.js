@@ -3,10 +3,11 @@ const BoardParser = require('../../src/boardParser')
 const Board = require('../../src/board')
 const FinalOutcome = require('../../src/finalOutcome')
 const EventualOutcome = require('../../src/eventualOutcome')
+const NullOutcome = require('../../src/nullOutcome')
 
 describe('boardParser', () => {
   describe('#parseDiagonal', () => {
-    context('game is not over', () => {
+    context('game is close to over', () => {
       const state = ['X', 'O', 'O',
                      ' ', ' ', 'O',
                      ' ', 'O', 'X']
@@ -47,10 +48,235 @@ describe('boardParser', () => {
         assert.sameDeepMembers(outcome.positions, [2, 4, 6])
       })
     })
+
+    context('game is far from over', () => {
+      const state = new Array(9).fill(' ')
+
+      const parser = new BoardParser(new Board(state))
+      const outcome = parser.parseDiagonal('X')
+
+      it('returns an NullOutcome', () => {
+        assert.instanceOf(outcome, NullOutcome)
+      })
+    })
   })
 
   describe('#parseHorizontal', () => {
+    context('game is close to over', () => {
+      const state = [' ', 'O', 'O',
+                     ' ', 'X', 'O',
+                     'X', ' ', 'X']
+
+      const marker = 'X'
+      const parser = new BoardParser(new Board(state))
+      const outcome = parser.parseHorizontal(marker)
+
+      it('returns an EventualOutcome object', () => {
+        assert.instanceOf(outcome, EventualOutcome)
+      })
+
+      it('EventualOutcome contains marker', () => {
+        assert.equal(outcome.marker, marker)
+      })
+
+      it('EventualOutcome object contains winning position', () => {
+        assert.equal(outcome.position, 7)
+      })
+    })
+
+    context('game is over', () => {
+      const state = ['X', 'X', 'X',
+                     'O', ' ', ' ',
+                     ' ', 'O', ' ']
+
+      const marker = 'X'
+      const parser = new BoardParser(new Board(state))
+      const outcome = parser.parseHorizontal(marker)
+
+      it('returns a FinalOutcome', () => {
+        assert.instanceOf(outcome, FinalOutcome)
+      })
+
+      it('returns a FinalOutcome instance that carries winningPositions', () => {
+        assert.deepEqual(outcome.positions, [0, 1, 2])
+      })
+
+      it('returns a FinalOutcome instance that carries the marker', () => {
+        assert.equal(outcome.marker, marker)
+      })
+    })
+
+    context('game is far from over', () => {
+      const state = new Array(9).fill(' ')
+
+      const parser = new BoardParser(new Board(state))
+      const outcome = parser.parseHorizontal('X')
+
+      it('returns an NullOutcome', () => {
+        assert.instanceOf(outcome, NullOutcome)
+      })
+    })
   })
+
+  describe('#parseVertical', () => {
+    context('game is close to over', () => {
+      const state = ['O', 'O', 'X',
+                     ' ', ' ', 'X',
+                     'O', ' ', ' ']
+
+      const marker = 'X'
+      const parser = new BoardParser(new Board(state))
+      const outcome = parser.parseVertical(marker)
+
+      it('returns an EventualOutcome', () => {
+        assert.instanceOf(outcome, EventualOutcome)
+      })
+
+      it('returns an EventualOutcome that holds the winning position', () => {
+        assert.equal(outcome.position, 8)
+      })
+
+      it('returns an EventualOutcome that holds the marker', () => {
+        assert.equal(outcome.marker, marker)
+      })
+    })
+
+    context('game is over', () => {
+      const state = ['X', 'O', 'O',
+                     'X', ' ', 'O',
+                     'X', ' ', ' ']
+
+      const marker = 'X'
+      const parser = new BoardParser(new Board(state))
+      const outcome = parser.parseVertical(marker)
+
+      it('returns a FinalOutcome', () => {
+        assert.instanceOf(outcome, FinalOutcome)
+      })
+
+      it('returns a FinalOutcome that points to the marker', () => {
+        assert.equal(outcome.marker, marker)
+      })
+
+      it('returns a FinalOutcome that has winning positions', () => {
+        assert.deepEqual(outcome.positions, [0, 3, 6])
+      })
+    })
+
+    context('game is far from over', () => {
+      const state = new Array(9).fill(' ')
+
+      const parser = new BoardParser(new Board(state))
+      const outcome = parser.parseVertical('X')
+
+      it('returns an NullOutcome', () => {
+        assert.instanceOf(outcome, NullOutcome)
+      })
+    })
+  })
+
+  describe('#parse', () => {
+    context('marker is in position to win diagonally', () => {
+      const state = ['X', 'O', 'O',
+                     ' ', ' ', 'O',
+                     ' ', ' ', 'X']
+
+      const marker = 'X'
+      const parser = new BoardParser(new Board(state))
+      const outcome = parser.parse(marker)
+
+      it('returns EventualOutcome', () => {
+        assert.instanceOf(outcome, EventualOutcome)
+      })
+
+      it('returns an EventualOutcome with position matching the winning position', () => {
+        assert.equal(outcome.position, 4)
+      })
+    })
+
+    context('marker is in a position to win horizontally', () => {
+      const state = [' ', 'O', 'O',
+                     ' ', ' ', 'O',
+                     ' ', 'X', 'X']
+
+      const marker = 'X'
+      const parser = new BoardParser(new Board(state))
+      const outcome = parser.parse(marker)
+
+      it('returns EventualOutcome', () => {
+        assert.instanceOf(outcome, EventualOutcome)
+      })
+
+      it('returns an EventualOutcome with position matching the winning position', () => {
+        assert.equal(outcome.position, 6)
+      })
+    })
+
+    context('marker is in a position to win vertically', () => {
+      const state = ['O', ' ', 'O',
+                     ' ', 'X', ' ',
+                     'O', 'X', ' ']
+
+      const marker = 'X'
+      const parser = new BoardParser(new Board(state))
+      const outcome = parser.parse(marker)
+
+      it('returns EventualOutcome', () => {
+        assert.instanceOf(outcome, EventualOutcome)
+      })
+
+      it('returns an EventualOutcome with position matching the winning position', () => {
+        assert.equal(outcome.position, 1)
+      })
+    })
+
+    context('game is over and given marker is winner', () => {
+      const state = ['O', 'X', 'O',
+                     ' ', 'X', ' ',
+                     'O', 'X', ' ']
+
+      const marker = 'X'
+      const parser = new BoardParser(new Board(state))
+      const outcome = parser.parse(marker)
+
+      it('returns a FinalOutcome', () => {
+        assert.instanceOf(outcome, FinalOutcome)
+      })
+
+      it('returns a FinalOutcome that has the winning positions', () => {
+        assert.deepEqual(outcome.positions, [1, 4, 7])
+      })
+    })
+
+    context('game is over and given marker is not winner', () => {
+      const state = ['O', 'X', 'O',
+                     ' ', 'O', ' ',
+                     'O', 'X', ' ']
+
+      const marker = 'X'
+      const parser = new BoardParser(new Board(state))
+      const outcome = parser.parse(marker)
+
+      it('returns a NullOutcome', () => {
+        assert.instanceOf(outcome, NullOutcome)
+      })
+    })
+
+    context('game is over and board is full', () => {
+      const state = ['X', 'O', 'O',
+                     'O', 'O', 'X',
+                     'X', 'X', 'O']
+
+      const marker = 'X'
+      const parser = new BoardParser(new Board(state))
+      const outcome = parser.parse(marker)
+
+      it('returns a NullOutcome', () => {
+        assert.instanceOf(outcome, NullOutcome)
+      })
+    })
+  })
+
   // describe('#indexOfWinningPositionDiagonally', () => {
   //   context('3x3 board', () => {
   //     it('returns an open space if markers are sloping downward', () => {
