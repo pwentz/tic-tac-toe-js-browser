@@ -2,194 +2,194 @@ const assert = require('chai').assert
 const OutcomeFactory = require('../../src/outcomeFactory')
 const Board = require('../../src/board')
 const FinalOutcome = require('../../src/finalOutcome')
-const EventualOutcome = require('../../src/eventualOutcome')
+const ActionableOutcome = require('../../src/actionableOutcome')
 const NullOutcome = require('../../src/nullOutcome')
 
-describe('boardParser', () => {
+describe('OutcomeFactory', () => {
   describe('#parseDiagonal', () => {
-    context('game is close to over', () => {
-      const state = ['X', 'O', 'O',
-                     ' ', ' ', 'O',
-                     ' ', 'O', 'X']
+    // context('game is close to over', () => {
+    //   const state = ['X', 'O', 'O',
+    //                  ' ', ' ', 'O',
+    //                  ' ', 'O', 'X']
 
-      const parser = new OutcomeFactory(new Board(state))
-      const outcome = parser.parseDiagonal('X')
+    //   const parser = new OutcomeFactory(new Board(state))
+    //   const outcome = parser.parseDiagonal('X')
 
-      it('returns a EventualOutcome object', () => {
-        assert.instanceOf(outcome, EventualOutcome)
-      })
+    //   it('returns a ActionableOutcome object', () => {
+    //     assert.instanceOf(outcome, ActionableOutcome)
+    //   })
 
-      it ('returns an outcome that gives us the marker we searched with', () => {
-        assert.equal(outcome.marker, 'X')
-      })
+    //   it ('returns an outcome that gives us the marker we searched with', () => {
+    //     assert.equal(outcome.marker, 'X')
+    //   })
 
-      it('returns an outcome that gives us the open position', () => {
-        assert.equal(outcome.position, 4)
-      })
-    })
+    //   it('returns an outcome that gives us the open position', () => {
+    //     assert.equal(outcome.position, 4)
+    //   })
+    // })
 
-    context('game is over', () => {
-      const state = ['O', 'O', 'X',
-                     ' ', 'X', 'O',
-                     'X', 'O', ' ']
+    // context('game is over', () => {
+    //   const state = ['O', 'O', 'X',
+    //                  ' ', 'X', 'O',
+    //                  'X', 'O', ' ']
 
-      const parser = new OutcomeFactory(new Board(state))
-      const outcome = parser.parseDiagonal('X')
+    //   const parser = new OutcomeFactory(new Board(state))
+    //   const outcome = parser.parseDiagonal('X')
 
-      it('returns a FinalOutcome object', () => {
-        assert.instanceOf(outcome, FinalOutcome)
-      })
+    //   it('returns a FinalOutcome object', () => {
+    //     assert.instanceOf(outcome, FinalOutcome)
+    //   })
 
-      it('returns an outcome with the marker', () => {
-        assert.equal(outcome.marker, 'X')
-      })
+    //   it('returns an outcome with the marker', () => {
+    //     assert.equal(outcome.marker, 'X')
+    //   })
 
-      it('returns the positions that the winning marker occupies', () => {
-        assert.sameDeepMembers(outcome.positions, [2, 4, 6])
-      })
-    })
+    //   it('returns the positions that the winning marker occupies', () => {
+    //     assert.sameDeepMembers(outcome.positions, [2, 4, 6])
+    //   })
+    // })
 
-    context('game is far from over', () => {
-      const state = new Array(9).fill(' ')
+    // context('game is far from over', () => {
+    //   const state = new Array(9).fill(' ')
 
-      const parser = new OutcomeFactory(new Board(state))
-      const outcome = parser.parseDiagonal('X')
+    //   const parser = new OutcomeFactory(new Board(state))
+    //   const outcome = parser.parseDiagonal('X')
 
-      it('returns an NullOutcome', () => {
-        assert.instanceOf(outcome, NullOutcome)
-      })
-    })
+    //   it('returns an NullOutcome', () => {
+    //     assert.instanceOf(outcome, NullOutcome)
+    //   })
+    // })
   })
 
   describe('#parseHorizontal', () => {
-    context('game is close to over', () => {
-      const state = [' ', 'O', 'O',
-                     ' ', 'X', 'O',
-                     'X', ' ', 'X']
+    // context('game is close to over', () => {
+    //   const state = [' ', 'O', 'O',
+    //                  ' ', 'X', 'O',
+    //                  'X', ' ', 'X']
 
-      const marker = 'X'
-      const parser = new OutcomeFactory(new Board(state))
-      const outcome = parser.parseHorizontal(marker)
+    //   const marker = 'X'
+    //   const parser = new OutcomeFactory(new Board(state))
+    //   const outcome = parser.parseHorizontal(marker)
 
-      it('returns an EventualOutcome object', () => {
-        assert.instanceOf(outcome, EventualOutcome)
-      })
+    //   it('returns an ActionableOutcome object', () => {
+    //     assert.instanceOf(outcome, ActionableOutcome)
+    //   })
 
-      it('EventualOutcome contains marker', () => {
-        assert.equal(outcome.marker, marker)
-      })
+    //   it('ActionableOutcome contains marker', () => {
+    //     assert.equal(outcome.marker, marker)
+    //   })
 
-      it('EventualOutcome object contains winning position', () => {
-        assert.equal(outcome.position, 7)
-      })
-    })
+    //   it('ActionableOutcome object contains winning position', () => {
+    //     assert.equal(outcome.position, 7)
+    //   })
+    // })
 
-    context('game is over', () => {
-      const state = ['X', 'X', 'X',
-                     'O', ' ', ' ',
-                     ' ', 'O', ' ']
+    // context('game is over', () => {
+    //   const state = ['X', 'X', 'X',
+    //                  'O', ' ', ' ',
+    //                  ' ', 'O', ' ']
 
-      const marker = 'X'
-      const parser = new OutcomeFactory(new Board(state))
-      const outcome = parser.parseHorizontal(marker)
+    //   const marker = 'X'
+    //   const parser = new OutcomeFactory(new Board(state))
+    //   const outcome = parser.parseHorizontal(marker)
 
-      it('returns a FinalOutcome', () => {
-        assert.instanceOf(outcome, FinalOutcome)
-      })
+    //   it('returns a FinalOutcome', () => {
+    //     assert.instanceOf(outcome, FinalOutcome)
+    //   })
 
-      it('returns a FinalOutcome instance that carries winningPositions', () => {
-        assert.deepEqual(outcome.positions, [0, 1, 2])
-      })
+    //   it('returns a FinalOutcome instance that carries winningPositions', () => {
+    //     assert.deepEqual(outcome.positions, [0, 1, 2])
+    //   })
 
-      it('returns a FinalOutcome instance that carries the marker', () => {
-        assert.equal(outcome.marker, marker)
-      })
-    })
+    //   it('returns a FinalOutcome instance that carries the marker', () => {
+    //     assert.equal(outcome.marker, marker)
+    //   })
+    // })
 
-    context('game is far from over', () => {
-      const state = new Array(9).fill(' ')
+    // context('game is far from over', () => {
+    //   const state = new Array(9).fill(' ')
 
-      const parser = new OutcomeFactory(new Board(state))
-      const outcome = parser.parseHorizontal('X')
+    //   const parser = new OutcomeFactory(new Board(state))
+    //   const outcome = parser.parseHorizontal('X')
 
-      it('returns an NullOutcome', () => {
-        assert.instanceOf(outcome, NullOutcome)
-      })
-    })
+    //   it('returns an NullOutcome', () => {
+    //     assert.instanceOf(outcome, NullOutcome)
+    //   })
+    // })
   })
 
   describe('#parseVertical', () => {
-    context('game is close to over', () => {
-      const state = ['O', 'O', 'X',
-                     ' ', ' ', 'X',
-                     'O', ' ', ' ']
+    // context('game is close to over', () => {
+    //   const state = ['O', 'O', 'X',
+    //                  ' ', ' ', 'X',
+    //                  'O', ' ', ' ']
 
-      const marker = 'X'
-      const parser = new OutcomeFactory(new Board(state))
-      const outcome = parser.parseVertical(marker)
+    //   const marker = 'X'
+    //   const parser = new OutcomeFactory(new Board(state))
+    //   const outcome = parser.parseVertical(marker)
 
-      it('returns an EventualOutcome', () => {
-        assert.instanceOf(outcome, EventualOutcome)
-      })
+    //   it('returns an ActionableOutcome', () => {
+    //     assert.instanceOf(outcome, ActionableOutcome)
+    //   })
 
-      it('returns an EventualOutcome that holds the winning position', () => {
-        assert.equal(outcome.position, 8)
-      })
+    //   it('returns an ActionableOutcome that holds the winning position', () => {
+    //     assert.equal(outcome.position, 8)
+    //   })
 
-      it('returns an EventualOutcome that holds the marker', () => {
-        assert.equal(outcome.marker, marker)
-      })
-    })
+    //   it('returns an ActionableOutcome that holds the marker', () => {
+    //     assert.equal(outcome.marker, marker)
+    //   })
+    // })
 
-    context('game is over', () => {
-      const state = ['X', 'O', 'O',
-                     'X', ' ', 'O',
-                     'X', ' ', ' ']
+    // context('game is over', () => {
+    //   const state = ['X', 'O', 'O',
+    //                  'X', ' ', 'O',
+    //                  'X', ' ', ' ']
 
-      const marker = 'X'
-      const parser = new OutcomeFactory(new Board(state))
-      const outcome = parser.parseVertical(marker)
+    //   const marker = 'X'
+    //   const parser = new OutcomeFactory(new Board(state))
+    //   const outcome = parser.parseVertical(marker)
 
-      it('returns a FinalOutcome', () => {
-        assert.instanceOf(outcome, FinalOutcome)
-      })
+    //   it('returns a FinalOutcome', () => {
+    //     assert.instanceOf(outcome, FinalOutcome)
+    //   })
 
-      it('returns a FinalOutcome that points to the marker', () => {
-        assert.equal(outcome.marker, marker)
-      })
+    //   it('returns a FinalOutcome that points to the marker', () => {
+    //     assert.equal(outcome.marker, marker)
+    //   })
 
-      it('returns a FinalOutcome that has winning positions', () => {
-        assert.deepEqual(outcome.positions, [0, 3, 6])
-      })
-    })
+    //   it('returns a FinalOutcome that has winning positions', () => {
+    //     assert.deepEqual(outcome.positions, [0, 3, 6])
+    //   })
+    // })
 
-    context('game is far from over', () => {
-      const state = new Array(9).fill(' ')
+    // context('game is far from over', () => {
+    //   const state = new Array(9).fill(' ')
 
-      const parser = new OutcomeFactory(new Board(state))
-      const outcome = parser.parseVertical('X')
+    //   const parser = new OutcomeFactory(new Board(state))
+    //   const outcome = parser.parseVertical('X')
 
-      it('returns an NullOutcome', () => {
-        assert.instanceOf(outcome, NullOutcome)
-      })
-    })
+    //   it('returns an NullOutcome', () => {
+    //     assert.instanceOf(outcome, NullOutcome)
+    //   })
+    // })
   })
 
-  describe('#parse', () => {
+  describe('#getOutcome', () => {
     context('marker is in position to win diagonally', () => {
       const state = ['X', 'O', 'O',
                      ' ', ' ', 'O',
                      ' ', ' ', 'X']
 
       const marker = 'X'
-      const parser = new OutcomeFactory(new Board(state))
-      const outcome = parser.parse(marker)
+      const factory = new OutcomeFactory(new Board(state))
+      const outcome = factory.getOutcome(marker)
 
-      it('returns EventualOutcome', () => {
-        assert.instanceOf(outcome, EventualOutcome)
+      it('returns ActionableOutcome', () => {
+        assert.instanceOf(outcome, ActionableOutcome)
       })
 
-      it('returns an EventualOutcome with position matching the winning position', () => {
+      it('returns an ActionableOutcome with position matching the winning position', () => {
         assert.equal(outcome.position, 4)
       })
     })
@@ -200,14 +200,14 @@ describe('boardParser', () => {
                      ' ', 'X', 'X']
 
       const marker = 'X'
-      const parser = new OutcomeFactory(new Board(state))
-      const outcome = parser.parse(marker)
+      const factory = new OutcomeFactory(new Board(state))
+      const outcome = factory.getOutcome(marker)
 
-      it('returns EventualOutcome', () => {
-        assert.instanceOf(outcome, EventualOutcome)
+      it('returns ActionableOutcome', () => {
+        assert.instanceOf(outcome, ActionableOutcome)
       })
 
-      it('returns an EventualOutcome with position matching the winning position', () => {
+      it('returns an ActionableOutcome with position matching the winning position', () => {
         assert.equal(outcome.position, 6)
       })
     })
@@ -218,14 +218,14 @@ describe('boardParser', () => {
                      'O', 'X', ' ']
 
       const marker = 'X'
-      const parser = new OutcomeFactory(new Board(state))
-      const outcome = parser.parse(marker)
+      const factory = new OutcomeFactory(new Board(state))
+      const outcome = factory.getOutcome(marker)
 
-      it('returns EventualOutcome', () => {
-        assert.instanceOf(outcome, EventualOutcome)
+      it('returns ActionableOutcome', () => {
+        assert.instanceOf(outcome, ActionableOutcome)
       })
 
-      it('returns an EventualOutcome with position matching the winning position', () => {
+      it('returns an ActionableOutcome with position matching the winning position', () => {
         assert.equal(outcome.position, 1)
       })
     })
@@ -236,8 +236,8 @@ describe('boardParser', () => {
                      'O', 'X', ' ']
 
       const marker = 'X'
-      const parser = new OutcomeFactory(new Board(state))
-      const outcome = parser.parse(marker)
+      const factory = new OutcomeFactory(new Board(state))
+      const outcome = factory.getOutcome(marker)
 
       it('returns a FinalOutcome', () => {
         assert.instanceOf(outcome, FinalOutcome)
@@ -254,8 +254,8 @@ describe('boardParser', () => {
                      'O', 'X', ' ']
 
       const marker = 'X'
-      const parser = new OutcomeFactory(new Board(state))
-      const outcome = parser.parse(marker)
+      const factory = new OutcomeFactory(new Board(state))
+      const outcome = factory.getOutcome(marker)
 
       it('returns a NullOutcome', () => {
         assert.instanceOf(outcome, NullOutcome)
@@ -268,8 +268,8 @@ describe('boardParser', () => {
                      'X', 'X', 'O']
 
       const marker = 'X'
-      const parser = new OutcomeFactory(new Board(state))
-      const outcome = parser.parse(marker)
+      const factory = new OutcomeFactory(new Board(state))
+      const outcome = factory.getOutcome(marker)
 
       it('returns a FinalOutcome', () => {
         assert.instanceOf(outcome, FinalOutcome)

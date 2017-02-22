@@ -20,12 +20,12 @@ describe('Game Simulation', function() {
           const computerMarker = 'X'
           const computer = new Computer(computerMarker)
           const userMarker = 'O'
-          const parser = new OutcomeFactory(board)
+          const factory = new OutcomeFactory(board)
           let outcome = {}
           const game = new Game({ board, markerOne: computerMarker,
                                          markerTwo: userMarker })
 
-          while(outcome.constructor.name !== 'FinalOutcome') {
+          while(!outcome.isOver) {
             const randomPosition = board.openSpaces[Math.round(Math.random() * (board.openSpaces.length - 1))]
 
             board.addMarker(userMarker, randomPosition)
@@ -35,9 +35,9 @@ describe('Game Simulation', function() {
             console.log(board.state.slice(6,9))
             console.log('-----------')
 
-            outcome = parser.parse(userMarker)
+            outcome = factory.getOutcome(userMarker)
 
-            if (outcome.constructor.name === 'FinalOutcome') {
+            if (outcome.isOver) {
               break
             }
 
@@ -50,11 +50,11 @@ describe('Game Simulation', function() {
             console.log(board.state.slice(6,9))
             console.log('-----------')
 
-            outcome = parser.parse(computerMarker)
+            outcome = factory.getOutcome(computerMarker)
           }
           console.log('GAME OVER')
 
-          assert.isTrue(outcome.constructor.name === 'FinalOutcome' &&
+          assert.isTrue(outcome.isOver &&
                          outcome.marker !== userMarker)
         }
       })

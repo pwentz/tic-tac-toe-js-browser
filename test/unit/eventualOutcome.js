@@ -1,21 +1,21 @@
 const assert = require('chai').assert
 const Outcome = require('../../src/outcome')
-const EventualOutcome = require('../../src/eventualOutcome')
+const ActionableOutcome = require('../../src/actionableOutcome')
 
-describe('EventualOutcome', () => {
+describe('ActionableOutcome', () => {
   const marker = 'X'
   const position = 1
-  const eventualOutcome = new EventualOutcome({ marker, position })
+  const actionableOutcome = new ActionableOutcome({ marker, position })
 
   it('takes a marker attribute', () => {
-    assert.equal(eventualOutcome.marker, marker)
+    assert.equal(actionableOutcome.marker, marker)
   })
 
   it('takes a position attribute', () => {
-    assert.equal(eventualOutcome.position, position)
+    assert.equal(actionableOutcome.position, position)
   })
 
   it('inherits from Outcome', () => {
-    assert.equal(eventualOutcome.__proto__.__proto__.constructor, Outcome)
+    assert.equal(actionableOutcome.__proto__.__proto__.constructor, Outcome)
   })
 })

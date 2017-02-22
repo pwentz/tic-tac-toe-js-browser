@@ -13,10 +13,6 @@ module.exports = class GameScenario {
     this.depth = depth
   }
 
-  get parser() {
-    return new OutcomeFactory(this.board)
-  }
-
   allForks(game) {
     const { opponents } = game
 
@@ -27,7 +23,7 @@ module.exports = class GameScenario {
     const { opponents } = game
 
     const opponentWillNotLetMeWin = (fork) => {
-      const outcome = new OutcomeFactory(fork).parse(this.marker)
+      const outcome = new OutcomeFactory(fork).getOutcome(this.marker)
       return !outcome.willWin
     }
 
@@ -35,14 +31,14 @@ module.exports = class GameScenario {
   }
 
   calculateScore(game) {
-    const outcome = this.parser.parse(this.marker)
+    const outcome = new OutcomeFactory(this.board).getOutcome(this.marker)
     if (outcome.didWin) {
       this.score = (100 - (this.depth * 2))
       return;
     }
 
     const didOpponentWin = this.allForks(game).some(fork => {
-      const outcome = new OutcomeFactory(fork).parse(game.opponents[this.marker])
+      const outcome = new OutcomeFactory(fork).getOutcome(game.opponents[this.marker])
       return outcome.didWin
     })
 

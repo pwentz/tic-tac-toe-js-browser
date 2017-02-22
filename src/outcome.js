@@ -9,7 +9,7 @@ module.exports = class Outcome {
   }
 
   get willWin() {
-    return this.constructor.name === 'EventualOutcome'
+    return this.constructor.name === 'ActionableOutcome'
   }
 
   get isOver() {
