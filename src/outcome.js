@@ -7,4 +7,8 @@ module.exports = class Outcome {
     return this.marker &&
             (this.constructor.name === 'FinalOutcome')
   }
+
+  get willWin() {
+    return this.constructor.name === 'EventualOutcome'
+  }
 }
