@@ -1,12 +1,12 @@
 const Board = require('./board')
 const Game = require('./game')
-const BoardParser = require('./boardParser')
+const OutcomeFactory = require('./outcomeFactory')
 
 module.exports = (count) => {
   const state = new Array(count).fill(' ')
 
   const board = new Board(state)
-  const parser = new BoardParser(board)
+  const parser = new OutcomeFactory(board)
   const game = new Game({ board, markerOne: null,
                                  markerTwo: null })
 

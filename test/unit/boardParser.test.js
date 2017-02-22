@@ -1,5 +1,5 @@
 const assert = require('chai').assert
-const BoardParser = require('../../src/boardParser')
+const OutcomeFactory = require('../../src/outcomeFactory')
 const Board = require('../../src/board')
 const FinalOutcome = require('../../src/finalOutcome')
 const EventualOutcome = require('../../src/eventualOutcome')
@@ -12,7 +12,7 @@ describe('boardParser', () => {
                      ' ', ' ', 'O',
                      ' ', 'O', 'X']
 
-      const parser = new BoardParser(new Board(state))
+      const parser = new OutcomeFactory(new Board(state))
       const outcome = parser.parseDiagonal('X')
 
       it('returns a EventualOutcome object', () => {
@@ -33,7 +33,7 @@ describe('boardParser', () => {
                      ' ', 'X', 'O',
                      'X', 'O', ' ']
 
-      const parser = new BoardParser(new Board(state))
+      const parser = new OutcomeFactory(new Board(state))
       const outcome = parser.parseDiagonal('X')
 
       it('returns a FinalOutcome object', () => {
@@ -52,7 +52,7 @@ describe('boardParser', () => {
     context('game is far from over', () => {
       const state = new Array(9).fill(' ')
 
-      const parser = new BoardParser(new Board(state))
+      const parser = new OutcomeFactory(new Board(state))
       const outcome = parser.parseDiagonal('X')
 
       it('returns an NullOutcome', () => {
@@ -68,7 +68,7 @@ describe('boardParser', () => {
                      'X', ' ', 'X']
 
       const marker = 'X'
-      const parser = new BoardParser(new Board(state))
+      const parser = new OutcomeFactory(new Board(state))
       const outcome = parser.parseHorizontal(marker)
 
       it('returns an EventualOutcome object', () => {
@@ -90,7 +90,7 @@ describe('boardParser', () => {
                      ' ', 'O', ' ']
 
       const marker = 'X'
-      const parser = new BoardParser(new Board(state))
+      const parser = new OutcomeFactory(new Board(state))
       const outcome = parser.parseHorizontal(marker)
 
       it('returns a FinalOutcome', () => {
@@ -109,7 +109,7 @@ describe('boardParser', () => {
     context('game is far from over', () => {
       const state = new Array(9).fill(' ')
 
-      const parser = new BoardParser(new Board(state))
+      const parser = new OutcomeFactory(new Board(state))
       const outcome = parser.parseHorizontal('X')
 
       it('returns an NullOutcome', () => {
@@ -125,7 +125,7 @@ describe('boardParser', () => {
                      'O', ' ', ' ']
 
       const marker = 'X'
-      const parser = new BoardParser(new Board(state))
+      const parser = new OutcomeFactory(new Board(state))
       const outcome = parser.parseVertical(marker)
 
       it('returns an EventualOutcome', () => {
@@ -147,7 +147,7 @@ describe('boardParser', () => {
                      'X', ' ', ' ']
 
       const marker = 'X'
-      const parser = new BoardParser(new Board(state))
+      const parser = new OutcomeFactory(new Board(state))
       const outcome = parser.parseVertical(marker)
 
       it('returns a FinalOutcome', () => {
@@ -166,7 +166,7 @@ describe('boardParser', () => {
     context('game is far from over', () => {
       const state = new Array(9).fill(' ')
 
-      const parser = new BoardParser(new Board(state))
+      const parser = new OutcomeFactory(new Board(state))
       const outcome = parser.parseVertical('X')
 
       it('returns an NullOutcome', () => {
@@ -182,7 +182,7 @@ describe('boardParser', () => {
                      ' ', ' ', 'X']
 
       const marker = 'X'
-      const parser = new BoardParser(new Board(state))
+      const parser = new OutcomeFactory(new Board(state))
       const outcome = parser.parse(marker)
 
       it('returns EventualOutcome', () => {
@@ -200,7 +200,7 @@ describe('boardParser', () => {
                      ' ', 'X', 'X']
 
       const marker = 'X'
-      const parser = new BoardParser(new Board(state))
+      const parser = new OutcomeFactory(new Board(state))
       const outcome = parser.parse(marker)
 
       it('returns EventualOutcome', () => {
@@ -218,7 +218,7 @@ describe('boardParser', () => {
                      'O', 'X', ' ']
 
       const marker = 'X'
-      const parser = new BoardParser(new Board(state))
+      const parser = new OutcomeFactory(new Board(state))
       const outcome = parser.parse(marker)
 
       it('returns EventualOutcome', () => {
@@ -236,7 +236,7 @@ describe('boardParser', () => {
                      'O', 'X', ' ']
 
       const marker = 'X'
-      const parser = new BoardParser(new Board(state))
+      const parser = new OutcomeFactory(new Board(state))
       const outcome = parser.parse(marker)
 
       it('returns a FinalOutcome', () => {
@@ -254,7 +254,7 @@ describe('boardParser', () => {
                      'O', 'X', ' ']
 
       const marker = 'X'
-      const parser = new BoardParser(new Board(state))
+      const parser = new OutcomeFactory(new Board(state))
       const outcome = parser.parse(marker)
 
       it('returns a NullOutcome', () => {
@@ -268,7 +268,7 @@ describe('boardParser', () => {
                      'X', 'X', 'O']
 
       const marker = 'X'
-      const parser = new BoardParser(new Board(state))
+      const parser = new OutcomeFactory(new Board(state))
       const outcome = parser.parse(marker)
 
       it('returns a FinalOutcome', () => {

@@ -2,7 +2,7 @@ const FinalOutcome = require('./finalOutcome')
 const EventualOutcome = require('./eventualOutcome')
 const NullOutcome = require('./nullOutcome')
 
-module.exports = class BoardParser {
+module.exports = class OutcomeFactory {
   constructor(board) {
     this.board = board
     this.dimensions = board.dimensions

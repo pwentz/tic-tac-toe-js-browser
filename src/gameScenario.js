@@ -1,5 +1,5 @@
 const Board = require('./board')
-const BoardParser = require('./boardParser')
+const OutcomeFactory = require('./outcomeFactory')
 
 module.exports = class GameScenario {
   constructor(boardState, position, marker, depth) {
@@ -14,7 +14,7 @@ module.exports = class GameScenario {
   }
 
   get parser() {
-    return new BoardParser(this.board)
+    return new OutcomeFactory(this.board)
   }
 
   allForks(game) {
@@ -27,7 +27,7 @@ module.exports = class GameScenario {
     const { opponents } = game
 
     const opponentWillNotLetMeWin = (fork) => {
-      const outcome = new BoardParser(fork).parse(this.marker)
+      const outcome = new OutcomeFactory(fork).parse(this.marker)
       return !outcome.willWin
     }
 
@@ -42,7 +42,7 @@ module.exports = class GameScenario {
     }
 
     const didOpponentWin = this.allForks(game).some(fork => {
-      const outcome = new BoardParser(fork).parse(game.opponents[this.marker])
+      const outcome = new OutcomeFactory(fork).parse(game.opponents[this.marker])
       return outcome.didWin
     })
 

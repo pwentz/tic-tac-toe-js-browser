@@ -1,6 +1,6 @@
 const assert = require('chai').assert
 const Computer = require('../../src/computer')
-const BoardParser = require('../../src/boardParser')
+const OutcomeFactory = require('../../src/outcomeFactory')
 const Board = require('../../src/board')
 const Game = require('../../src/game')
 const createGameActions = require('../../src/gameActions')
@@ -20,7 +20,7 @@ describe('Game Simulation', function() {
           const computerMarker = 'X'
           const computer = new Computer(computerMarker)
           const userMarker = 'O'
-          const parser = new BoardParser(board)
+          const parser = new OutcomeFactory(board)
           let outcome = {}
           const game = new Game({ board, markerOne: computerMarker,
                                          markerTwo: userMarker })
