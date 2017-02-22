@@ -29,7 +29,7 @@ module.exports = class GameScenario {
 
     const opponentWillNotLetMeWin = (fork) => {
       const winningPosition = this.parser.parse(this.marker)
-      return !fork.isOpen(winningPosition)
+      return !(winningPosition.constructor.name === 'EventualOutcome')
     }
 
     return this.board.getForks(opponents[this.marker], opponentWillNotLetMeWin)

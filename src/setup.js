@@ -1,27 +1,27 @@
-const Outcome = require('./outcome')
 const Board = require('./board')
 const Game = require('./game')
+const BoardParser = require('./boardParser')
 
 module.exports = (count) => {
   const state = new Array(count).fill(' ')
 
   const board = new Board(state)
-  const outcome = new Outcome(board.dimensions)
+  const parser = new BoardParser(board)
   const game = new Game({ board, markerOne: null,
                                  markerTwo: null })
 
   return { game,
            board,
            isGameOver() {
-             if (outcome.didWin(board, game.markerOne)){
-               const positions = outcome.didWin(board, game.markerOne)
-               return { positions, message: 'you win!' }
+             const userOutcome = parser.parse(game.markerOne)
+             if (userOutcome.didWin) {
+               return { positions: userOutcome.positions, message: 'you win!' }
              }
-             if (outcome.didWin(board, game.markerTwo)) {
-               const positions = outcome.didWin(board, game.markerTwo)
-               return { positions, message: 'you lose!' }
+             const cpuOutcome = parser.parse(game.markerTwo)
+             if (cpuOutcome.didWin) {
+               return { positions: cpuOutcome.positions, message: 'you lose!' }
              }
-             if (outcome.isGameOver(board, game.markerTwo)) {
+             if (board.isFull()) {
                return { positions: null, message: "it's a tie!" }
              }
            }
