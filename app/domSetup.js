@@ -27,13 +27,13 @@ module.exports = (document) => {
     const yesText = document.createElement('h2')
     yesText.classList.add('result-text')
     yesText.id = 'select-first-yes'
-    yesText.innerText = 'Yes'
+    yesText.innerText = 'yes'
     orderContainer.appendChild(yesText)
 
     const noText = document.createElement('h2')
     noText.classList.add('result-text')
     noText.id = 'select-first-no'
-    noText.innerText = 'No'
+    noText.innerText = 'no'
     orderContainer.appendChild(noText)
 
     return orderContainer

@@ -3,7 +3,6 @@ const domSetup = require('./domSetup')
 
 module.exports = (document) => {
   domSetup(document)
-
   const changeCursorToPointer = () => document.body.style.cursor = 'pointer'
   const changeCursorToDefault = () => document.body.style.cursor = 'default'
 
