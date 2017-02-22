@@ -6,23 +6,17 @@ module.exports = class BoardParser {
   constructor(board) {
     this.board = board
     this.dimensions = board.dimensions
-
-    this.isOpen = this.isOpen.bind(this)
   }
 
   hasWinningSetup(winningSetup, marker) {
     const matchingPositions = winningSetup.filter(num => this.board.indicesOf(marker).includes(num))
 
     return (matchingPositions.length === (this.dimensions.boardSize - 1)) &&
-            (winningSetup.some(this.isOpen))
+            (winningSetup.some(this.board.isOpen))
   }
 
   isGameOver(idealSetup, marker) {
     return idealSetup.filter(num => this.board.indicesOf(marker).includes(num)).length === this.dimensions.boardSize
-  }
-
-  isOpen(index) {
-    return this.board.isOpen(index)
   }
 
   parseDiagonal(marker) {
@@ -38,12 +32,12 @@ module.exports = class BoardParser {
 
     if (this.hasWinningSetup(downwardDiagonals, marker)) {
       return new EventualOutcome({ marker,
-                                   position: downwardDiagonals.find(this.isOpen) })
+                                   position: downwardDiagonals.find(this.board.isOpen) })
     }
 
     if (this.hasWinningSetup(upwardDiagonals, marker)) {
       return new EventualOutcome({ marker,
-                                   position: upwardDiagonals.find(this.isOpen) })
+                                   position: upwardDiagonals.find(this.board.isOpen) })
     }
 
     return new NullOutcome({ marker })
@@ -63,7 +57,7 @@ module.exports = class BoardParser {
 
         if (this.hasWinningSetup(alignedIndices, marker)) {
           return new EventualOutcome({ marker,
-                                       position: alignedIndices.find(this.isOpen) })
+                                       position: alignedIndices.find(this.board.isOpen) })
         }
       }
     }
@@ -85,7 +79,7 @@ module.exports = class BoardParser {
 
         if (this.hasWinningSetup(alignedIndices, marker)) {
           return new EventualOutcome({ marker,
-                                       position: alignedIndices.find(this.isOpen) })
+                                       position: alignedIndices.find(this.board.isOpen) })
         }
       }
     }
@@ -96,13 +90,13 @@ module.exports = class BoardParser {
   parse(marker) {
     const outcomes = [this.parseDiagonal(marker), this.parseHorizontal(marker), this.parseVertical(marker)]
 
-    const finalOutcome = outcomes.find(o => o.constructor === FinalOutcome)
+    const finalOutcome = outcomes.find(o => o.isOver)
 
     if (finalOutcome) {
       return finalOutcome
     }
 
-    const eventualOutcome = outcomes.find(o => o.constructor === EventualOutcome)
+    const eventualOutcome = outcomes.find(o => o.willWin)
 
     if (eventualOutcome) {
       return eventualOutcome
@@ -114,64 +108,4 @@ module.exports = class BoardParser {
 
     return new NullOutcome({ marker })
   }
-
-//   indexOfWinningPositionDiagonally(marker) {
-//     const { downwardDiagonals, upwardDiagonals, boardSize } = this.dimensions
-//     const myPositions = this.board.indicesOf(marker)
-//     const myDownwardPositions = downwardDiagonals.filter(num => myPositions.includes(num))
-//     const myUpwardPositions = upwardDiagonals.filter(num => myPositions.includes(num))
-
-//     if (this.hasWinningSetup(downwardDiagonals, myDownwardPositions)) {
-//       return downwardDiagonals.find(i => this.board.isOpen(i))
-//     }
-
-//     if (this.hasWinningSetup(upwardDiagonals, myUpwardPositions)) {
-//       return upwardDiagonals.find(i => this.board.isOpen(i))
-//     }
-
-//     return -1
-//   }
-
-  getNonDiagonalIndex(rowOrColumn, marker, isFirstOfCollection) {
-    const { boardSize, count } = this.dimensions
-
-    for (let i = 0 ; i < count ; i++) {
-      if (isFirstOfCollection(i, boardSize)) {
-        const indicesOfAlignment = this.dimensions[rowOrColumn](i);
-        const myPositions = indicesOfAlignment.filter(num => this.board.indicesOf(marker).includes(num))
-
-
-        if (this.hasWinningSetup(indicesOfAlignment, myPositions)) {
-          return indicesOfAlignment.find(i => this.board.isOpen(i))
-        }
-      }
-    }
-
-    return -1
-  }
-
-  indexOfWinningPositionHorizontally(marker) {
-    const isBeginningOfRow = (num, boardSize) => (num % boardSize) === 0
-
-    return this.getNonDiagonalIndex('row', marker, isBeginningOfRow)
-  }
-
-  indexOfWinningPositionVertically(marker) {
-    const isTopOfColumn = (num, boardSize) => num < boardSize
-
-    return this.getNonDiagonalIndex('column', marker, isTopOfColumn)
-  }
-
-  indexOfWinningPosition(marker) {
-    const diagonalPosition = this.indexOfWinningPositionDiagonally(marker)
-    const horizontalPosition = this.indexOfWinningPositionHorizontally(marker)
-    const verticalPosition = this.indexOfWinningPositionVertically(marker)
-
-    if (diagonalPosition >= 0) return diagonalPosition
-    if (horizontalPosition >= 0) return horizontalPosition
-    if (verticalPosition >= 0) return verticalPosition
-
-    return -1
-  }
-
 }

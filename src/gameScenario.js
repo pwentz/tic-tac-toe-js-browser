@@ -1,6 +1,5 @@
 const Board = require('./board')
 const BoardParser = require('./boardParser')
-const Outcome = require('./outcome')
 
 module.exports = class GameScenario {
   constructor(boardState, position, marker, depth) {

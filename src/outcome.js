@@ -11,4 +11,8 @@ module.exports = class Outcome {
   get willWin() {
     return this.constructor.name === 'EventualOutcome'
   }
+
+  get isOver() {
+    return this.constructor.name === 'FinalOutcome'
+  }
 }
