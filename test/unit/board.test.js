@@ -52,6 +52,7 @@ describe('Board', () => {
       const result = [new Board(forkedBoardOne), new Board(forkedBoardTwo),
                       new Board(forkedBoardThree), new Board(forkedBoardFour)]
 
+      console.log(board.getForks('X'))
       assert.sameDeepMembers(board.getForks('X'), result)
     })
   })

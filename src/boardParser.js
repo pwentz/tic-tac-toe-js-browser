@@ -6,17 +6,29 @@ module.exports = class BoardParser {
   constructor(board) {
     this.board = board
     this.dimensions = board.dimensions
+
+    this.isOpen = this.isOpen.bind(this)
+  }
+
+  isOpen(i) {
+    return this.board.isOpen(i)
   }
 
   hasWinningSetup(winningSetup, marker) {
-    const matchingPositions = winningSetup.filter(num => this.board.indicesOf(marker).includes(num))
+    const matchingPositions = winningSetup.filter((num) => {
+      return this.board.indicesOf(marker).includes(num)
+    })
 
     return (matchingPositions.length === (this.dimensions.boardSize - 1)) &&
-            (winningSetup.some(this.board.isOpen))
+            (winningSetup.some(this.isOpen))
   }
 
   isGameOver(idealSetup, marker) {
-    return idealSetup.filter(num => this.board.indicesOf(marker).includes(num)).length === this.dimensions.boardSize
+    const alignedMarkers =  idealSetup.filter((num) => {
+      return this.board.indicesOf(marker).includes(num)
+    })
+
+    return alignedMarkers.length === this.dimensions.boardSize
   }
 
   parseDiagonal(marker) {
@@ -32,12 +44,12 @@ module.exports = class BoardParser {
 
     if (this.hasWinningSetup(downwardDiagonals, marker)) {
       return new EventualOutcome({ marker,
-                                   position: downwardDiagonals.find(this.board.isOpen) })
+                                   position: downwardDiagonals.find(this.isOpen) })
     }
 
     if (this.hasWinningSetup(upwardDiagonals, marker)) {
       return new EventualOutcome({ marker,
-                                   position: upwardDiagonals.find(this.board.isOpen) })
+                                   position: upwardDiagonals.find(this.isOpen) })
     }
 
     return new NullOutcome({ marker })
@@ -57,7 +69,7 @@ module.exports = class BoardParser {
 
         if (this.hasWinningSetup(alignedIndices, marker)) {
           return new EventualOutcome({ marker,
-                                       position: alignedIndices.find(this.board.isOpen) })
+                                       position: alignedIndices.find(this.isOpen) })
         }
       }
     }
@@ -79,7 +91,7 @@ module.exports = class BoardParser {
 
         if (this.hasWinningSetup(alignedIndices, marker)) {
           return new EventualOutcome({ marker,
-                                       position: alignedIndices.find(this.board.isOpen) })
+                                       position: alignedIndices.find(this.isOpen) })
         }
       }
     }

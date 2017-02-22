@@ -4,8 +4,6 @@ module.exports = class Board {
   constructor(boardState) {
     this.state = [...boardState]
     this.dimensions = new BoardDimensions(Math.sqrt(this.state.length))
-
-    this.isOpen = this.isOpen.bind(this)
   }
 
   get openSpaces() {
