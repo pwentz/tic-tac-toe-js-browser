@@ -5,4 +5,20 @@ module.exports = class FinalOutcome extends Outcome {
     super({ marker })
     this.positions = positions
   }
+
+  get didWin() {
+    if (this.marker) {
+      return true
+    }
+
+    return false
+  }
+
+  get willWin() {
+    return false
+  }
+
+  get isOver() {
+    return true
+  }
 }
