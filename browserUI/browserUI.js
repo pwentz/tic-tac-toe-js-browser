@@ -12,14 +12,14 @@ module.exports = class {
     this.boardListener = false
   }
 
-  promptUserForTurn(callback) {
+  promptUserForTurn(resolve) {
     const onClick = (e) => {
       console.log('hit')
       const targetCellX = Math.floor(e.offsetX / 100) * 100
       const targetCellY = Math.floor(e.offsetY / 100) * 100
 
       svg.unsubscribe(onClick)
-      callback(coordsToCell(targetCellX, targetCellY))
+      resolve(coordsToCell(targetCellX, targetCellY))
     }
 
     svg.onClick(onClick)
@@ -32,12 +32,8 @@ module.exports = class {
     newText.innerText = message
     document.querySelector('body').appendChild(newText)
 
-    if (positions) {
-      svg.applyResults(positions)
-    }
-    else {
-      svg.startEndGameAnimations()
-    }
+    positions ? svg.applyResults(positions)
+              : svg.startEndGameAnimations()
   }
 
   drawMarker(marker, selection, color) {
@@ -72,9 +68,7 @@ module.exports = class {
     return new Promise((resolve) => {
       subscribeToMarkerSelection((marker) => {
         hideMarkerSettings()
-        // document.querySelector('#marker-selection').classList.add('hide')
         showOrderSelection()
-        //document.querySelector('#order-selection').classList.remove('hide')
         resolve(marker)
       })
     })

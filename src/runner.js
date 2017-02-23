@@ -4,22 +4,14 @@ const { game, board, isGameOver, cpu } = gameOptions(9)
 
 module.exports = (ui) => {
 
-  const startUserTurn = () => {
+  const playUserTurn = () => {
     return new Promise((resolve, reject) => {
       return ui.promptUserForTurn(resolve)
     })
-  }
-
-  const playUserTurn = () => {
-    return startUserTurn()
-      .then((selection) => {
-        return new Promise((resolve) => {
-          board.addMarker(game.markerOne, selection)
-          ui.drawMarkerOne(game.markerOne, selection)
-
-          resolve()
-        })
-      })
+    .then(selection => {
+      board.addMarker(game.markerOne, selection)
+      ui.drawMarkerOne(game.markerOne, selection)
+    })
   }
 
   const playCpuTurn = () => {
@@ -41,9 +33,8 @@ module.exports = (ui) => {
           ui.onGameOver(outcome)
           return
         }
-        else {
-          play(playSecondPlayerTurn, playFirstPlayerTurn)
-        }
+
+        play(playSecondPlayerTurn, playFirstPlayerTurn)
      })
   }
 
