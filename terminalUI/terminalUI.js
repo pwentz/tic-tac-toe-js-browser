@@ -60,7 +60,7 @@ module.exports = class {
             resolve(orderInput.toLowerCase())
           }
           else {
-            reject('Please enter [Y/y] or [N/n]: ')
+            reject()
           }
         })
       })
