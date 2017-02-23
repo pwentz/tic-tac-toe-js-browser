@@ -19,7 +19,7 @@ module.exports = class {
       const targetCellY = Math.floor(e.offsetY / 100) * 100
 
       svg.unsubscribe(onClick)
-      return callback(coordsToCell(targetCellX, targetCellY))
+      callback(coordsToCell(targetCellX, targetCellY))
     }
 
     svg.onClick(onClick)
