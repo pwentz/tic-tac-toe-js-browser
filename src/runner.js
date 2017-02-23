@@ -1,33 +1,72 @@
+const gameOptions = require('./setup')
+
+const { game, board, isGameOver, cpu } = gameOptions(9)
+
 module.exports = (ui) => {
   const userSettings = { }
   ui.getMarkerSettings()
     .then(marker => {
-      // set userMarker
-      // set computerMarker
-      console.log('MARKER:', marker)
+      const cpuMarker = marker === 'X' ? 'O' : 'X'
+      game.markerOne = marker
+      game.markerTwo = cpuMarker
+      cpu.marker = cpuMarker
 
       return ui.getOrderSettings()
     })
     .then(isUserGoingFirst => {
-      // draw board
+      ui.renderBoard()
+
       if (isUserGoingFirst.slice(0, 1) === 'y') {
-        // play computer turn
-        // check for game over
-        // draw board
-        // open up for input
-        // check for game over
-        // draw board
-        // repeat
-        console.log('USER IS GOING FIRST')
+        return ui.promptUserForTurn()
+          .then((selection) => {
+            board.addMarker(game.markerOne, selection)
+            ui.drawMarkerOne(game.markerOne, selection)
+
+            const userOutcome = isGameOver()
+
+            if (userOutcome) {
+              ui.onGameOver(userOutcome)
+              return
+            }
+
+            const move = cpu.getMove(game)
+            board.addMarker(cpu.marker, move)
+
+            ui.drawMarkerTwo(cpu.marker, move)
+            const cpuOutcome = isGameOver()
+
+            if (cpuOutcome) {
+              ui.onGameOver(cpuOutcome)
+              return
+            }
+          })
       }
       else {
-        // open up for input
+        const move = cpu.getMove(game)
+        board.addMarker(cpu.marker, move)
         // check for game over
-        // draw board
-        // play computer turn
-        // check for game over
-        // draw board
-        // repeat
+
+        ui.drawMarkerTwo(cpu.marker, move)
+
+        const cpuOutcome = isGameOver()
+
+        if (cpuOutcome) {
+          ui.onGameOver(cpuOutcome)
+          return
+        }
+
+        return ui.promptUserForTurn()
+          .then((selection) => {
+            board.addMarker(game.markerOne, selection)
+            ui.drawMarkerOne(game.markerOne, selection)
+
+            const userOutcome = isGameOver()
+
+            if (userOutcome) {
+              ui.onGameOver(userOutcome)
+              return
+            }
+          })
       }
     })
     .catch(error => {
