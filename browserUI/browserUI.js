@@ -8,15 +8,28 @@ const { showOrderSelection, hideOrderSelection,
 const svg = getSvgActions()
 
 module.exports = class {
-  promptUserForTurn() {
-    return new Promise((resolve) => {
-      svg.onClick((e) => {
-        const targetCellX = Math.floor(e.offsetX / 100)
-        const targetCellY = Math.floor(e.offsetY / 100)
+  constructor() {
+    this.boardListener = false
+  }
 
-        resolve(coordsToCell(targetCellX, targetCellY))
-      })
-    })
+  promptUserForTurn(callback) {
+    const onClick = (e) => {
+      console.log('hit')
+      const targetCellX = Math.floor(e.offsetX / 100) * 100
+      const targetCellY = Math.floor(e.offsetY / 100) * 100
+
+      return callback(coordsToCell(targetCellX, targetCellY))
+    }
+
+    if (!this.boardListener) {
+      svg.onClick(onClick)
+      this.boardListener = true
+    }
+    else {
+      svg.unsubscribe(onClick)
+      this.boardListener = false
+      this.promptUserForTurn(callback)
+    }
   }
 
   onGameOver(result) {

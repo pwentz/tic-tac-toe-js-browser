@@ -7,13 +7,11 @@ module.exports = class {
     this.board = new Array(9).fill(' ')
   }
 
-  promptUserForTurn() {
+  promptUserForTurn(resolve) {
     this.promptUser('[0 - 8]: ')
     return this.getInput()
       .then((positionInput) => {
-        return new Promise(resolve => {
-          resolve(parseInt(positionInput.toString()))
-        })
+        return resolve(parseInt(positionInput.toString()))
       })
   }
 
