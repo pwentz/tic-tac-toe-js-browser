@@ -94,7 +94,7 @@ module.exports = class {
 
           this.input.pause()
 
-          resolve(userInput.slice(0, 1))
+          resolve(userInput)
         }
       })
     })
