@@ -43,26 +43,40 @@ module.exports = (ui) => {
       })
   }
 
-  ui.getMarkerSettings()
-    .then(marker => {
-      const cpuMarker = marker === 'X' ? 'O' : 'X'
-      game.markerOne = marker
-      game.markerTwo = cpuMarker
-      cpu.marker = cpuMarker
+  const getMarker = () => {
+    return ui.getMarkerSettings()
+      .then(marker => {
+        const cpuMarker = marker === 'X' ? 'O' : 'X'
+        game.markerOne = marker
+        game.markerTwo = cpuMarker
+        cpu.marker = cpuMarker
 
-      return ui.getOrderSettings()
-    })
-    .then(isUserGoingFirst => {
-      ui.renderBoard()
+        return getOrder()
+      })
+      .catch(warning => {
+        getMarker()
+      })
+  }
 
-      if (isUserGoingFirst.slice(0, 1) === 'y') {
-        play(playUserTurn, playCpuTurn)
-      }
-      else {
-        play(playCpuTurn, playUserTurn)
-      }
-    })
-    .catch(error => {
-      console.log(error)
-    })
+  const getOrder = () => {
+    return ui.getOrderSettings()
+      .then(isUserGoingFirst => {
+        ui.renderBoard()
+        setOrderAndPlay(isUserGoingFirst)
+      })
+      .catch(warning => {
+        getOrder()
+      })
+  }
+
+  const setOrderAndPlay = (isUserGoingFirst) => {
+    if (isUserGoingFirst.slice(0, 1) === 'y') {
+      play(playUserTurn, playCpuTurn)
+    }
+    else {
+      play(playCpuTurn, playUserTurn)
+    }
+  }
+
+  getMarker()
 }

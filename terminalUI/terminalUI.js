@@ -1,8 +1,10 @@
 module.exports = class {
-  constructor(input, output) {
-    this.input = input || process.stdin
-    this.output = output || process.stdout.write.bind(process.stdout)
+  constructor({ orderValidations }) {
+    this.input = process.stdin
+    this.output = process.stdout.write.bind(process.stdout)
     this.log = console.log
+
+    this.orderValidations = orderValidations
 
     this.board = new Array(9).fill(' ')
   }
@@ -50,24 +52,28 @@ module.exports = class {
   }
 
   getOrderSettings(callback) {
-    this.promptUser('Would you like to go first? [Y/N] : ')
+    this.promptUser('Would you like to go first? [y/n]: ')
     return this.getInput()
       .then((orderInput) => {
-        return new Promise(resolve => {
-          resolve(orderInput.toLowerCase())
+        return new Promise((resolve, reject) => {
+          if (this.orderValidations.every(v => v(orderInput))) {
+            resolve(orderInput.toLowerCase())
+          }
+          else {
+            reject('Please enter [Y/y] or [N/n]: ')
+          }
         })
-      })
-      .catch((error) => {
-        this.log(error)
       })
   }
 
   getMarkerSettings(callback) {
     this.promptUser('Please pick a marker: ')
     return this.getInput()
-     .catch((error) => {
-        this.log(error)
-     })
+      .then((markerInput) => {
+        return new Promise(resolve => {
+          resolve(markerInput.slice(0, 1))
+        })
+      })
   }
 
   promptUser(message) {
