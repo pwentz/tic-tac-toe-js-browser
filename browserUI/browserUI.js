@@ -18,18 +18,11 @@ module.exports = class {
       const targetCellX = Math.floor(e.offsetX / 100) * 100
       const targetCellY = Math.floor(e.offsetY / 100) * 100
 
+      svg.unsubscribe(onClick)
       return callback(coordsToCell(targetCellX, targetCellY))
     }
 
-    if (!this.boardListener) {
-      svg.onClick(onClick)
-      this.boardListener = true
-    }
-    else {
-      svg.unsubscribe(onClick)
-      this.boardListener = false
-      this.promptUserForTurn(callback)
-    }
+    svg.onClick(onClick)
   }
 
   onGameOver(result) {
