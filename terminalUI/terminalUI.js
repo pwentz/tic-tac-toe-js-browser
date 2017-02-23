@@ -11,7 +11,7 @@ module.exports = class {
     this.promptUser('[0 - 8]: ')
     return this.getInput()
       .then((positionInput) => {
-        return resolve(parseInt(positionInput.toString()))
+        resolve(parseInt(positionInput.toString()))
       })
   }
 
