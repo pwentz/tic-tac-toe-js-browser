@@ -34,7 +34,7 @@ module.exports = (document) => {
     document.querySelector('#board').addEventListener('click', callback)
   }
 
-  const drawBoard = () => {
+  const renderBoard = () => {
     document.querySelector('#board').classList.remove('hide')
   }
 
@@ -96,7 +96,6 @@ module.exports = (document) => {
     applyResults,
     getCellNumber,
     onClick,
-    drawBoard,
     unsubscribe,
     startEndGameAnimations,
     drawBlueMarker,
