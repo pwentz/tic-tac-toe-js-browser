@@ -1,4 +1,7 @@
 const terminalUI = require('./terminalUI')
+const inputValidations = require('./inputValidations')
 const play = require('../src/runner')
 
-play(new terminalUI())
+const orderValidations = inputValidations['ORDER_VALIDATIONS']
+
+play(new terminalUI({ orderValidations }))
