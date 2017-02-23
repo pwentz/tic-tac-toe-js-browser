@@ -5,11 +5,16 @@ module.exports = class {
     this.log = console.log
   }
 
+  setup() {
+  }
+
   getOrderSettings(callback) {
     this.promptUser('Would you like to go first? [Y/N] :')
-    this.getInput()
+    return this.getInput()
       .then((orderInput) => {
-        callback(orderInput)
+        return new Promise(resolve => {
+          resolve(orderInput.toLowerCase())
+        })
       })
       .catch((error) => {
         this.log(error)
@@ -18,10 +23,7 @@ module.exports = class {
 
   getMarkerSettings(callback) {
     this.promptUser('Please pick a marker:')
-    this.getInput()
-     .then((markerInput) => {
-       callback(markerInput)
-     })
+    return this.getInput()
      .catch((error) => {
         this.log(error)
      })
