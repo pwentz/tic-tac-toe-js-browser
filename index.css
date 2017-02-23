@@ -197,3 +197,21 @@ body {
 .blue-text {
   color: #7CD3F9;
 }
+
+.warning-text {
+  color: white;
+  font-size: 32px;
+  font-family: 'Pangolin', cursive;
+  text-align: center;
+  animation-duration: 1.5s;
+  animation-name: fade-out;
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1
+  }
+  to {
+    opacity: 0
+  }
+}

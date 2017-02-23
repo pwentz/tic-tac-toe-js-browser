@@ -15,8 +15,13 @@ module.exports = class {
       })
   }
 
+  logWarning(warning) {
+    this.log(warning)
+  }
+
   onGameOver(outcome) {
-    this.log(outcome.message)
+    const { positions, message } = outcome
+    this.log(message)
   }
 
   drawMarker(marker, selection) {
