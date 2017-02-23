@@ -8,13 +8,30 @@ const { showOrderSelection, hideOrderSelection,
 const svg = getSvgActions()
 
 module.exports = class {
-  constructor() {
-    this.boardListener = false
+  logWarning(message) {
+    const existingWarning = document.querySelector('.warning-text')
+
+    if (!existingWarning) {
+      const newWarning = document.createElement('p')
+      newWarning.innerText = message
+      newWarning.classList.add('warning-text')
+      document.querySelector('body').appendChild(newWarning)
+
+      newWarning.addEventListener('animationend', () => {
+        newWarning.remove()
+      })
+    }
+  }
+
+  logMessage(message) {
+    const newText = document.createElement('p')
+    newText.classList.add('result-text')
+    newText.innerText = message
+    document.querySelector('body').appendChild(newText)
   }
 
   promptUserForTurn(resolve) {
     const onClick = (e) => {
-      console.log('hit')
       const targetCellX = Math.floor(e.offsetX / 100) * 100
       const targetCellY = Math.floor(e.offsetY / 100) * 100
 
@@ -27,10 +44,7 @@ module.exports = class {
 
   onGameOver(result) {
     const { positions, message } = result
-    const newText = document.createElement('p')
-    newText.classList.add('result-text')
-    newText.innerText = message
-    document.querySelector('body').appendChild(newText)
+    this.logMessage(message)
 
     positions ? svg.applyResults(positions)
               : svg.startEndGameAnimations()

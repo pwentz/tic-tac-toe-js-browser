@@ -3,13 +3,14 @@ const gameOptions = require('./setup')
 const { game, board, isGameOver, cpu } = gameOptions(9)
 
 module.exports = (ui) => {
-
   const playUserTurn = () => {
     return new Promise((resolve, reject) => {
       return ui.promptUserForTurn(resolve)
     })
     .then(selection => {
-      board.addMarker(game.markerOne, selection)
+      return board.addMarker(game.markerOne, selection)
+    })
+    .then(selection => {
       ui.drawMarkerOne(game.markerOne, selection)
     })
   }
@@ -26,7 +27,7 @@ module.exports = (ui) => {
 
   const play = (playFirstPlayerTurn, playSecondPlayerTurn) => {
     playFirstPlayerTurn()
-     .then(() => {
+      .then(() => {
         const outcome = isGameOver()
 
         if (outcome) {
@@ -35,7 +36,11 @@ module.exports = (ui) => {
         }
 
         play(playSecondPlayerTurn, playFirstPlayerTurn)
-     })
+      })
+      .catch((warning) => {
+        ui.logWarning(warning)
+        play(playFirstPlayerTurn, playSecondPlayerTurn)
+      })
   }
 
   ui.getMarkerSettings()
