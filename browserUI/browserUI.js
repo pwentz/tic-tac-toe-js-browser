@@ -1,34 +1,37 @@
 const { coordsToCell, cellToCoords } = require('../src/util')
 const domSetup = require('./domSetup')
-const createDomActions = require('./domActions')
 const createSvgActions = require('./svgActions')
 
 module.exports = class {
-  constructor() {
+  constructor(document) {
     this.svg = null
+    this.doc = document
+
+    this.changeCursorToPointer = this.changeCursorToPointer.bind(this)
+    this.changeCursorToDefault = this.changeCursorToDefault.bind(this)
   }
 
   setup() {
-    domSetup(document)
-    this.svg = createSvgActions(document)
+    domSetup(this.doc)
+    this.svg = createSvgActions(this.doc)
   }
 
   changeCursorToPointer() {
-    document.body.style.cursor = 'pointer'
+    this.doc.body.style.cursor = 'pointer'
   }
 
   changeCursorToDefault() {
-    document.body.style.cursor = 'default'
+    this.doc.body.style.cursor = 'default'
   }
 
   logWarning(message) {
-    const existingWarning = document.querySelector('.warning-text')
+    const existingWarning = this.doc.querySelector('.warning-text')
 
     if (!existingWarning) {
-      const newWarning = document.createElement('p')
+      const newWarning = this.doc.createElement('p')
       newWarning.innerText = message
       newWarning.classList.add('warning-text')
-      document.querySelector('body').appendChild(newWarning)
+      this.doc.querySelector('body').appendChild(newWarning)
 
       newWarning.addEventListener('animationend', () => {
         newWarning.remove()
@@ -37,10 +40,10 @@ module.exports = class {
   }
 
   logMessage(message) {
-    const newText = document.createElement('p')
+    const newText = this.doc.createElement('p')
     newText.classList.add('result-text')
     newText.innerText = message
-    document.querySelector('body').appendChild(newText)
+    this.doc.querySelector('body').appendChild(newText)
   }
 
   promptUserForTurn(resolve) {
@@ -62,10 +65,10 @@ module.exports = class {
     positions ? this.svg.applyResults(positions)
               : this.svg.startEndGameAnimations()
 
-    document.addEventListener('keyup', (e) => {
+    this.doc.addEventListener('keyup', (e) => {
       if (e.key === 'Enter') {
         this.svg = null
-        document.querySelector('body').innerHTML = ''
+        this.doc.querySelector('body').innerHTML = ''
         onReplay()
       }
     })
@@ -74,22 +77,22 @@ module.exports = class {
   drawMarker(marker, selection, color) {
     const { x, y } = cellToCoords(selection)
 
-    const text = document.createElementNS('http://www.w3.org/2000/svg', 'text')
+    const text = this.doc.createElementNS('http://www.w3.org/2000/svg', 'text')
 
     text.classList.add('marker')
     text.setAttribute('x', x + 40)
     text.setAttribute('y', y + 60)
     text.setAttribute('fill', color)
 
-    const content = document.createTextNode(marker)
+    const content = this.doc.createTextNode(marker)
     text.appendChild(content)
-    document.querySelector('#board').appendChild(text)
+    this.doc.querySelector('#board').appendChild(text)
   }
 
   renderBoard() {
     // hideOrderSelection
-    document.querySelector('#order-selection').classList.add('hide')
-    document.querySelector('#board').classList.remove('hide')
+    this.doc.querySelector('#order-selection').classList.add('hide')
+    this.doc.querySelector('#board').classList.remove('hide')
   }
 
   drawMarkerOne(marker, selection) {
@@ -102,14 +105,14 @@ module.exports = class {
 
   getMarkerSettings() {
     return new Promise((resolve) => {
-      const input = document.querySelector('#marker-selection input')
-      const startButton = document.querySelector('.start-button')
+      const input = this.doc.querySelector('#marker-selection input')
+      const startButton = this.doc.querySelector('.start-button')
 
       const callback = (marker) => {
         // hideMarkerSettings
-        document.querySelector('#marker-selection').classList.add('hide')
+        this.doc.querySelector('#marker-selection').classList.add('hide')
         // showOrderSelection
-        document.querySelector('#order-selection').classList.remove('hide')
+        this.doc.querySelector('#order-selection').classList.remove('hide')
         resolve(marker)
       }
 
@@ -132,8 +135,8 @@ module.exports = class {
 
   getOrderSettings() {
     return new Promise((resolve) => {
-      const yesText = document.querySelector('#select-first-yes')
-      const noText = document.querySelector('#select-first-no')
+      const yesText = this.doc.querySelector('#select-first-yes')
+      const noText = this.doc.querySelector('#select-first-no')
 
       const onSelection = (e) => {
         resolve(e.target.innerText)

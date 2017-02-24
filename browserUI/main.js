@@ -1,4 +1,4 @@
 const BrowserUI = require('./browserUI')
 const ticTacToe = require('../src/runner')
 
-ticTacToe(new BrowserUI())
+ticTacToe(new BrowserUI(document))
