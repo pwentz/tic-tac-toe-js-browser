@@ -19,6 +19,10 @@ module.exports = class {
     return this.doc.querySelector(selector)
   }
 
+  show(node) {
+    node.classList.remove('hide')
+  }
+
   setup() {
     domSetup(this.doc)
     this.svg = createSvgActions(this.doc)
@@ -95,8 +99,7 @@ module.exports = class {
   }
 
   renderBoard() {
-    // hideOrderSelection
-    this.get('#order-selection').classList.add('hide')
+    this.get('#order-selection').remove()
     this.svg.show()
   }
 
@@ -114,21 +117,19 @@ module.exports = class {
       const startButton = this.get('.start-button')
 
       const callback = (marker) => {
-        // hideMarkerSettings
-        this.get('#marker-selection').classList.add('hide')
-        // showOrderSelection
-        this.get('#order-selection').classList.remove('hide')
+        this.get('#marker-selection').remove()
+        this.show(this.get('#order-selection'))
         resolve(marker)
       }
 
       input.addEventListener('keyup', (e) => {
         e.cancelBubble = true
         if (input.value.trim()) {
-          startButton.classList.remove('hide')
+          this.show(startButton)
 
           startButton.addEventListener('click', () => {
             callback(input.value.slice(0, 1))
-            startButton.classList.add('hide')
+            startButton.remove()
           })
         }
         else {
@@ -144,6 +145,7 @@ module.exports = class {
       const noText = this.get('#select-first-no')
 
       const onSelection = (e) => {
+        this.changeCursorToDefault()
         resolve(e.target.innerText)
       }
 
