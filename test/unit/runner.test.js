@@ -1,5 +1,5 @@
 const assert = require('chai').assert
-const Runner = require('../../src/runner')
+const runner = require('../../src/runner')
 const Computer = require('../../src/computer')
 
 const MockUI = class {
@@ -7,36 +7,45 @@ const MockUI = class {
     return true
   }
 
-  drawTurn(marker, position) {
-    if (marker && position) {
-      return {
-        marker,
-        position
-      }
-    }
+  promptUserForTurn(callback) {
+    callback()
+  }
 
-    return false
+  drawMarkerOne(marker, selection) {
+    return {
+      marker, selection
+    }
+  }
+
+  drawMarkerTwo(marker, selection) {
+    return {
+      marker, selection
+    }
   }
 
   onGameOver(positions) {
     return positions ? positions : false
   }
 
-  onReplay() {
+  logWarning(warning) {
+    return warning
+  }
+
+  getMarkerSettings(callback) {
+    callback()
+  }
+
+  getOrderSettings(callback) {
+    callback()
+  }
+
+  renderBoard() {
     return true
   }
 }
 
 describe('#runner', () => {
   const ui = new MockUI()
-  it('gets created with a UI element', () => {
-    const runner = new Runner({ ui })
-
-    assert.equal(runner.ui, ui)
-  })
-
-  it('can get created with a cpu element', () => {
-    const cpu = new Computer('X')
-    const runner = new Runner({ })
+  describe('#setup', () => {
   })
 })
