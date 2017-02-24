@@ -24,9 +24,20 @@ module.exports = class {
     this.log(warning)
   }
 
-  onGameOver(outcome) {
+  onGameOver(outcome, onReplay) {
     const { positions, message } = outcome
     this.log(message)
+    this.log('--------------')
+
+    this.promptUser('Press [R/r] to replay: ')
+    this.getInput()
+      .then(input => {
+        const formattedInput = input.toString().toLowerCase()
+        if (formattedInput.slice(0,1) === 'r') {
+          this.board = new Array(9).fill(' ')
+          onReplay()
+        }
+      })
   }
 
   drawMarker(marker, selection) {
