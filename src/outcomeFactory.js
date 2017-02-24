@@ -14,13 +14,15 @@ module.exports = class OutcomeFactory {
     }
 
     const onWinningSetup = () => {
-      this.outcomes.push({
+      const actionableOutcome = {
         marker,
         didWin: false,
         willWin: true,
         isOver: false,
         positions: []
-      })
+      }
+
+      this.outcomes.push(actionableOutcome)
     }
 
     this.finder.findMarker(marker, onGameOver, onWinningSetup)

@@ -10,6 +10,9 @@ module.exports = class {
   }
 
   setup() {
+    this.log('============')
+    this.log('TIC TAC TOE')
+    this.log('============')
   }
 
   promptUserForTurn(resolve) {
