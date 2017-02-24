@@ -9,6 +9,10 @@ module.exports = class {
     this.board = new Array(9).fill(' ')
   }
 
+  setup() {
+    
+  }
+
   promptUserForTurn(resolve) {
     this.promptUser('[0 - 8]: ')
     return this.getInput()
