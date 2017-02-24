@@ -1,8 +1,8 @@
-const gameOptions = require('./setup')
-
-const { game, board, isGameOver, cpu } = gameOptions(9)
+const createGameOptions = require('./setup')
 
 module.exports = (ui) => {
+  let game, board, isGameOver, cpu
+
   const playUserTurn = () => {
     return new Promise((resolve, reject) => {
       return ui.promptUserForTurn(resolve)
@@ -31,7 +31,9 @@ module.exports = (ui) => {
         const outcome = isGameOver()
 
         if (outcome) {
-          ui.onGameOver(outcome)
+          const onReplay = setup
+
+          ui.onGameOver(outcome, onReplay)
           return
         }
 
@@ -45,6 +47,13 @@ module.exports = (ui) => {
 
   const setup = () => {
     ui.setup()
+    const options = createGameOptions(9)
+
+    game = options.game
+    board = options.board
+    cpu = options.cpu
+    isGameOver = options.isGameOver
+
     getSettings()
   }
 

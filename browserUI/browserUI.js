@@ -64,9 +64,9 @@ module.exports = class {
 
     document.addEventListener('keyup', (e) => {
       if (e.key === 'Enter') {
-        // console.log('hit')
-        // document.querySelector('body').innerHTML = ''
-        // onReplay()
+        this.svg = null
+        document.querySelector('body').innerHTML = ''
+        onReplay()
       }
     })
   }
