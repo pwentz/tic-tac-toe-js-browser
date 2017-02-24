@@ -43,6 +43,11 @@ module.exports = (ui) => {
       })
   }
 
+  const setup = () => {
+    ui.setup()
+    getSettings()
+  }
+
   const getSettings = () => {
     return ui.getMarkerSettings()
       .then(marker => {
@@ -78,5 +83,5 @@ module.exports = (ui) => {
     }
   }
 
-  getSettings()
+  setup()
 }
