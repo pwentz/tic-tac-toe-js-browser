@@ -120,18 +120,18 @@ module.exports = class {
         const markerSelection = this.get('#marker-selection')
         markerSelection && markerSelection.remove()
         this.show(this.get('#order-selection'))
-        resolve(marker)
+        resolve(marker ? marker : 'O')
       }
+
+      startButton.addEventListener('click', () => {
+        onSelectMarker(input.value.slice(0, 1))
+        startButton.remove()
+      })
 
       input.addEventListener('keyup', (e) => {
         e.cancelBubble = true
         if (input.value.trim()) {
           this.show(startButton)
-
-          startButton.addEventListener('click', () => {
-            onSelectMarker(input.value.slice(0, 1))
-            startButton.remove()
-          })
         }
         else {
           startButton.classList.add('hide')
