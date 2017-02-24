@@ -29,7 +29,7 @@ module.exports = class {
     this.log(message)
     this.log('--------------')
 
-    this.promptUser('Press [R/r] to replay: ')
+    this.promptUser('Enter [R/r] to replay: ')
     this.getInput()
       .then(input => {
         const formattedInput = input.toString().toLowerCase()
