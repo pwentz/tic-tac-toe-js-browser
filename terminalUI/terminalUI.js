@@ -65,7 +65,7 @@ module.exports = class {
     this.log('------------')
   }
 
-  getOrderSettings(callback) {
+  getOrderSettings() {
     this.promptUser('Would you like to go first? [y/n]: ')
     return this.getInput()
       .then((orderInput) => {
@@ -80,7 +80,7 @@ module.exports = class {
       })
   }
 
-  getMarkerSettings(callback) {
+  getMarkerSettings() {
     this.promptUser('Please pick a marker: ')
     return this.getInput()
       .then((markerInput) => {

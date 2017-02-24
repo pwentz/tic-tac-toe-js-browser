@@ -116,8 +116,9 @@ module.exports = class {
       const input = this.get('#marker-selection input')
       const startButton = this.get('.start-button')
 
-      const callback = (marker) => {
-        this.get('#marker-selection').remove()
+      const onSelectMarker = (marker) => {
+        const markerSelection = this.get('#marker-selection')
+        markerSelection && markerSelection.remove()
         this.show(this.get('#order-selection'))
         resolve(marker)
       }
@@ -128,7 +129,7 @@ module.exports = class {
           this.show(startButton)
 
           startButton.addEventListener('click', () => {
-            callback(input.value.slice(0, 1))
+            onSelectMarker(input.value.slice(0, 1))
             startButton.remove()
           })
         }
@@ -144,16 +145,16 @@ module.exports = class {
       const yesText = this.get('#select-first-yes')
       const noText = this.get('#select-first-no')
 
-      const onSelection = (e) => {
+      const onSelectOrder = (e) => {
         this.changeCursorToDefault()
         resolve(e.target.innerText)
       }
 
-      yesText.addEventListener('click', onSelection)
+      yesText.addEventListener('click', onSelectOrder)
       yesText.addEventListener('mouseenter', this.changeCursorToPointer)
       yesText.addEventListener('mouseleave', this.changeCursorToDefault)
 
-      noText.addEventListener('click', onSelection)
+      noText.addEventListener('click', onSelectOrder)
       noText.addEventListener('mouseenter', this.changeCursorToPointer)
       noText.addEventListener('mouseleave', this.changeCursorToDefault)
     })
