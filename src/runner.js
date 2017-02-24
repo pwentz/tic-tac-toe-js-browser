@@ -60,7 +60,7 @@ module.exports = (ui) => {
   const getSettings = () => {
     return ui.getMarkerSettings()
       .then(marker => {
-        const cpuMarker = marker === 'X' ? 'O' : 'X'
+        const cpuMarker = marker.toLowerCase() === 'x' ? 'O' : 'X'
         game.markerOne = marker
         game.markerTwo = cpuMarker
         cpu.marker = cpuMarker
