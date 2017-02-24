@@ -48,11 +48,8 @@ module.exports = class {
 
   promptUserForTurn(resolve) {
     const onClick = (e) => {
-      const targetCellX = Math.floor(e.offsetX / 100) * 100
-      const targetCellY = Math.floor(e.offsetY / 100) * 100
-
       this.svg.unsubscribe(onClick)
-      resolve(coordsToCell(targetCellX, targetCellY))
+      resolve(this.svg.getCellNumber(e))
     }
 
     this.svg.onClick(onClick)
@@ -77,22 +74,22 @@ module.exports = class {
   drawMarker(marker, selection, color) {
     const { x, y } = cellToCoords(selection)
 
-    const text = this.doc.createElementNS('http://www.w3.org/2000/svg', 'text')
+    const markerNode = this.doc.createElementNS('http://www.w3.org/2000/svg', 'text')
 
-    text.classList.add('marker')
-    text.setAttribute('x', x + 40)
-    text.setAttribute('y', y + 60)
-    text.setAttribute('fill', color)
+    markerNode.classList.add('marker')
+    markerNode.setAttribute('x', x + 40)
+    markerNode.setAttribute('y', y + 60)
+    markerNode.setAttribute('fill', color)
 
     const content = this.doc.createTextNode(marker)
-    text.appendChild(content)
-    this.doc.querySelector('#board').appendChild(text)
+    markerNode.appendChild(content)
+    this.svg.append(markerNode)
   }
 
   renderBoard() {
     // hideOrderSelection
     this.doc.querySelector('#order-selection').classList.add('hide')
-    this.doc.querySelector('#board').classList.remove('hide')
+    this.svg.show()
   }
 
   drawMarkerOne(marker, selection) {
