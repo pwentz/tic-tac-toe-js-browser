@@ -43,7 +43,7 @@ module.exports = (ui) => {
       })
   }
 
-  const getMarker = () => {
+  const getSettings = () => {
     return ui.getMarkerSettings()
       .then(marker => {
         const cpuMarker = marker === 'X' ? 'O' : 'X'
@@ -54,7 +54,7 @@ module.exports = (ui) => {
         return getOrder()
       })
       .catch(warning => {
-        getMarker()
+        getSettings()
       })
   }
 
@@ -62,15 +62,15 @@ module.exports = (ui) => {
     return ui.getOrderSettings()
       .then(isUserGoingFirst => {
         ui.renderBoard()
-        setOrderAndPlay(isUserGoingFirst)
+        setOrderAndPlay(isUserGoingFirst.slice(0, 1))
       })
       .catch(warning => {
         getOrder()
       })
   }
 
-  const setOrderAndPlay = (isUserGoingFirst) => {
-    if (isUserGoingFirst.slice(0, 1) === 'y') {
+  const setOrderAndPlay = (truncatedResponse) => {
+    if (truncatedResponse === 'y') {
       play(playUserTurn, playCpuTurn)
     }
     else {
@@ -78,5 +78,5 @@ module.exports = (ui) => {
     }
   }
 
-  getMarker()
+  getSettings()
 }
