@@ -2,7 +2,7 @@
   "name": "tic-tac-toe-js-browser",
   "version": "1.0.0",
   "description": "Tic Tac Toe...written in JS on the browser",
-  "main": "index.js",
+  "main": "browserUI/main.js",
   "directories": {
     "test": "test"
   },
