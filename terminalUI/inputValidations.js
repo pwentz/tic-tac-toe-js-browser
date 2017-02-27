@@ -9,7 +9,7 @@ module.exports = {
 
   GAMEPLAY_VALIDATIONS: [
     (input) => !isNaN(input),
-    (input) => parseInt(input) < 8,
+    (input) => parseInt(input) <= 8,
     (input) => parseInt(input) >= 0
   ]
 }

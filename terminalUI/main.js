@@ -4,6 +4,6 @@ const ticTacToe = require('../src/runner')
 
 const orderValidations = inputValidations['ORDER_VALIDATIONS']
 const cellCount = 9
-//const gameplayValidations = inputValidations['GAMEPLAY_VALIDATIONS']
+const gameplayValidations = inputValidations['GAMEPLAY_VALIDATIONS']
 
-ticTacToe(new TerminalUI({ orderValidations }), cellCount)
+ticTacToe(new TerminalUI({ orderValidations, gameplayValidations }), cellCount)
