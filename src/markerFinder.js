@@ -105,5 +105,4 @@ module.exports = class MarkerFinder {
   isBoardFull() {
     return this.board.isFull()
   }
-
 }
