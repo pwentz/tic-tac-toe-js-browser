@@ -34,15 +34,6 @@ module.exports = class Board {
   addMarker(marker, position) {
     const { count } = this.dimensions
     return new Promise((resolve, reject) => {
-      if (isNaN(position)) {
-        reject('Please enter a number.')
-        return
-      }
-
-      if ((parseInt(position) >= count) || (parseInt(position) < 0)) {
-        reject(`Please enter a number between 0 and ${count - 1}`)
-        return
-      }
 
       if (!this.isOpen(position)) {
         reject('Position taken!')

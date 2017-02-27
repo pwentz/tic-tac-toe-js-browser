@@ -1,10 +1,11 @@
 module.exports = class {
-  constructor({ orderValidations }) {
+  constructor({ orderValidations, gameplayValidations }) {
     this.input = process.stdin
     this.output = process.stdout.write.bind(process.stdout)
     this.log = console.log
 
     this.orderValidations = orderValidations
+    this.gameplayValidations = gameplayValidations
 
     this.board = []
   }
@@ -16,11 +17,16 @@ module.exports = class {
     this.log('============')
   }
 
-  promptUserForTurn(resolve) {
+  promptUserForTurn(resolve, reject) {
     this.promptUser('[0 - 8]: ')
     return this.getInput()
       .then((positionInput) => {
-        resolve(parseInt(positionInput.toString()))
+        if (this.isInputValid(this.gameplayValidations, positionInput)) {
+          resolve(parseInt(positionInput.toString()))
+        }
+        else {
+          reject('Invalid input.')
+        }
       })
   }
 
@@ -73,7 +79,7 @@ module.exports = class {
     return this.getInput()
       .then((orderInput) => {
         return new Promise((resolve, reject) => {
-          if (this.orderValidations.every(v => v(orderInput))) {
+          if (this.isInputValid(this.orderValidations, orderInput)) {
             resolve(orderInput.toLowerCase())
           }
           else {
@@ -88,7 +94,8 @@ module.exports = class {
     return this.getInput()
       .then((markerInput) => {
         return new Promise(resolve => {
-          resolve(markerInput.slice(0, 1))
+          const chosenMarker = markerInput.slice(0, 1)
+          resolve(chosenMarker.trim() ? chosenMarker : 'O')
         })
       })
   }
@@ -115,5 +122,9 @@ module.exports = class {
         }
       })
     })
+  }
+
+  isInputValid(validations, input) {
+    return validations.every(v => v(input))
   }
 }

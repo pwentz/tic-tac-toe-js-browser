@@ -52,7 +52,7 @@ module.exports = (ui, cellCount) => {
 
   const playUserTurn = () => {
     return new Promise((resolve, reject) => {
-      return ui.promptUserForTurn(resolve)
+      return ui.promptUserForTurn(resolve, reject)
     })
     .then(selection => {
       return board.addMarker(game.markerOne, selection)
