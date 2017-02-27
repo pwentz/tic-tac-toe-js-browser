@@ -6,10 +6,11 @@ module.exports = class {
 
     this.orderValidations = orderValidations
 
-    this.board = new Array(9).fill(' ')
+    this.board = []
   }
 
-  setup() {
+  setup(cellCount) {
+    this.board = new Array(cellCount).fill(' ')
     this.log('============')
     this.log('TIC TAC TOE')
     this.log('============')
@@ -37,7 +38,6 @@ module.exports = class {
       .then(input => {
         const formattedInput = input.toString().toLowerCase()
         if (formattedInput.slice(0,1) === 'r') {
-          this.board = new Array(9).fill(' ')
           onReplay()
         }
       })

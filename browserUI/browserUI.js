@@ -23,7 +23,7 @@ module.exports = class {
     node.classList.remove('hide')
   }
 
-  setup() {
+  setup(cellCount) {
     domSetup(this.doc)
     this.svg = createSvgActions(this.doc)
   }
@@ -120,6 +120,7 @@ module.exports = class {
         const markerSelection = this.get('#marker-selection')
         markerSelection && markerSelection.remove()
         this.show(this.get('#order-selection'))
+
         resolve(marker ? marker : 'O')
       }
 
@@ -130,6 +131,7 @@ module.exports = class {
 
       input.addEventListener('keyup', (e) => {
         e.cancelBubble = true
+
         if (input.value.trim()) {
           this.show(startButton)
         }
