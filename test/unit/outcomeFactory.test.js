@@ -2,7 +2,6 @@ const assert = require('chai').assert
 const OutcomeFactory = require('../../src/outcomeFactory')
 const Board = require('../../src/board')
 const FinalOutcome = require('../../src/finalOutcome')
-const ActionableOutcome = require('../../src/actionableOutcome')
 const NullOutcome = require('../../src/nullOutcome')
 
 describe('OutcomeFactory', () => {
@@ -185,12 +184,8 @@ describe('OutcomeFactory', () => {
       const factory = new OutcomeFactory(new Board(state))
       const outcome = factory.getOutcome(marker)
 
-      it('returns ActionableOutcome', () => {
-        assert.instanceOf(outcome, ActionableOutcome)
-      })
-
-      it('returns an ActionableOutcome with position matching the winning position', () => {
-        assert.equal(outcome.position, 4)
+      it('returns an object with a willWin attr set to true', () => {
+        assert.isTrue(outcome.willWin)
       })
     })
 
@@ -203,12 +198,8 @@ describe('OutcomeFactory', () => {
       const factory = new OutcomeFactory(new Board(state))
       const outcome = factory.getOutcome(marker)
 
-      it('returns ActionableOutcome', () => {
-        assert.instanceOf(outcome, ActionableOutcome)
-      })
-
-      it('returns an ActionableOutcome with position matching the winning position', () => {
-        assert.equal(outcome.position, 6)
+      it('returns an object with a willWin attr set to true', () => {
+        assert.isTrue(outcome.willWin)
       })
     })
 
@@ -221,12 +212,8 @@ describe('OutcomeFactory', () => {
       const factory = new OutcomeFactory(new Board(state))
       const outcome = factory.getOutcome(marker)
 
-      it('returns ActionableOutcome', () => {
-        assert.instanceOf(outcome, ActionableOutcome)
-      })
-
-      it('returns an ActionableOutcome with position matching the winning position', () => {
-        assert.equal(outcome.position, 1)
+      it('returns an object with a willWin attr set to true', () => {
+        assert.isTrue(outcome.willWin)
       })
     })
 

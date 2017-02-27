@@ -1,12 +1,24 @@
 #### Tic Tac Toe
 
-
-##### To Play
-
 ```
 npm install
-npm run build
-open index.html
 ```
 
+##### Browser UI
 
+After `npm install`ing, run:
+
+```
+npm run build
+```
+
+Open `index.html` in your browser.
+
+
+##### Terminal UI
+
+After `npm install`ing, run:
+
+```
+node terminalUI/main.js
+```

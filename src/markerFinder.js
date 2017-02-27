@@ -36,7 +36,7 @@ module.exports = class MarkerFinder {
     }
 
     if (this.hasWinningSetup(downwardDiagonals, marker)) {
-      onWinningSetup({ marker, position: downwardDiagonals.find(this.isOpen) })
+      onWinningSetup()
       return
     }
   }
@@ -50,7 +50,7 @@ module.exports = class MarkerFinder {
     }
 
     if (this.hasWinningSetup(upwardDiagonals, marker)) {
-      onWinningSetup({ marker, position: upwardDiagonals.find(this.isOpen) })
+      onWinningSetup()
       return
     }
   }
@@ -68,7 +68,7 @@ module.exports = class MarkerFinder {
         }
 
         if (this.hasWinningSetup(alignedIndices, marker)) {
-          onWinningSetup({ marker, position: alignedIndices.find(this.isOpen) })
+          onWinningSetup()
           return
         }
       }
@@ -88,7 +88,7 @@ module.exports = class MarkerFinder {
         }
 
         if (this.hasWinningSetup(alignedIndices, marker)) {
-          onWinningSetup({ marker, position: alignedIndices.find(this.isOpen) })
+          onWinningSetup()
           return
         }
       }
@@ -105,5 +105,4 @@ module.exports = class MarkerFinder {
   isBoardFull() {
     return this.board.isFull()
   }
-
 }

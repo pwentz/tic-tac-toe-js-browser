@@ -1,8 +1,22 @@
-const Outcome = require('./outcome')
-
-module.exports = class FinalOutcome extends Outcome {
+module.exports = class FinalOutcome {
   constructor({ marker, positions }) {
-    super({ marker })
+    this.marker = marker
     this.positions = positions
+  }
+
+  get didWin() {
+    if (this.marker) {
+      return true
+    }
+
+    return false
+  }
+
+  get willWin() {
+    return false
+  }
+
+  get isOver() {
+    return true
   }
 }

@@ -2,7 +2,7 @@
   "name": "tic-tac-toe-js-browser",
   "version": "1.0.0",
   "description": "Tic Tac Toe...written in JS on the browser",
-  "main": "index.js",
+  "main": "browserUI/main.js",
   "directories": {
     "test": "test"
   },
@@ -26,6 +26,7 @@
   "devDependencies": {
     "chai": "^3.5.0",
     "mocha": "^3.2.0",
+    "sinon": "^1.17.7",
     "webpack": "^2.2.1"
   },
   "dependencies": {

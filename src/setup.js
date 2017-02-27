@@ -1,16 +1,20 @@
 const Board = require('./board')
 const Game = require('./game')
 const OutcomeFactory = require('./outcomeFactory')
+const Computer = require('./computer')
 
 module.exports = (count) => {
   const state = new Array(count).fill(' ')
 
   const board = new Board(state)
   const factory = new OutcomeFactory(board)
+  const cpu = new Computer()
+
   const game = new Game({ board, markerOne: null,
                                  markerTwo: null })
 
   return { game,
+           cpu,
            board,
            isGameOver() {
              const userOutcome = factory.getOutcome(game.markerOne)

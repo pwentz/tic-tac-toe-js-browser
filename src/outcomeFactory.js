@@ -1,5 +1,4 @@
 const FinalOutcome = require('./finalOutcome')
-const ActionableOutcome = require('./actionableOutcome')
 const NullOutcome = require('./nullOutcome')
 const MarkerFinder = require('./markerFinder')
 
@@ -10,16 +9,20 @@ module.exports = class OutcomeFactory {
   }
 
   getOutcome(marker) {
-    if (this.finder.isBoardFull()) {
-      return new FinalOutcome({ marker: null, positions: [] })
-    }
-
     const onGameOver = (options) => {
       this.outcomes.push(new FinalOutcome(options))
     }
 
-    const onWinningSetup = (options) => {
-      this.outcomes.push(new ActionableOutcome(options))
+    const onWinningSetup = () => {
+      const actionableOutcome = {
+        marker,
+        didWin: false,
+        willWin: true,
+        isOver: false,
+        positions: []
+      }
+
+      this.outcomes.push(actionableOutcome)
     }
 
     this.finder.findMarker(marker, onGameOver, onWinningSetup)
@@ -31,6 +34,10 @@ module.exports = class OutcomeFactory {
     }
 
     const actionableOutcome = this.outcomes.find(o => o.willWin)
+
+    if (this.finder.isBoardFull()) {
+      return new FinalOutcome({ marker: null, positions: [] })
+    }
 
     if (actionableOutcome) {
       return actionableOutcome

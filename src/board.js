@@ -31,16 +31,20 @@ module.exports = class Board {
     }, [])
   }
 
-  addMarker(marker, position, onSuccess) {
-    if (!this.isOpen(position)) return
+  addMarker(marker, position) {
+    const { count } = this.dimensions
+    return new Promise((resolve, reject) => {
 
-    const copy = [...this.state]
-    copy[position] = marker
-    this.state = copy
+      if (!this.isOpen(position)) {
+        reject('Position taken!')
+        return
+      }
 
-    if (onSuccess) {
-      onSuccess()
-    }
+      const copy = [...this.state]
+      copy[position] = marker
+      this.state = copy
+      resolve(position)
+    })
   }
 
   isOpen(index) {

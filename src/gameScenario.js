@@ -33,7 +33,7 @@ module.exports = class GameScenario {
   calculateScore(game) {
     const outcome = new OutcomeFactory(this.board).getOutcome(this.marker)
     if (outcome.didWin) {
-      this.score = (100 - (this.depth * 2))
+      this.score = 10 - this.depth
       return;
     }
 
@@ -43,7 +43,7 @@ module.exports = class GameScenario {
     })
 
     if (didOpponentWin) {
-      this.score = -100 + (this.depth * 2)
+      this.score = -10 + this.depth
       return;
     }
   }
@@ -51,7 +51,7 @@ module.exports = class GameScenario {
   calculateForks(game) {
     this.validForks(game).forEach(fork => {
       fork.openSpaces.forEach(indexOfOpenSpace => {
-        const newScenario = new this.constructor(fork.state, indexOfOpenSpace, this.marker, this.depth + 10)
+        const newScenario = new this.constructor(fork.state, indexOfOpenSpace, this.marker, this.depth + 1)
         newScenario.calculateScore(game)
         this.score += newScenario.score
       })
