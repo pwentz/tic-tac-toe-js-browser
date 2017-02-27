@@ -1,8 +1,6 @@
-const Outcome = require('./outcome')
-
-module.exports = class FinalOutcome extends Outcome {
+module.exports = class FinalOutcome {
   constructor({ marker, positions }) {
-    super({ marker })
+    this.marker = marker
     this.positions = positions
   }
 
