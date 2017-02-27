@@ -1,5 +1,4 @@
 const assert = require('chai').assert
-const Outcome = require('../../src/outcome')
 const Board = require('../../src/board')
 
 describe('Outcome', () => {
