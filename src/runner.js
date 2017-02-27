@@ -1,53 +1,11 @@
 const createGameOptions = require('./setup')
 
-module.exports = (ui) => {
+module.exports = (ui, cellCount) => {
   let game, board, isGameOver, cpu
 
-  const playUserTurn = () => {
-    return new Promise((resolve, reject) => {
-      return ui.promptUserForTurn(resolve)
-    })
-    .then(selection => {
-      return board.addMarker(game.markerOne, selection)
-    })
-    .then(selection => {
-      ui.drawMarkerOne(game.markerOne, selection)
-    })
-  }
-
-  const playCpuTurn = () => {
-    return new Promise((resolve, reject) => {
-      const move = cpu.getMove(game)
-      board.addMarker(cpu.marker, move)
-      ui.drawMarkerTwo(cpu.marker, move)
-
-      resolve()
-    })
-  }
-
-  const play = (playFirstPlayerTurn, playSecondPlayerTurn) => {
-    playFirstPlayerTurn()
-      .then(() => {
-        const outcome = isGameOver()
-
-        if (outcome) {
-          const onReplay = setup
-
-          ui.onGameOver(outcome, onReplay)
-          return
-        }
-
-        play(playSecondPlayerTurn, playFirstPlayerTurn)
-      })
-      .catch((warning) => {
-        ui.logWarning(warning)
-        play(playFirstPlayerTurn, playSecondPlayerTurn)
-      })
-  }
-
   const setup = () => {
-    ui.setup()
-    const options = createGameOptions(9)
+    ui.setup(cellCount)
+    const options = createGameOptions(cellCount)
 
     game = options.game
     board = options.board
@@ -90,6 +48,48 @@ module.exports = (ui) => {
     else {
       play(playCpuTurn, playUserTurn)
     }
+  }
+
+  const playUserTurn = () => {
+    return new Promise((resolve, reject) => {
+      return ui.promptUserForTurn(resolve)
+    })
+    .then(selection => {
+      return board.addMarker(game.markerOne, selection)
+    })
+    .then(selection => {
+      ui.drawMarkerOne(game.markerOne, selection)
+    })
+  }
+
+  const playCpuTurn = () => {
+    return new Promise((resolve, reject) => {
+      const move = cpu.getMove(game)
+      board.addMarker(cpu.marker, move)
+      ui.drawMarkerTwo(cpu.marker, move)
+
+      resolve()
+    })
+  }
+
+  const play = (playFirstPlayerTurn, playSecondPlayerTurn) => {
+    playFirstPlayerTurn()
+      .then(() => {
+        const outcome = isGameOver()
+
+        if (outcome) {
+          const onReplay = setup
+
+          ui.onGameOver(outcome, onReplay)
+          return
+        }
+
+        play(playSecondPlayerTurn, playFirstPlayerTurn)
+      })
+      .catch((warning) => {
+        ui.logWarning(warning)
+        play(playFirstPlayerTurn, playSecondPlayerTurn)
+      })
   }
 
   setup()

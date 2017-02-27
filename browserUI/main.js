@@ -1,4 +1,6 @@
 const BrowserUI = require('./browserUI')
 const ticTacToe = require('../src/runner')
 
-ticTacToe(new BrowserUI(document))
+const cellCount = 9
+
+ticTacToe(new BrowserUI(document), cellCount)
