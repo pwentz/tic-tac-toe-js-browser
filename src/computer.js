@@ -6,25 +6,32 @@ module.exports = class Computer {
     this.marker = marker
   }
 
-  getMove(game) {
+  scenariosByOpening(game) {
     const { board } = game
-    const potentialGameScenarios = board.openSpaces.map(indexOfOpenSpace => {
+
+    return board.openSpaces.map(indexOfOpenSpace => {
       const scenario = new GameScenario(board.state, indexOfOpenSpace, this.marker, 0)
       scenario.calculateScore(game)
       return scenario
     })
+  }
 
-    const areThereNoWinners = potentialGameScenarios.every(s => s.score === 0)
+  getMove(game) {
+    const { board } = game
+
+    const possibleScenarios = this.scenariosByOpening(game)
+
+    const areThereNoWinners = possibleScenarios.every(s => s.score === 0)
 
     if (areThereNoWinners) {
-      potentialGameScenarios.forEach((s) => {
+      possibleScenarios.forEach((s) => {
         s.calculateForks(game)
       })
     }
 
-    const scenariosByTopScore = sortByScore(potentialGameScenarios)
-    const topPositionByScore = scenariosByTopScore[0]
-    const restOfPositionsByScore = scenariosByTopScore.filter(i => i.score === topPositionByScore.score)
+    const scenariosByTopScore = sortByScore(possibleScenarios)
+    const highestScoringScenario = scenariosByTopScore[0]
+    const restOfPositionsByScore = scenariosByTopScore.filter(i => i.score === highestScoringScenario.score)
 
     const isBestPositionUnclear = restOfPositionsByScore.length > 1
 
@@ -35,6 +42,6 @@ module.exports = class Computer {
       return center
     }
 
-    return topPositionByScore.position
+    return highestScoringScenario.position
   }
 }
